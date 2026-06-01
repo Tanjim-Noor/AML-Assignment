@@ -98,6 +98,8 @@ AML Assignment/
 - Use `Learning Materials Application on Assigment/` for experiments and learning-driven iterations.
 - Use `Final Assignment/` for the final notebook/script pipeline and outputs that should support the report.
 - Use `Assignment Report/` for report writing and Typst compilation work.
+- Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
+- Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
 - Keep folder boundaries stable unless the user explicitly asks to reorganize the workspace.
 - Microsoft Office temporary and lock files, such as files beginning with `~$`, are ignored and should not be committed.
 

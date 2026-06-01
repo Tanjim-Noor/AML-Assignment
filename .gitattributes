@@ -1,0 +1,5 @@
+# Restrict notebook cleaning to active assignment work areas.
+Learning*Application*Assigment/**/*.ipynb filter=nbstripout diff=ipynb
+Final*Assignment/**/*.ipynb filter=nbstripout diff=ipynb
+Assignment*Report/**/*.ipynb filter=nbstripout diff=ipynb
+*.zpln filter=nbstripout
