@@ -1,0 +1,5 @@
+# Microsoft Office temporary and lock files
+~$*
+*.tmp
+*.wbk
+*.asd
