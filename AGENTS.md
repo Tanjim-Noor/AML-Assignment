@@ -17,6 +17,8 @@ AML Assignment/
 |-- AGENTS.md
 |-- .gitignore
 |-- Assignment Requirements/
+|   |-- CT046-3-M-AML_Assignment Question.md
+|   `-- CT046-3-M-AML_Assignment Marking Scheme and Minimum Document Requirements.md
 |-- Datasets/
 |   |-- AI Workforce Displacement 2020-2026/
 |   |-- Global Urban Air Quality & Pollution Time-Series/
@@ -49,7 +51,7 @@ AML Assignment/
             `-- touying-author/
 ```
 
-- `Assignment Requirements/` contains the assignment brief, marking scheme, cover documents, and minimum report requirements. Use this as the source of truth for deliverables.
+- `Assignment Requirements/` contains the assignment brief, marking scheme, cover documents, and minimum report requirements. Use the Markdown knowledgebase copies of the assignment question and marking scheme as the first source of truth for dataset selection, machine learning implementation, and report planning.
 - `Datasets/` contains candidate datasets. Treat original dataset files as raw inputs; avoid editing them directly.
 - `Learning Materials/` contains class labs, helper documents, notebooks, and reference datasets. Use these to guide the staged implementation.
 - `Learning Materials Application on Assigment/` is the exploratory workspace for applying lab concepts to the assignment datasets step by step.
@@ -60,6 +62,7 @@ AML Assignment/
 ## Working Notes
 
 - Start requirement-sensitive work by checking `Assignment Requirements/`.
+- Prefer the Markdown knowledgebase files in `Assignment Requirements/` for day-to-day planning, implementation, and report-writing decisions; refer back to the original Word documents if formatting or source fidelity must be checked.
 - Use `Learning Materials Application on Assigment/` for experiments and learning-driven iterations.
 - Use `Final Assignment/` for the final notebook/script pipeline and outputs that should support the report.
 - Use `Assignment Report/` for report writing and Typst compilation work.
