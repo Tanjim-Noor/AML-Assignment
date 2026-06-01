@@ -20,10 +20,18 @@ AML Assignment/
 |   |-- CT046-3-M-AML_Assignment Question.md
 |   `-- CT046-3-M-AML_Assignment Marking Scheme and Minimum Document Requirements.md
 |-- Datasets/
-|   |-- AI Workforce Displacement 2020-2026/
+|   |-- AI Workforce Displacement 2020–2026/
+|   |   |-- README.md
+|   |   `-- ai_workforce_displacement_global_2020_2026.csv
 |   |-- Global Urban Air Quality & Pollution Time-Series/
+|   |   |-- README.md
+|   |   `-- global_urban_smog_pm25_hourly.csv
 |   |-- LLM Hallucination/
+|   |   |-- README.md
+|   |   `-- llm_hallucination_dataset_v1.csv
 |   `-- Student AI Tools vs Exam scores/
+|       |-- README.md
+|       `-- students_ai_usage.csv
 |-- Learning Materials/
 |   |-- Lab Helper Docs/
 |   |-- Lab 1 - Installing IDE_Data Loading/
