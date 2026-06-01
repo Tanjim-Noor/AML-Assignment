@@ -15,6 +15,7 @@ The final outcome should include:
 ```text
 AML Assignment/
 |-- AGENTS.md
+|-- .gitattributes
 |-- .gitignore
 |-- Assignment Requirements/
 |   |-- CT046-3-M-AML_Assignment Question.md
@@ -75,6 +76,9 @@ AML Assignment/
 |           `-- lab_02_data_understanding.ipynb
 |-- Final Assignment/
 |-- Assignment Report/
+|-- scripts/
+|   |-- install_notebook_git_filter.ps1
+|   `-- strip_assignment_notebooks.ps1
 `-- .agents/
     `-- skills/
         `-- typst/
@@ -100,6 +104,8 @@ AML Assignment/
 - Use `Assignment Report/` for report writing and Typst compilation work.
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
+- If the local Git filter config is missing or stale, run `.\scripts\install_notebook_git_filter.ps1` from the workspace root.
+- Before commit, run `.\scripts\strip_assignment_notebooks.ps1` to normalize notebook metadata/output in assignment notebook scopes.
 - Keep folder boundaries stable unless the user explicitly asks to reorganize the workspace.
 - Microsoft Office temporary and lock files, such as files beginning with `~$`, are ignored and should not be committed.
 
