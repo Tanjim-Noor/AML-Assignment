@@ -49,6 +49,30 @@ AML Assignment/
 |   |-- Lab 12 - K Means Clustering/
 |   `-- Lab 13 - Univariate Time Series Analysis/
 |-- Learning Materials Application on Assigment/
+|   |-- AI Workforce Displacement 2020-2026/
+|   |   |-- README.md
+|   |   |-- Lab 01 - Data Loading/
+|   |   |   `-- lab_01_data_loading.ipynb
+|   |   `-- Lab 02 - Data Understanding/
+|   |       `-- lab_02_data_understanding.ipynb
+|   |-- Global Urban Air Quality and Pollution Time-Series/
+|   |   |-- README.md
+|   |   |-- Lab 01 - Data Loading/
+|   |   |   `-- lab_01_data_loading.ipynb
+|   |   `-- Lab 02 - Data Understanding/
+|   |       `-- lab_02_data_understanding.ipynb
+|   |-- LLM Hallucination/
+|   |   |-- README.md
+|   |   |-- Lab 01 - Data Loading/
+|   |   |   `-- lab_01_data_loading.ipynb
+|   |   `-- Lab 02 - Data Understanding/
+|   |       `-- lab_02_data_understanding.ipynb
+|   `-- Student AI Tools vs Exam Scores/
+|       |-- README.md
+|       |-- Lab 01 - Data Loading/
+|       |   `-- lab_01_data_loading.ipynb
+|       `-- Lab 02 - Data Understanding/
+|           `-- lab_02_data_understanding.ipynb
 |-- Final Assignment/
 |-- Assignment Report/
 `-- .agents/
