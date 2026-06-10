@@ -23,6 +23,9 @@ AML Assignment/
 |   |-- AI Workforce Displacement 2020–2026/
 |   |   |-- README.md
 |   |   `-- ai_workforce_displacement_global_2020_2026.csv
+|   |-- Coffee Shops Sales Data/
+|   |   |-- README.md
+|   |   `-- Project.csv
 |   |-- Global Urban Air Quality & Pollution Time-Series/
 |   |   |-- README.md
 |   |   `-- global_urban_smog_pm25_hourly.csv
