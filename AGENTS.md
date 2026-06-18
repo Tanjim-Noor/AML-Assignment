@@ -60,8 +60,32 @@ AML Assignment/
 |   |   |-- README.md
 |   |   |-- Lab 01 - Data Loading/
 |   |   |   `-- lab_01_data_loading.ipynb
-|   |   `-- Lab 02 - Data Understanding/
-|   |       `-- lab_02_data_understanding.ipynb
+|   |   |-- Lab 02 - Data Understanding/
+|   |   |   `-- lab_02_data_understanding.ipynb
+|   |   |-- Lab 03 - Data Preprocessing/
+|   |   |   `-- lab_03_data_preprocessing.ipynb
+|   |   |-- Lab 04 - Naive Bayes/
+|   |   |   `-- lab_04_naive_bayes.ipynb
+|   |   |-- Lab 05 - Decision Tree/
+|   |   |   `-- lab_05_decision_tree.ipynb
+|   |   |-- Lab 06 - Linear Regression/
+|   |   |   `-- lab_06_linear_regression.ipynb
+|   |   |-- Lab 07 - Cross Validation/
+|   |   |   `-- lab_07_cross_validation.ipynb
+|   |   |-- Lab 07 - Logistic Regression/
+|   |   |   `-- lab_07_logistic_regression.ipynb
+|   |   |-- Lab 08 - SVM/
+|   |   |   `-- lab_08_svm.ipynb
+|   |   |-- Lab 09 - Neural Network/
+|   |   |   `-- lab_09_neural_network.ipynb
+|   |   |-- Lab 10 - RF/
+|   |   |   `-- lab_10_random_forest.ipynb
+|   |   |-- Lab 11 - Ensemble Models/
+|   |   |   `-- lab_11_ensemble_models.ipynb
+|   |   |-- Lab 12 - K Means Clustering/
+|   |   |   `-- lab_12_k_means_clustering.ipynb
+|   |   `-- Lab 13 - Univariate Time Series Analysis/
+|   |       `-- lab_13_univariate_time_series_analysis.ipynb
 |   |-- LLM Hallucination/
 |   |   |-- README.md
 |   |   |-- Lab 01 - Data Loading/
