@@ -103,7 +103,12 @@ AML Assignment/
 |           `-- lab_02_data_understanding.ipynb
 |-- Final Assignment/
 |   |-- README.md
-|   `-- dataset_selection_rubric.md
+|   |-- dataset_selection_rubric.md
+|   `-- notebooks/
+|       |-- 01_future_hazard_classifier.ipynb
+|       |-- 02_pm25_forecasting_regression.ipynb
+|       |-- 03_current_hazard_classifier.ipynb
+|       `-- 04_aqi_forecasting_regression.ipynb
 |-- Assignment Report/
 |-- scripts/
 |   |-- install_notebook_git_filter.ps1
@@ -120,7 +125,7 @@ AML Assignment/
 - `Datasets/` contains candidate datasets. Treat original dataset files as raw inputs; avoid editing them directly.
 - `Learning Materials/` contains class labs, helper documents, notebooks, and reference datasets. Use these to guide the staged implementation.
 - `Learning Materials Application on Assigment/` is the exploratory workspace for applying lab concepts to the assignment datasets step by step.
-- `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale.
+- `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale. Final air-quality versions should be standalone notebooks under `Final Assignment/notebooks/`, with all EDA, preprocessing, modeling, validation, plots, and interpretation shown inline in notebook cells.
 - `Assignment Report/` is for the Typst report source, report assets, generated figures/tables, and exported report output.
 - `.agents/skills/typst/` contains the local Typst-related skills for report work: `typst`, `typst-author`, and `touying-author`.
 
@@ -130,7 +135,8 @@ AML Assignment/
 - Prefer the Markdown knowledgebase files in `Assignment Requirements/` for day-to-day planning, implementation, and report-writing decisions; refer back to the original Word documents if formatting or source fidelity must be checked.
 - The current final dataset selection is `Global Urban Air Quality & Pollution Time-Series`; use `AI Workforce Displacement 2020-2026` only as the backup unless the user changes the final assignment direction.
 - Use `Learning Materials Application on Assigment/` for experiments and learning-driven iterations.
-- Use `Final Assignment/` for the final notebook/script pipeline and outputs that should support the report.
+- Use `Final Assignment/` for the final notebook-only assignment versions that support the report.
+- For final air-quality assignment versions, do not create shared pipeline scripts, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries. Each notebook should be standalone and display all tables, plots, training results, validation metrics, and recommendations inline when run.
 - Use `Assignment Report/` for report writing and Typst compilation work.
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.

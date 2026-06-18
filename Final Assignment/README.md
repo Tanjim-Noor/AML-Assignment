@@ -1,21 +1,57 @@
 # Final Assignment
 
-This folder is for the polished final Applied Machine Learning assignment work.
+This folder contains the notebook-only final Applied Machine Learning assignment work for the selected dataset:
 
-## Current Final Direction
+`Datasets/Global Urban Air Quality & Pollution Time-Series/global_urban_smog_pm25_hourly.csv`
 
-- Primary dataset: `Datasets/Global Urban Air Quality & Pollution Time-Series/global_urban_smog_pm25_hourly.csv`
-- Backup dataset: `Datasets/AI Workforce Displacement 2020–2026/ai_workforce_displacement_global_2020_2026.csv`
-- Canonical selection rationale: `Final Assignment/dataset_selection_rubric.md`
+## Notebook-Only Rule
 
-## Frozen Problem Statement
+The final assignment versions are intentionally standalone notebooks. Do not add shared pipeline scripts, CLI runners, generated output folders, saved plot files, CSV result exports, model dumps, or Markdown run summaries here.
 
-Predict and explain hazardous urban air-quality events and PM2.5/AQI trends across global cities using hourly pollutant, city, location, and time-series features.
+All EDA tables, preprocessing checks, plots, model results, validation outputs, and recommendations should appear inline in notebook cell outputs when the notebook is run.
 
-The final implementation should treat this as a high-mark, evidence-driven workflow:
+## Final Dataset Context
 
-- classification for hazardous-event risk,
-- regression or forecasting for PM2.5 or AQI trends,
-- clustering or profile analysis for city/pollution patterns,
-- chronological validation rather than random-only validation,
-- leakage checks, especially around `European_AQI` and derived hazard labels.
+- Primary dataset: `Global Urban Air Quality & Pollution Time-Series`
+- Backup dataset: `AI Workforce Displacement 2020-2026`
+- Canonical selection rationale: `dataset_selection_rubric.md`
+- Current final direction: compare multiple air-quality modeling variations using chronological validation, leakage checks, supervised learning, and unsupervised city/pollution profiling.
+
+## Standalone Notebook Variations
+
+| Notebook | Target | Main task | Report angle |
+| --- | --- | --- | --- |
+| `notebooks/01_future_hazard_classifier.ipynb` | Next-hour `Hazardous_Event` | Time-aware binary classification | Early warning for hazardous urban air-quality events. |
+| `notebooks/02_pm25_forecasting_regression.ipynb` | Next-hour `PM2_5_ug_m3` | Time-series regression | Short-term fine particulate pollution forecasting. |
+| `notebooks/03_current_hazard_classifier.ipynb` | Current `Hazardous_Event` | Binary classification | Explaining pollutant conditions associated with hazardous air quality. |
+| `notebooks/04_aqi_forecasting_regression.ipynb` | Next-hour `European_AQI` | Time-series regression | Forecasting overall air-quality severity. |
+
+Each notebook includes:
+
+- dataset explanation and column dictionary,
+- problem statement, aim, objectives, and assignment fit,
+- complete EDA with inline plots,
+- data cleaning and preprocessing,
+- chronological train/validation/test split,
+- baseline and tuned scikit-learn models,
+- optional PyTorch CUDA neural-network section,
+- model evaluation and comparison,
+- unsupervised city/pollution profiling,
+- interpretation, recommendations, limitations, and conclusion.
+
+## GPU Notes
+
+The notebooks include a CUDA/PyTorch setup and verification cell. If PyTorch is not installed in the workspace `.venv`, install the CUDA build from the workspace root:
+
+```powershell
+.venv\Scripts\python.exe -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+```
+
+Then verify inside a notebook:
+
+```python
+import torch
+torch.cuda.is_available()
+```
+
+Each notebook also has a `RUN_BALANCED_BACKUP` toggle for CPU-safe or faster assignment iteration.
