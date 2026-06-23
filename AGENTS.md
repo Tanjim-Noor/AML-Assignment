@@ -105,6 +105,7 @@ AML Assignment/
 |   |-- README.md
 |   |-- dataset_selection_rubric.md
 |   `-- notebooks/
+|       |-- 00_gpu_runtime_diagnostics.ipynb
 |       |-- 01_future_hazard_classifier.ipynb
 |       |-- 02_pm25_forecasting_regression.ipynb
 |       |-- 03_current_hazard_classifier.ipynb
