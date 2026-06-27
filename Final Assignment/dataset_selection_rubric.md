@@ -17,15 +17,15 @@ Additional backup: **AI Workforce Displacement 2020-2026**.
 
 Frozen problem statement:
 
-> Predict and critically explain assessed student burnout risk, skill retention, GPA change, and GPA-decline risk from academic background, generative-AI usage, study behaviour, and institutional context while controlling outcome leakage and avoiding causal claims.
+> Predict semester GPA change and evaluate whether generative-AI usage variables add predictive value beyond previous GPA and general study context, while controlling outcome leakage and avoiding causal claims.
 
 Recommended report direction:
 
-- Primary task: multiclass early-risk prediction of `Burnout_Risk_Level`.
-- Strong regression companion: predict `Skill_Retention_Score`.
-- Alternative regression: predict derived `GPA_Change`, not raw post-semester GPA.
-- Imbalanced-classification alternative: predict `GPA_Declined`.
-- Unsupervised component: create predictor-only student-behaviour clusters and use outcomes only for post-fit interpretation.
+- Primary task: predict derived `GPA_Change`, not raw post-semester GPA.
+- Primary comparison: context-only features versus context plus AI-usage features.
+- Required model comparison: linear regression, Ridge, random forest, and histogram gradient boosting against a mean baseline.
+- Alternative tasks: burnout classification, skill-retention regression, and GPA-decline classification remain available in the advanced notebooks.
+- Optional extension: predictor-only student-behaviour clustering remains in the advanced variants, not the essential final notebook.
 
 ## Rubric Derived From The Assessment
 
@@ -79,7 +79,7 @@ The gate used a fixed 20% untouched test split and shuffled five-fold cross-vali
 | --- | ---: | ---: | ---: | ---: | --- |
 | Burnout multiclass classification | Macro-F1 0.198 | Histogram gradient boosting macro-F1 0.535 | 0.004 | 0.533 | Pass |
 | Skill-retention regression | R-squared approximately 0.000 | Histogram gradient boosting R-squared 0.216 | 0.007 | 0.222 | Pass |
-| GPA-change regression | R-squared approximately 0.000 | Histogram gradient boosting R-squared 0.408 | 0.008 | 0.417 | Pass |
+| GPA-change regression | R-squared approximately 0.000 | Histogram gradient boosting R-squared 0.408 | 0.008 | Tuned test R-squared 0.4185 | Pass |
 | GPA-decline classification | Macro-F1 0.467 | Random forest macro-F1 0.655 | 0.009 | 0.669 | Pass |
 
 Additional checks:
@@ -109,7 +109,7 @@ Seed sources:
 | [Longitudinal study of ChatGPT adoption behaviour](https://doi.org/10.3389/frai.2023.1324398) | Student usage change, trust, and the value of longitudinal evidence. |
 | [ChatGPT satisfaction and continued-use intention](https://doi.org/10.3389/feduc.2024.1354929) | Adoption, perceived usefulness, and continued-use factors. |
 | [Academic stress and GenAI dependency](https://doi.org/10.1016/j.iheduc.2026.101094) | Dependency, stress-coping theory, engagement, and limitations awareness. |
-| [Technostress, GenAI, and digital classroom burnout](https://doi.org/10.1038/s41598-026-47683-4) | Burnout and wellbeing constructs relevant to the primary target. |
+| [Technostress, GenAI, and digital classroom burnout](https://doi.org/10.1038/s41598-026-47683-4) | Wellbeing context and a contrasting alternative student outcome. |
 
 The literature should be reviewed systematically rather than treated as a citation list. Same-dataset Kaggle notebooks may be discussed as implementation comparisons, but they do not replace peer-reviewed related work.
 

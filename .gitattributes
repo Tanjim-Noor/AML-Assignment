@@ -1,5 +1,7 @@
 # Restrict notebook cleaning to active assignment work areas.
 Learning*Application*Assigment/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
 Final*Assignment/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
+# Preserve executed results in the essential final notebook.
+Final*Assignment/notebooks/05_essential_gpa_change_regression.ipynb -filter diff=ipynb text eol=lf
 Assignment*Report/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
 *.zpln filter=nbstripout text eol=lf

@@ -23,6 +23,18 @@ $notebooks = foreach ($dir in $targetDirs) {
     }
 }
 
+$preserveOutputPaths = @(
+    (Join-Path $repoRoot "Final Assignment\notebooks\05_essential_gpa_change_regression.ipynb")
+)
+
+$preservedNotebooks = @(
+    $notebooks | Where-Object { $preserveOutputPaths -contains $_.FullName }
+)
+
+$notebooks = @(
+    $notebooks | Where-Object { $preserveOutputPaths -notcontains $_.FullName }
+)
+
 if (-not $notebooks) {
     Write-Host "No notebooks found in assignment notebook scopes."
     exit 0
@@ -62,5 +74,11 @@ if ($VerboseOutput) {
 & $pythonExe @nbstripoutArgs
 
 Convert-ToUnixNewlines -Files $notebooks
+if ($preservedNotebooks) {
+    Convert-ToUnixNewlines -Files $preservedNotebooks
+}
 
 Write-Host "Stripped notebook metadata/output for $($notebooks.Count) notebook(s)."
+if ($preservedNotebooks) {
+    Write-Host "Preserved executed outputs for $($preservedNotebooks.Count) essential notebook(s)."
+}
