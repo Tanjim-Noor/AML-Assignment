@@ -2,56 +2,75 @@
 
 This folder contains the notebook-only final Applied Machine Learning assignment work for the selected dataset:
 
-`Datasets/Global Urban Air Quality & Pollution Time-Series/global_urban_smog_pm25_hourly.csv`
+`Datasets/Impact of AI on Students/ai_student_impact_dataset.csv`
 
 ## Notebook-Only Rule
 
-The final assignment versions are intentionally standalone notebooks. Do not add shared pipeline scripts, CLI runners, generated output folders, saved plot files, CSV result exports, model dumps, or Markdown run summaries here.
+The final assignment variations are standalone notebooks. Do not add shared pipeline modules, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries.
 
-All EDA tables, preprocessing checks, plots, model results, validation outputs, and recommendations should appear inline in notebook cell outputs when the notebook is run.
+All EDA tables, preprocessing checks, plots, training results, validation metrics, uncertainty estimates, interpretations, and recommendations appear inline when each notebook is run. The committed notebooks are kept with outputs and execution counts cleared.
 
 ## Final Dataset Context
 
-- Primary dataset: `Global Urban Air Quality & Pollution Time-Series`
-- Backup dataset: `AI Workforce Displacement 2020-2026`
+- Primary dataset: `Impact of AI on Students`
+- Archived predecessor: `Global Urban Air Quality & Pollution Time-Series`
+- Additional backup: `AI Workforce Displacement 2020-2026`
 - Canonical selection rationale: `dataset_selection_rubric.md`
-- Current final direction: compare multiple air-quality modeling variations using chronological validation, leakage checks, supervised learning, and unsupervised city/pollution profiling.
+- Dataset documentation: `Datasets/Impact of AI on Students/README.md`
+- Current direction: compare leakage-controlled burnout, skill-retention, GPA-change, and GPA-decline modelling variants.
+
+The Kaggle source does not document collection, geography, sampling, ethics, or real-versus-synthetic provenance. The assignment must present results as predictive associations within the supplied file, not evidence that AI caused academic or wellbeing outcomes.
 
 ## Standalone Notebook Variations
 
-| Notebook | Target | Main task | Report angle |
+| Notebook | Target | Main task | Primary evaluation |
 | --- | --- | --- | --- |
-| `notebooks/01_future_hazard_classifier.ipynb` | Next-hour `Hazardous_Event` | Time-aware binary classification | Early warning for hazardous urban air-quality events. |
-| `notebooks/02_pm25_forecasting_regression.ipynb` | Next-hour `PM2_5_ug_m3` | Time-series regression | Short-term fine particulate pollution forecasting. |
-| `notebooks/03_current_hazard_classifier.ipynb` | Current `Hazardous_Event` | Binary classification | Explaining pollutant conditions associated with hazardous air quality. |
-| `notebooks/04_aqi_forecasting_regression.ipynb` | Next-hour `European_AQI` | Time-series regression | Forecasting overall air-quality severity. |
+| `notebooks/01_burnout_risk_multiclass_classifier.ipynb` | `Burnout_Risk_Level` | Multiclass early-risk classification | Macro-F1, balanced accuracy, class recall, multiclass ROC-AUC |
+| `notebooks/02_skill_retention_regression.ipynb` | `Skill_Retention_Score` | Continuous-outcome regression | RMSE, MAE, R-squared |
+| `notebooks/03_gpa_change_regression.ipynb` | `Post_Semester_GPA - Pre_Semester_GPA` | Academic-change regression | RMSE, MAE, R-squared |
+| `notebooks/04_gpa_decline_classifier.ipynb` | `GPA_Change < 0` | Imbalanced binary classification | Macro-F1, balanced accuracy, recall, ROC-AUC, average precision |
 
-Each notebook includes:
+Each final notebook includes:
 
-- dataset explanation and column dictionary,
-- problem statement, aim, objectives, and assignment fit,
-- complete EDA with inline plots,
-- data cleaning and preprocessing,
-- chronological train/validation/test split,
-- baseline and tuned scikit-learn models,
-- optional PyTorch CUDA neural-network section,
-- model evaluation and comparison,
-- unsupervised city/pollution profiling,
-- interpretation, recommendations, limitations, and conclusion.
+- problem statement, aim, objectives, and evidence boundary,
+- dataset dictionary, integrity checks, EDA, and target analysis,
+- explicit identifier and outcome-leakage controls,
+- an untouched 20% test set and shuffled cross-validation,
+- a dummy baseline plus at least three real models,
+- fold variability and bootstrap confidence intervals,
+- subgroup evaluation by major, year of study, and institutional policy,
+- permutation-based interpretation,
+- predictor-only K-means student-profile analysis,
+- optional GPU extension,
+- critical analysis, recommendations, limitations, and conclusion.
 
-## GPU Notes
+## Leakage and Validation Rules
 
-The notebooks include a CUDA/PyTorch setup and verification cell. If PyTorch is not installed in the workspace `.venv`, install the CUDA build from the workspace root:
+- Drop `Student_ID` from every model.
+- Never use `Post_Semester_GPA`, `Skill_Retention_Score`, or `Burnout_Risk_Level` to predict one another.
+- Never use `Post_Semester_GPA` to predict derived GPA change or GPA decline.
+- Exclude `Anxiety_Level_During_Exams` from the primary early-risk burnout model; add it only as a labelled ablation.
+- Fit preprocessing and tuning only on training folds.
+- Use shuffled cross-sectional validation. The dataset contains no defensible time or repeated-student sequence.
+- Report macro/class-level metrics for classification and uncertainty for all final comparisons.
+- Do not manufacture missing values to make the perfectly clean dataset appear more complex.
 
-```powershell
-.venv\Scripts\python.exe -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
-```
+## Runtime Modes
 
-Then verify inside a notebook:
+Each notebook defines:
 
 ```python
-import torch
-torch.cuda.is_available()
+RUN_BALANCED_BACKUP = True
 ```
 
-Each notebook also has a `RUN_BALANCED_BACKUP` toggle for CPU-safe or faster assignment iteration.
+The balanced mode uses three cross-validation folds and lighter model settings for CPU-safe iteration. Set it to `False` for the full five-fold, higher-iteration report run.
+
+`notebooks/00_gpu_runtime_diagnostics.ipynb` remains the environment-check notebook. Each assignment variation also contains an opt-in PyTorch/CUDA extension cell; CPU execution remains the default.
+
+## Archive
+
+The prior air-quality README, selection rubric, and four final notebooks are preserved under:
+
+`Final Assignment/_archive/global_urban_air_quality_2026-06-27/`
+
+They should not be treated as active report implementations.

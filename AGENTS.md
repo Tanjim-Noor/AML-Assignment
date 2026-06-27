@@ -30,6 +30,9 @@ AML Assignment/
 |   |-- Global Urban Air Quality & Pollution Time-Series/
 |   |   |-- README.md
 |   |   `-- global_urban_smog_pm25_hourly.csv
+|   |-- Impact of AI on Students/
+|   |   |-- README.md
+|   |   `-- ai_student_impact_dataset.csv
 |   |-- LLM Hallucination/
 |   |   |-- README.md
 |   |   `-- llm_hallucination_dataset_v1.csv
@@ -89,6 +92,34 @@ AML Assignment/
 |   |   |   `-- lab_12_k_means_clustering.ipynb
 |   |   `-- Lab 13 - Univariate Time Series Analysis/
 |   |       `-- lab_13_univariate_time_series_analysis.ipynb
+|   |-- Impact of AI on Students/
+|   |   |-- README.md
+|   |   |-- Lab 01 - Data Loading/
+|   |   |   `-- lab_01_data_loading.ipynb
+|   |   |-- Lab 02 - Data Understanding/
+|   |   |   `-- lab_02_data_understanding.ipynb
+|   |   |-- Lab 03 - Data Preprocessing/
+|   |   |   `-- lab_03_data_preprocessing.ipynb
+|   |   |-- Lab 04 - Naive Bayes/
+|   |   |   `-- lab_04_naive_bayes.ipynb
+|   |   |-- Lab 05 - Decision Tree/
+|   |   |   `-- lab_05_decision_tree.ipynb
+|   |   |-- Lab 06 - Linear Regression/
+|   |   |   `-- lab_06_linear_regression.ipynb
+|   |   |-- Lab 07 - Cross Validation/
+|   |   |   `-- lab_07_cross_validation.ipynb
+|   |   |-- Lab 07 - Logistic Regression/
+|   |   |   `-- lab_07_logistic_regression.ipynb
+|   |   |-- Lab 08 - SVM/
+|   |   |   `-- lab_08_svm.ipynb
+|   |   |-- Lab 09 - Neural Network/
+|   |   |   `-- lab_09_neural_network.ipynb
+|   |   |-- Lab 10 - RF/
+|   |   |   `-- lab_10_random_forest.ipynb
+|   |   |-- Lab 11 - Ensemble Models/
+|   |   |   `-- lab_11_ensemble_models.ipynb
+|   |   `-- Lab 12 - K Means Clustering/
+|   |       `-- lab_12_k_means_clustering.ipynb
 |   |-- LLM Hallucination/
 |   |   |-- README.md
 |   |   |-- Lab 01 - Data Loading/
@@ -104,12 +135,17 @@ AML Assignment/
 |-- Final Assignment/
 |   |-- README.md
 |   |-- dataset_selection_rubric.md
+|   |-- _archive/
+|   |   `-- global_urban_air_quality_2026-06-27/
+|   |       |-- README.md
+|   |       |-- dataset_selection_rubric.md
+|   |       `-- notebooks/
 |   `-- notebooks/
 |       |-- 00_gpu_runtime_diagnostics.ipynb
-|       |-- 01_future_hazard_classifier.ipynb
-|       |-- 02_pm25_forecasting_regression.ipynb
-|       |-- 03_current_hazard_classifier.ipynb
-|       `-- 04_aqi_forecasting_regression.ipynb
+|       |-- 01_burnout_risk_multiclass_classifier.ipynb
+|       |-- 02_skill_retention_regression.ipynb
+|       |-- 03_gpa_change_regression.ipynb
+|       `-- 04_gpa_decline_classifier.ipynb
 |-- Assignment Report/
 |-- scripts/
 |   |-- install_notebook_git_filter.ps1
@@ -126,7 +162,7 @@ AML Assignment/
 - `Datasets/` contains candidate datasets. Treat original dataset files as raw inputs; avoid editing them directly.
 - `Learning Materials/` contains class labs, helper documents, notebooks, and reference datasets. Use these to guide the staged implementation.
 - `Learning Materials Application on Assigment/` is the exploratory workspace for applying lab concepts to the assignment datasets step by step.
-- `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale. Final air-quality versions should be standalone notebooks under `Final Assignment/notebooks/`, with all EDA, preprocessing, modeling, validation, plots, and interpretation shown inline in notebook cells.
+- `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale. Final student-impact versions should be standalone notebooks under `Final Assignment/notebooks/`, with all EDA, preprocessing, modelling, validation, plots, uncertainty, and interpretation shown inline in notebook cells. Treat `Final Assignment/_archive/` as historical reference, not active implementation.
 - `Assignment Report/` is for the Typst report source, report assets, generated figures/tables, and exported report output.
 - `.agents/skills/typst/` contains the local Typst-related skills for report work: `typst`, `typst-author`, and `touying-author`.
 
@@ -134,10 +170,14 @@ AML Assignment/
 
 - Start requirement-sensitive work by checking `Assignment Requirements/`.
 - Prefer the Markdown knowledgebase files in `Assignment Requirements/` for day-to-day planning, implementation, and report-writing decisions; refer back to the original Word documents if formatting or source fidelity must be checked.
-- The current final dataset selection is `Global Urban Air Quality & Pollution Time-Series`; use `AI Workforce Displacement 2020-2026` only as the backup unless the user changes the final assignment direction.
+- The current final dataset selection is `Impact of AI on Students`. The previous `Global Urban Air Quality & Pollution Time-Series` final implementations are archived, and `AI Workforce Displacement 2020-2026` remains an additional backup unless the user changes direction.
 - Use `Learning Materials Application on Assigment/` for experiments and learning-driven iterations.
 - Use `Final Assignment/` for the final notebook-only assignment versions that support the report.
-- For final air-quality assignment versions, do not create shared pipeline scripts, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries. Each notebook should be standalone and display all tables, plots, training results, validation metrics, and recommendations inline when run.
+- For final student-impact assignment versions, do not create shared pipeline scripts, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries. Each notebook should be standalone and display all tables, plots, training results, validation metrics, uncertainty, and recommendations inline when run.
+- Treat the student-impact dataset as a Kaggle-provided modelling dataset with undocumented collection and real-versus-synthetic provenance. Do not make causal or population-level claims about AI use, GPA, retention, anxiety, dependency, policy, or burnout.
+- Drop `Student_ID` from modelling, prevent post-outcome leakage, exclude exam anxiety from the primary early-risk burnout feature set, and never use post-semester GPA to predict derived GPA change or decline.
+- Do not manufacture missing values or corruptions to compensate for the dataset's perfect cleanliness.
+- Do not create a Lab 13 time-series application for the student-impact dataset unless a defensible temporal or repeated-student field is added later.
 - Use `Assignment Report/` for report writing and Typst compilation work.
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
