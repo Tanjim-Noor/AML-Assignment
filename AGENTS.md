@@ -141,6 +141,11 @@ AML Assignment/
 |   |       |-- README.md
 |   |       |-- dataset_selection_rubric.md
 |   |       `-- notebooks/
+|   |-- Deep Learning Experiments/
+|   |   |-- README.md
+|   |   |-- 01_category_embedding_mlp.ipynb
+|   |   |-- 02_ft_transformer.ipynb
+|   |   `-- 03_tabm.ipynb
 |   `-- notebooks/
 |       |-- 00_gpu_runtime_diagnostics.ipynb
 |       |-- 01_burnout_risk_multiclass_classifier.ipynb
@@ -177,6 +182,8 @@ AML Assignment/
 - Use `Final Assignment/` for the final notebook-only assignment versions that support the report.
 - For final student-impact assignment versions, do not create shared pipeline scripts, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries. Each notebook should be standalone and display all tables, plots, training results, validation metrics, uncertainty, and recommendations inline when run.
 - Treat `Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb` as the recommended concise final implementation. Unlike the advanced variants, it intentionally retains executed cell outputs, and `Final Assignment/explanation.md` is its canonical plain-language results analysis.
+- Treat `Final Assignment/Deep Learning Experiments/` as executed GPU comparison work that supplements notebook 05 rather than replacing it. FT-Transformer is the strongest tested neural model, but its validation gain is below the material-improvement gate, so HGB remains the recommended final model.
+- The deep-learning experiment environment uses `rtdl-revisiting-models==0.0.2` and `tabm==0.0.3`. Do not add `pytorch-tabular` to this workspace because its resolved dependency set would downgrade pandas 3.0.3.
 - Treat the student-impact dataset as a Kaggle-provided modelling dataset with undocumented collection and real-versus-synthetic provenance. Do not make causal or population-level claims about AI use, GPA, retention, anxiety, dependency, policy, or burnout.
 - Drop `Student_ID` from modelling, prevent post-outcome leakage, exclude exam anxiety from the primary early-risk burnout feature set, and never use post-semester GPA to predict derived GPA change or decline.
 - Do not manufacture missing values or corruptions to compensate for the dataset's perfect cleanliness.
@@ -185,7 +192,7 @@ AML Assignment/
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
 - If the local Git filter config is missing or stale, run `.\scripts\install_notebook_git_filter.ps1` from the workspace root.
-- Before commit, run `.\scripts\strip_assignment_notebooks.ps1` to normalize notebook metadata/output in assignment notebook scopes. The script must preserve the executed outputs of `05_essential_gpa_change_regression.ipynb`.
+- Before commit, run `.\scripts\strip_assignment_notebooks.ps1` to normalize notebook metadata/output in assignment notebook scopes. The script must preserve the executed outputs of `05_essential_gpa_change_regression.ipynb` and the three notebooks under `Final Assignment/Deep Learning Experiments/`.
 - Keep folder boundaries stable unless the user explicitly asks to reorganize the workspace.
 - Microsoft Office temporary and lock files, such as files beginning with `~$`, are ignored and should not be committed.
 

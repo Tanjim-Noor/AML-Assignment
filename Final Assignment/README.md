@@ -8,7 +8,7 @@ This folder contains the notebook-only final Applied Machine Learning assignment
 
 The final assignment variations are standalone notebooks. Do not add shared pipeline modules, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries.
 
-All EDA tables, preprocessing checks, plots, training results, validation metrics, uncertainty estimates, interpretations, and recommendations appear inline when each notebook is run. The advanced variants are kept with outputs and execution counts cleared. `05_essential_gpa_change_regression.ipynb` is the deliberate exception: it retains executed outputs so its final results and analysis are immediately visible.
+All EDA tables, preprocessing checks, plots, training results, validation metrics, uncertainty estimates, interpretations, and recommendations appear inline when each notebook is run. The advanced variants are kept with outputs and execution counts cleared. `05_essential_gpa_change_regression.ipynb` and the three notebooks under `Deep Learning Experiments/` deliberately retain executed outputs so their final results and analyses are immediately visible.
 
 ## Final Dataset Context
 
@@ -36,6 +36,18 @@ The Kaggle source does not document collection, geography, sampling, ethics, or 
 Use `notebooks/05_essential_gpa_change_regression.ipynb` as the primary final implementation when a concise, understandable notebook is required. It contains only the sections needed to satisfy the assignment: EDA, preparation, leakage control, an 80/20 split, five-fold validation, four regression models plus a baseline, tuning, test evaluation, residuals, feature importance, results analysis, recommendations, and conclusion.
 
 `explanation.md` explains every section and provides a complete interpretation of the saved execution results.
+
+## Deep-Learning Experiments
+
+`Deep Learning Experiments/` supplements notebook 05 with three executed CUDA experiments that use the same leakage-safe features, development/test split, and five-fold validation design:
+
+| Notebook | Architecture | CV RMSE | Test RMSE | Test R-squared |
+| --- | --- | ---: | ---: | ---: |
+| `Deep Learning Experiments/01_category_embedding_mlp.ipynb` | Category-embedding MLP | 0.1450 | 0.1419 | 0.4145 |
+| `Deep Learning Experiments/02_ft_transformer.ipynb` | FT-Transformer | **0.1440** | **0.1410** | **0.4218** |
+| `Deep Learning Experiments/03_tabm.ipynb` | TabM, five implicit members | 0.1447 | 0.1413 | 0.4194 |
+
+The HGB benchmark from notebook 05 has CV RMSE 0.1443, test RMSE 0.1414, and test R-squared 0.4185. FT-Transformer is the strongest neural experiment, but its CV RMSE improvement is only about 0.20%, below the predefined 1% material-improvement threshold. HGB therefore remains the recommended final model because the neural models add complexity without a consistent, material validation gain. See `Deep Learning Experiments/README.md` for the complete comparison and decision rule.
 
 The advanced variants include:
 
@@ -72,7 +84,7 @@ RUN_BALANCED_BACKUP = True
 
 The balanced mode uses three cross-validation folds and lighter model settings for CPU-safe iteration. Set it to `False` for the full five-fold, higher-iteration report run.
 
-The essential notebook always uses five folds and contains no GPU section. `notebooks/00_gpu_runtime_diagnostics.ipynb` remains the environment-check notebook for the advanced variants, which contain opt-in PyTorch/CUDA extensions.
+The essential notebook always uses five folds and contains no GPU section. `notebooks/00_gpu_runtime_diagnostics.ipynb` remains the environment-check notebook for the advanced variants. The three deep-learning experiments require PyTorch with CUDA for the recorded runs and independently verify the active device.
 
 ## Archive
 
