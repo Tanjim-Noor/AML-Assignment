@@ -1,0 +1,46 @@
+version: "draft-v1"
+status: "drafted"
+word_count_excluding_references: 7294
+generated_at: "2026-07-01T15:30:00Z"
+files:
+  - path: "Assignment Report/README.md"
+    sha256: "5a3b079490049a61b0e01b4e2191c6ea0fcfde11da19d7fc5eec5ab5f8b81315"
+  - path: "Assignment Report/references.bib"
+    sha256: "0375098926e1226cd5fce0a1a23a0b4fac53dcbed5bbe06a820d756ad61a893c"
+  - path: "Assignment Report/sections/00_title_and_abstract.md"
+    words: 296
+    sha256: "7c73dc84a5d2a3e4ef60c98c169b76ca22bbd62e511a8859d299595c7987082c"
+  - path: "Assignment Report/sections/01_introduction_aim_objectives.md"
+    words: 758
+    sha256: "c94f80f8b9455c758272b7fe66080805af44238c9f31b41b4b4628f451e2c999"
+  - path: "Assignment Report/sections/02_related_works.md"
+    words: 1829
+    sha256: "cb4db963e00e3da056aa3ea0309a3cd131655e1c985cc4e0b9f4c32c9ff2632b"
+  - path: "Assignment Report/sections/03_methods.md"
+    words: 697
+    sha256: "c86adc751af241b501472826ca25a4f931581c1d284ede1dba244943f44442b1"
+  - path: "Assignment Report/sections/04_dataset_preparation.md"
+    words: 627
+    sha256: "d34e8381c0b6220a3ac5212537921e3f11cb74c6b8d6f1b2d9a9f477854a13a1"
+  - path: "Assignment Report/sections/05_model_implementation.md"
+    words: 926
+    sha256: "aacc8bfea89dd1dc944d690fd78f8847ee77b3d443f3e78617b4b62a212ae557"
+  - path: "Assignment Report/sections/06_model_validation.md"
+    words: 648
+    sha256: "5f8e4d93f10ebfa22ed8332f21f578640c9ac770ecafd4f08d20e7aa2074aa19"
+  - path: "Assignment Report/sections/07_analysis_and_recommendations.md"
+    words: 1071
+    sha256: "0ff0ea57cafb6fbe9049b804cdf8bae69acdd1e812eb1b4906ee2e82414dcfb1"
+  - path: "Assignment Report/sections/08_conclusion.md"
+    words: 373
+    sha256: "8cecd6e9be18adabff8cbaac66bc5c43f3f8336c0743348c1f5e5ff00e990c0e"
+  - path: "Assignment Report/sections/09_references.md"
+    words: 667
+    sha256: "16307343493f982abb6d52ebd4ab40c38569596a04c0989f2a620ea4e28f7aae"
+  - path: "Assignment Report/sections/10_acknowledgements.md"
+    words: 69
+    sha256: "54c796dfb93c19a52eadf4aa13882e905cf536b2f5a130832ad43ca1da4628b0"
+audit:
+  validator: "academic-research/validate_report.py"
+  validator_sha256: "3090a60e2b778bd8b06808af3d34433c88a9a8c3019d1b1acc4e184650a59918"
+  result: "PASS"

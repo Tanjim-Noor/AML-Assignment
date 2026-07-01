@@ -2,7 +2,7 @@
 
 ## Deliverable and stage
 
-A modular Applied Machine Learning assignment report written in separate Markdown files for later review and Typst assembly. The current stage is evidence discovery and architecture; report prose cannot begin until the UARS literature-corpus approval gate is passed.
+A modular Applied Machine Learning assignment report written in separate Markdown files for later review and Typst assembly. The evidence corpus and architecture have been approved, so the current stage is section drafting.
 
 ## Central research question
 
@@ -36,7 +36,7 @@ The report will provide a leakage-controlled comparison of regression models for
 | Primary evidence | Student-impact CSV | Verified; 50,000 × 16 |
 | Primary evidence | Notebook 05 | Selected final implementation; hash-locked |
 | Author material | `Final Assignment/explanation.md` | Checked against saved notebook outputs |
-| Secondary evidence | External literature corpus | Not yet built |
+| Secondary evidence | External literature corpus | Fifteen-source corpus `aml-report-corpus-v1` approved on 2026-07-01 |
 
 ## Modelling boundary
 
@@ -61,7 +61,7 @@ Notebook 05 is the sole reported implementation. The deep-learning experiments a
 
 - The research question and overall architecture were approved with the implementation plan.
 - The user requested that every section be drafted before the first manuscript review.
-- UARS still requires approval of the screened literature corpus before synthesis and drafting.
+- The screened literature corpus was explicitly approved on 2026-07-01.
 - Experiment execution is approved only for deterministic reproduction of notebook 05 and report-figure extraction.
 - No subagent delegation or external model upload is authorised.
 

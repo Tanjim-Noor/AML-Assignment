@@ -13,9 +13,9 @@ project:
 workflow:
   route: "unified-pipeline"
   mode: "pipeline"
-  current_stage: "research"
-  writing_phase: null
-  checkpoint: "corpus-approval"
+  current_stage: "review"
+  writing_phase: "citation-audit"
+  checkpoint: "independent-full-review"
   revision_round: 0
   delegation: "disabled; inline workflow only"
 
@@ -52,7 +52,7 @@ research:
       - "OpenAlex anonymous API search unavailable because of rate limiting/API-key requirement"
       - "Semantic Scholar Graph API returned HTTP 429; public result pages used for discovery"
       - "Kaggle kernel listing returned HTTP 401"
-  corpus_version: "candidate-aml-report-corpus-v1"
+  corpus_version: "aml-report-corpus-v1"
 
 evidence:
   sources:
@@ -245,6 +245,9 @@ decisions:
   - decision: "Accept the deterministic notebook rerun as reproducible with cleanup warnings because the raw summary and all eight checked result tables matched exactly."
     actor: "agent"
     timestamp: "2026-07-01T14:54:59Z"
+  - decision: "Approved literature corpus aml-report-corpus-v1 and authorised complete implementation of the report plan."
+    actor: "user"
+    timestamp: "2026-07-01T15:02:00Z"
 
 artifacts:
   - type: "assignment-requirements"
@@ -305,9 +308,27 @@ artifacts:
     verification_state: "verified"
   - type: "claim-evidence-map"
     path: "academic-research/claim-evidence-map.md"
-    version: "candidate-corpus-v1"
-    sha256: "a079d1f36288c84fbde86c3ef10c8018d4e98ac7ce0af523832d892fe8176d75"
+    version: "approved-corpus-v1"
+    sha256: "6d4d59dbd3fcb9fadc9c8a6b59e9525ce61b320791113949d16eb95f6b761745"
     parent_artifacts: ["literature-source-matrix", "experiment-notebook"]
+    verification_state: "verified"
+  - type: "writing-brief"
+    path: "academic-research/writing-brief.md"
+    version: "approved-drafting-brief-v1"
+    sha256: "0f289e4ad505dee03e0511de4802ac9b465be812b46564cc00d7bea179e5fb5d"
+    parent_artifacts: ["assignment-requirements", "marking-rubric"]
+    verification_state: "verified"
+  - type: "evidence-mapped-outline"
+    path: "academic-research/evidence-mapped-outline.md"
+    version: "approved-outline-v1"
+    sha256: "86be92ec3a96de2f33dab0ca6930574e051d1b93305d90a6e0e60e2c1936474c"
+    parent_artifacts: ["writing-brief", "claim-evidence-map"]
+    verification_state: "verified"
+  - type: "phrasebank-usage-log"
+    path: "academic-research/phrasebank-usage-log.md"
+    version: "drafting-log-v1"
+    sha256: "7fac71dc0a200a5ee3c5946e189cea0fc481a62c13ba78d4a03031b344600585"
+    parent_artifacts: ["evidence-mapped-outline"]
     verification_state: "verified"
   - type: "reproduction-script"
     path: "academic-research/reproduce_notebook_outputs.py"
@@ -345,13 +366,25 @@ artifacts:
     sha256: "62fa2cf01104055334110ee81e7ce0e9e54fd3e1f9f4b061b24d3d5c31cc81e7"
     parent_artifacts: ["experiment-notebook"]
     verification_state: "verified"
+  - type: "manuscript-manifest"
+    path: "academic-research/manuscript-manifest.yaml"
+    version: "draft-v1"
+    sha256: "ce2d8065fbf5006dfc9adf9745dec531322ae829dcc66bb78cb7419ef5c00388"
+    parent_artifacts: ["evidence-mapped-outline", "claim-evidence-map", "experiment-provenance"]
+    verification_state: "verified"
+  - type: "integrity-audit"
+    path: "academic-research/integrity-audit-draft-v1.md"
+    version: "pre-review-draft-v1"
+    sha256: "7861c32a16524a5dc9371c4c5e1250966b142cf3ebdca1ad9d275f21239fbb8f"
+    parent_artifacts: ["manuscript-manifest"]
+    verification_state: "verified"
 
 review:
   issues: []
 
 integrity:
-  status: "INSUFFICIENT-EVIDENCE"
-  stale: true
+  status: "PASS-WITH-WARNINGS"
+  stale: false
   checks:
     - check: "Input artifact hashes recomputed"
       status: "PASS"
@@ -360,22 +393,34 @@ integrity:
       warning: "Byte hashes differ because Git converted LF to CRLF in the worktree"
     - check: "External literature corpus"
       status: "PASS-WITH-WARNINGS"
-      warning: "Candidate corpus verified but not yet user-approved; OpenAlex and Kaggle kernel access degraded"
+      warning: "Approved corpus verified; OpenAlex and Kaggle kernel access remained degraded"
     - check: "Deterministic notebook reproduction"
       status: "PASS-WITH-WARNINGS"
       warning: "Exact raw summary and eight result tables reproduced; cleanup-only ZMQ and joblib warnings were retained"
     - check: "Corpus approval"
-      status: "INSUFFICIENT-EVIDENCE"
+      status: "PASS"
+    - check: "Modular section set and word budget"
+      status: "PASS"
+    - check: "Citation-reference reconciliation"
+      status: "PASS"
+    - check: "Quantitative and methods consistency"
+      status: "PASS"
+    - check: "Causal-language boundary"
+      status: "PASS"
+    - check: "Ethics, provenance and disclosure"
+      status: "PASS-WITH-WARNINGS"
+      warning: "Dataset provenance is undocumented and final AI-assistance disclosure wording remains a placeholder"
   critical_findings: []
 
 certification:
-  status: "planned"
+  status: "drafted"
   venue_formatting_complete: false
   rendered_output_inspected: false
   administrative_complete: false
 
 next_action:
-  gate: "approve-literature-corpus"
-  responsible_party: "user"
+  gate: "independent-full-manuscript-review"
+  responsible_party: "agent"
   required_inputs:
-    - "Explicit approval of candidate corpus aml-report-corpus-v1"
+    - "Draft-v1 manuscript manifest"
+    - "Assignment rubric and pre-review integrity audit"
