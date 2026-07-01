@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "ultimate-academic-research-suite": {
+      "source": "Tanjim-Noor/ultimate-academic-research-suite",
+      "sourceType": "github",
+      "skillPath": "skills/ultimate-academic-research-suite/SKILL.md",
+      "computedHash": "f17c140b9694f3b99088b85749eabf0e633ce75e04303474a4c916d65cb6fb05"
+    }
+  }
+}
