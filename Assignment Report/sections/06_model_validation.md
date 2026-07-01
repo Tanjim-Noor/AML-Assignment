@@ -11,7 +11,7 @@ deviation was 0.0085, compared with 0.0122 for Random Forest, indicating that
 the winning untuned model was also comparatively stable across the five
 partitions. The tuned search reduced mean CV RMSE slightly further to 0.1441.
 
-**Table 7. Five-fold cross-validation and untouched-test performance**
+**Table 7. Five-fold cross-validation and reserved-test performance**
 
 | Model | CV MAE | CV RMSE | CV $R^2$ | SD of CV $R^2$ | Test MAE | Test RMSE | Test $R^2$ |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -22,21 +22,20 @@ partitions. The tuned search reduced mean CV RMSE slightly further to 0.1441.
 | Linear Regression | 0.1261 | 0.1608 | 0.2657 | 0.0104 | 0.1242 | 0.1583 | 0.2712 |
 | Mean baseline | 0.1459 | 0.1876 | -0.0003 | 0.0004 | 0.1444 | 0.1854 | -0.0003 |
 
-The randomised search reported only the best RMSE in the notebook, so
-unavailable tuned CV MAE, $R^2$ and variability values are shown as em dashes
-rather than inferred.
+*Note.* CV = cross-validation; HGB = Histogram Gradient Boosting; MAE = mean
+absolute error; RMSE = root mean squared error; SD = standard deviation.
+Bold values mark the strongest available result within their comparison.
+Em dashes indicate tuned CV statistics that the notebook did not retain.
 
-The fold standard deviations provide a stability description, not a formal
-significance test between algorithms. The notebook did not retain fold-level
-paired differences or confidence intervals, so statistical superiority is not
-claimed. Selection instead rests on consistent average ranking under identical
-folds, followed by agreement with the untouched-test ranking. This is stronger
-than choosing the lowest displayed test error, while remaining proportionate to
-the available evidence.
+The fold standard deviations describe stability, not formal significance.
+Because the notebook retained neither paired fold differences nor confidence
+intervals, statistical superiority is not claimed. Selection rests on average
+ranking under identical folds and reserved-test confirmation, not the lowest
+test error alone.
 
 ## Test confirmation
 
-The untouched test results retained the development ranking. As Figure 2
+The reserved test results retained the development ranking. As Figure 2
 shows, tuned and untuned HGB had the lowest RMSE, followed by Random Forest,
 the two linear models and the baseline. The tuned HGB achieved MAE 0.1112,
 RMSE 0.1414 and $R^2=0.4185$. Relative to the baseline RMSE of 0.1854, its RMSE
@@ -46,7 +45,7 @@ specific benefit of tuning only weakly. Its test $R^2$ was only 0.0105 above the
 untuned cross-validation mean, which is consistent with ordinary partition
 variation and provides no strong indication of severe overfitting.
 
-![Figure 2. Untouched-test RMSE by model and actual versus predicted GPA change for the selected tuned HGB model. The dashed diagonal represents perfect predictions.](../assets/fig02_model_test_rmse_and_actual_vs_predicted.png)
+![Figure 2. Reserved-test RMSE by model and actual versus predicted GPA change for the selected tuned HGB model. The dashed diagonal represents perfect predictions.](../assets/fig02_model_test_rmse_and_actual_vs_predicted.png)
 
 ## Residual behaviour
 
@@ -69,3 +68,8 @@ The execution was reproduced without editing the canonical notebook. The raw
 analysis summary and eight displayed result tables matched the saved run
 exactly. Cleanup-only ZMQ and joblib warnings were recorded, but they did not
 alter any metric, ranking or figure.
+
+Although CV had already favoured tuned HGB, notebook code sorted the test table
+to choose the model used in diagnostic plots. No refitting followed, but using
+one partition for several confirmatory summaries may be more optimistic than an
+external evaluation.

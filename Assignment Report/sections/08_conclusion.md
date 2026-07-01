@@ -17,7 +17,7 @@ continuous target, while context, AI-only and combined feature groups enabled a
 direct ablation. Identifier and post-outcome fields were removed, and
 preprocessing was fitted within model pipelines. A baseline and four regressors
 were compared using identical five-fold validation. The strongest nonlinear
-family was tuned using development folds, then confirmed on an untouched test
+family was tuned using development folds, then confirmed on a reserved test
 set. Finally, residuals, prediction tolerances and permutation importance were
 interpreted alongside the literature.
 
@@ -39,4 +39,3 @@ be required before making intervention claims. The practical implication is
 therefore cautious: purposeful AI-use variables deserve inclusion in future
 student-success research, but neither usage hours nor feature importance should
 be converted into prescriptive advice without stronger evidence.
-

@@ -19,7 +19,7 @@ five-fold cross-validation; HGB was subsequently tuned within the development
 data. The combined context-and-AI model achieved test $R^2=0.4170$, compared
 with 0.2382 for context only and 0.1703 for AI variables only. Untuned HGB
 produced the strongest model-comparison CV RMSE of 0.1443, while tuning reduced
-the best CV RMSE to 0.1441. On the untouched test set, tuned HGB achieved MAE
+the best CV RMSE to 0.1441. On the reserved test set, tuned HGB achieved MAE
 0.1112, RMSE 0.1414 and $R^2=0.4185$; 84.34% of predictions were within 0.20
 GPA points. Traditional study hours, primary AI use case and weekly GenAI hours
 were the three largest permutation importances. These findings indicate that
@@ -28,4 +28,3 @@ with student context and that nonlinear ensembles represented the recorded
 relationships better than linear models. However, undocumented dataset
 provenance, perfect cleanliness, absent longitudinal design and lack of a
 credible non-user control group prevent causal or population-level conclusions.
-

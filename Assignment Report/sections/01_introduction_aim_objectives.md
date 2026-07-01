@@ -84,7 +84,7 @@ attention to the incremental predictive value of AI-usage variables.
    and Histogram Gradient Boosting using consistent five-fold
    cross-validation.
 5. Tune the strongest nonlinear model using development data only and confirm
-   performance on an untouched 20% test set.
+   performance on a reserved 20% test set.
 6. Interpret residuals, error tolerances and permutation importance against the
    literature, then make recommendations proportionate to the evidence.
 

@@ -8,19 +8,19 @@ pagination and rendered PDF inspection are intentionally deferred.
 
 | Order | File | Words | Status |
 |---:|---|---:|---|
-| 1 | `sections/00_title_and_abstract.md` | 296 | Pre-review audit passed; full review pending |
-| 2 | `sections/01_introduction_aim_objectives.md` | 758 | Pre-review audit passed; full review pending |
-| 3 | `sections/02_related_works.md` | 1,829 | Pre-review audit passed; full review pending |
-| 4 | `sections/03_methods.md` | 697 | Pre-review audit passed; full review pending |
-| 5 | `sections/04_dataset_preparation.md` | 627 | Pre-review audit passed; full review pending |
-| 6 | `sections/05_model_implementation.md` | 926 | Pre-review audit passed; full review pending |
-| 7 | `sections/06_model_validation.md` | 648 | Pre-review audit passed; full review pending |
-| 8 | `sections/07_analysis_and_recommendations.md` | 1,071 | Pre-review audit passed; full review pending |
-| 9 | `sections/08_conclusion.md` | 373 | Pre-review audit passed; full review pending |
-| 10 | `sections/09_references.md` | Excluded | Citation-reference audit passed; full review pending |
-| 11 | `sections/10_acknowledgements.md` | 69 | Drafted with explicit placeholders |
+| 1 | `sections/00_title_and_abstract.md` | 296 | Verified modular draft |
+| 2 | `sections/01_introduction_aim_objectives.md` | 758 | Verified modular draft |
+| 3 | `sections/02_related_works.md` | 1,861 | Verified modular draft |
+| 4 | `sections/03_methods.md` | 726 | Verified modular draft |
+| 5 | `sections/04_dataset_preparation.md` | 627 | Verified modular draft |
+| 6 | `sections/05_model_implementation.md` | 926 | Verified modular draft |
+| 7 | `sections/06_model_validation.md` | 676 | Verified modular draft |
+| 8 | `sections/07_analysis_and_recommendations.md` | 1,071 | Verified modular draft |
+| 9 | `sections/08_conclusion.md` | 373 | Verified modular draft |
+| 10 | `sections/09_references.md` | Excluded | Verified and reconciled |
+| 11 | `sections/10_acknowledgements.md` | 69 | Verified with explicit administrative placeholders |
 
-Total counted words excluding references: **7,294**. Counts use a
+Total counted words excluding references: **7,383**. Counts use a
 Unicode-aware word-token expression and include headings and table text.
 
 ## Canonical metadata and assets

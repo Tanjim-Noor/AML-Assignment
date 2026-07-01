@@ -153,7 +153,19 @@ AML Assignment/
 |       |-- 03_gpa_change_regression.ipynb
 |       |-- 04_gpa_decline_classifier.ipynb
 |       `-- 05_essential_gpa_change_regression.ipynb
+|-- academic-research/
+|   |-- research-passport.yaml
+|   |-- writing-brief.md
+|   |-- rubric-evidence-matrix.md
+|   |-- claim-evidence-map.md
+|   |-- revision-ledger.md
+|   |-- literature/
+|   `-- reviews/
 |-- Assignment Report/
+|   |-- README.md
+|   |-- references.bib
+|   |-- assets/
+|   `-- sections/
 |-- scripts/
 |   |-- install_notebook_git_filter.ps1
 |   `-- strip_assignment_notebooks.ps1
@@ -170,7 +182,8 @@ AML Assignment/
 - `Learning Materials/` contains class labs, helper documents, notebooks, and reference datasets. Use these to guide the staged implementation.
 - `Learning Materials Application on Assigment/` is the exploratory workspace for applying lab concepts to the assignment datasets step by step.
 - `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale. Final student-impact versions should be standalone notebooks under `Final Assignment/notebooks/`, with all EDA, preprocessing, modelling, validation, plots, uncertainty, and interpretation shown inline in notebook cells. Treat `Final Assignment/_archive/` as historical reference, not active implementation.
-- `Assignment Report/` is for the Typst report source, report assets, generated figures/tables, and exported report output.
+- `academic-research/` contains the UARS Research Passport, writing controls, literature-search evidence, reproducibility records, integrity audits and review history for the assignment report.
+- `Assignment Report/` contains the reviewable modular report. Use `README.md` for merge order and status, `references.bib` as canonical citation metadata, `sections/` for the ordered Markdown modules, and `assets/` for reproducibly generated figures. Typst source and exported output may be added here in the later assembly phase.
 - `.agents/skills/typst/` contains the local Typst-related skills for report work: `typst`, `typst-author`, and `touying-author`.
 
 ## Working Notes
@@ -188,7 +201,9 @@ AML Assignment/
 - Drop `Student_ID` from modelling, prevent post-outcome leakage, exclude exam anxiety from the primary early-risk burnout feature set, and never use post-semester GPA to predict derived GPA change or decline.
 - Do not manufacture missing values or corruptions to compensate for the dataset's perfect cleanliness.
 - Do not create a Lab 13 time-series application for the student-impact dataset unless a defensible temporal or repeated-student field is added later.
-- Use `Assignment Report/` for report writing and Typst compilation work.
+- Use `Assignment Report/` for report writing and Typst compilation work. Preserve the Markdown module order and status recorded in `Assignment Report/README.md`.
+- Treat `Assignment Report/references.bib` as canonical bibliographic metadata and keep `sections/09_references.md` reconciled with it for human review.
+- Treat report status as `verified`, not `submission-ready`, until the Markdown modules are assembled in Typst, APU administrative requirements are applied, and the rendered PDF is inspected.
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
 - If the local Git filter config is missing or stale, run `.\scripts\install_notebook_git_filter.ps1` from the workspace root.

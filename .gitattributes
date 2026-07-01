@@ -7,4 +7,9 @@ Final*Assignment/Deep*Learning*Experiments/01_category_embedding_mlp.ipynb -filt
 Final*Assignment/Deep*Learning*Experiments/02_ft_transformer.ipynb -filter diff=ipynb text eol=lf
 Final*Assignment/Deep*Learning*Experiments/03_tabm.ipynb -filter diff=ipynb text eol=lf
 Assignment*Report/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
+Assignment*Report/**/*.md text eol=lf
+Assignment*Report/**/*.bib text eol=lf
+academic-research/**/*.md text eol=lf
+academic-research/**/*.yaml text eol=lf
+academic-research/**/*.py text eol=lf
 *.zpln filter=nbstripout text eol=lf

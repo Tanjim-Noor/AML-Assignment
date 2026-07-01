@@ -186,6 +186,11 @@ the development data and reserves a test partition for confirmation.
 | Yağcı (2022) | Six-model classification comparison; $N=1,854$ | Showed competitive nonlinear models in one course | Accuracy not comparable with regression error |
 | Probst et al. (2019) | Methodological review | Explained ensemble parameter and tuning effects | Not education-specific |
 
+*Note.* AI = artificial intelligence; GenAI = generative artificial
+intelligence; VLE = virtual learning environment. The outcomes and metrics
+summarised in this table are methodologically informative but are not direct
+numerical benchmarks for GPA-change regression.
+
 Table 2 shows a clear gap between the GenAI-outcomes literature and the
 student-prediction literature. The former asks whether or how AI relates to
 learning but often relies on self-report, interventions or broad achievement

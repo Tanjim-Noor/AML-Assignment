@@ -1,8 +1,8 @@
 # Pre-Review Integrity Audit: Draft v1
 
-Date: 2026-07-01  
+Date: 2026-07-01
 Manuscript manifest: `academic-research/manuscript-manifest.yaml`
-(`ce2d8065fbf5006dfc9adf9745dec531322ae829dcc66bb78cb7419ef5c00388`)  
+(`ce2d8065fbf5006dfc9adf9745dec531322ae829dcc66bb78cb7419ef5c00388`)
 Overall result: **PASS-WITH-WARNINGS**
 
 | Check | Result | Evidence and residual warning |

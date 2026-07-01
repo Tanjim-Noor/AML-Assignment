@@ -39,9 +39,10 @@ deliberate leakage control rather than optional feature selection.
 ## Experimental procedure
 
 The analysis was implemented in Python 3.13.11 with pandas 3.0.3, NumPy 2.4.6
-and scikit-learn 1.9.0 (Pedregosa et al., 2011). A fixed random state of 42 was
-used. A single random 80/20 split produced 40,000 development records and an
-untouched test set of 10,000 records. All model selection was performed within
+and scikit-learn 1.9.0 (Pedregosa et al., 2011). Matplotlib 3.10.9 and seaborn
+0.13.2 generated the figures. A fixed random state of 42 was used. A single
+random 80/20 split produced 40,000 development records and a reserved test set
+of 10,000 records. All model selection was performed within
 the development data using shuffled five-fold cross-validation with the same
 folds for every model. This consistent protocol was important because
 student-performance prediction studies often differ in targets, data and
@@ -69,10 +70,11 @@ HGB was selected for optimisation only after it achieved the lowest untuned
 cross-validated RMSE. `RandomizedSearchCV` evaluated ten parameter combinations
 over learning rate, leaf count, minimum leaf size, L2 regularisation and number
 of boosting iterations. Search, scoring and refitting remained inside the
-development data. The untouched test set was then used once as final
-confirmation. Residual summaries, prediction tolerances and permutation
-importance were calculated for the selected model to assess error behaviour and
-predictive contribution.
+development data. Test outputs were treated as confirmatory: the same reserved
+partition supported the prespecified feature-set comparison, candidate-model
+confirmation, residual summaries and permutation importance. It did not alter
+the search space or trigger model refitting, but these multiple reporting uses
+mean that it was not a strict single-look test benchmark.
 
 No ethics approval is claimed for the secondary analysis because the dataset
 was obtained as a public CC0 modelling file and contains only a unique numeric
@@ -89,5 +91,5 @@ ethical provenance.
 | Development-test split | All eligible records | Reserve 20% for final confirmation |
 | Five-fold comparison | Development data only | Select the strongest model family |
 | Randomised tuning | Development folds only | Optimise the selected HGB family |
-| Final evaluation | Untouched test set | Confirm generalisation and inspect errors |
-| Permutation importance | Untouched test set | Describe model-specific predictive contribution |
+| Final evaluation | Reserved test set | Confirm generalisation and inspect errors |
+| Permutation importance | Reserved test set | Describe model-specific predictive contribution |

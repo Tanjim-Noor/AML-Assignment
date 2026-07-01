@@ -13,10 +13,10 @@ project:
 workflow:
   route: "unified-pipeline"
   mode: "pipeline"
-  current_stage: "review"
-  writing_phase: "citation-audit"
-  checkpoint: "independent-full-review"
-  revision_round: 0
+  current_stage: "certification"
+  writing_phase: null
+  checkpoint: "verified-modular-draft"
+  revision_round: 1
   delegation: "disabled; inline workflow only"
 
 research:
@@ -160,18 +160,22 @@ evidence:
     - claim_id: "CLAIM-RQ"
       claim: "The report evaluates whether AI-usage variables add predictive information beyond student context."
       source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      verification_state: "verified"
       destination: "Introduction, Methods, Analysis, Conclusion"
     - claim_id: "CLAIM-DATA"
       claim: "The dataset contains 50000 rows and 16 original columns with no missing cells or duplicate rows."
       source_ids: ["DATA-STUDENT-AI", "NOTEBOOK-05"]
+      verification_state: "verified"
       destination: "Methods and Dataset Preparation"
     - claim_id: "CLAIM-BEST-MODEL"
       claim: "The tuned histogram gradient boosting model achieved test MAE 0.1112, RMSE 0.1414, and R-squared 0.4185."
       source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      verification_state: "verified"
       destination: "Abstract, Model Validation, Analysis, Conclusion"
     - claim_id: "CLAIM-AI-INCREMENT"
       claim: "The combined feature model achieved test R-squared 0.4170 compared with 0.2382 for context-only and 0.1703 for AI-only features."
       source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      verification_state: "verified"
       destination: "Abstract, Model Validation, Analysis, Conclusion"
 
 experiments:
@@ -248,6 +252,9 @@ decisions:
   - decision: "Approved literature corpus aml-report-corpus-v1 and authorised complete implementation of the report plan."
     actor: "user"
     timestamp: "2026-07-01T15:02:00Z"
+  - decision: "Closed revision after one substantive round because re-review found all R1-R6 issues resolved and no P0 or P1 issue remained."
+    actor: "agent"
+    timestamp: "2026-07-01T15:52:00Z"
 
 artifacts:
   - type: "assignment-requirements"
@@ -368,19 +375,109 @@ artifacts:
     verification_state: "verified"
   - type: "manuscript-manifest"
     path: "academic-research/manuscript-manifest.yaml"
-    version: "draft-v1"
-    sha256: "ce2d8065fbf5006dfc9adf9745dec531322ae829dcc66bb78cb7419ef5c00388"
+    version: "draft-v2-verified"
+    sha256: "945ab6d503d66e1d48b55ad1bb3d7763b28f5706635467f407559bcde861dad8"
     parent_artifacts: ["evidence-mapped-outline", "claim-evidence-map", "experiment-provenance"]
     verification_state: "verified"
   - type: "integrity-audit"
     path: "academic-research/integrity-audit-draft-v1.md"
     version: "pre-review-draft-v1"
-    sha256: "7861c32a16524a5dc9371c4c5e1250966b142cf3ebdca1ad9d275f21239fbb8f"
+    sha256: "34ebb15864dfbc2c1d23821c1c1a67116ab62f12d72d42fe6b390c6b994615da"
+    parent_artifacts: ["manuscript-manifest-draft-v1"]
+    verification_state: "verified"
+  - type: "review-report"
+    path: "academic-research/reviews/round-1-methodology-review.md"
+    version: "round-1"
+    sha256: "4600bb0a507cd73ffbe462fbabd4e88d4cc98621a5979575ebd49ceee7af901b"
+    parent_artifacts: ["manuscript-manifest-draft-v1"]
+    verification_state: "verified"
+  - type: "review-report"
+    path: "academic-research/reviews/round-1-domain-rubric-review.md"
+    version: "round-1"
+    sha256: "008522c962bc9bf0ef6d9327c0c4edcc38051b131f78eb4190e3175d9fc9c195"
+    parent_artifacts: ["manuscript-manifest-draft-v1"]
+    verification_state: "verified"
+  - type: "review-report"
+    path: "academic-research/reviews/round-1-devils-advocate-review.md"
+    version: "round-1"
+    sha256: "4f783245c2863391df93bfca27a9be388a45d01b5db2cb9bba2ecca499363e07"
+    parent_artifacts: ["manuscript-manifest-draft-v1"]
+    verification_state: "verified"
+  - type: "editorial-synthesis"
+    path: "academic-research/reviews/round-1-editorial-synthesis.md"
+    version: "round-1"
+    sha256: "cb594a3de9014a1605069b64cee5c7d3ad8c795537b956a0f24f00624254cb60"
+    parent_artifacts: ["review-report"]
+    verification_state: "verified"
+  - type: "revision-ledger"
+    path: "academic-research/revision-ledger.md"
+    version: "round-1-resolved"
+    sha256: "65087b695a41d784a40ab91786ea92124b32feb803059dbadd45ba485353134c"
+    parent_artifacts: ["editorial-synthesis"]
+    verification_state: "verified"
+  - type: "re-review-report"
+    path: "academic-research/reviews/round-1-rereview.md"
+    version: "round-1"
+    sha256: "79377dd6259463362a72031ff8fecedb44d59df2572dfccc4577ba95b4219afb"
+    parent_artifacts: ["manuscript-manifest", "revision-ledger"]
+    verification_state: "verified"
+  - type: "final-integrity-audit"
+    path: "academic-research/final-integrity-audit.md"
+    version: "verified-draft-v2"
+    sha256: "06a4b0aa23af57af6941005efa20eec0dd0375982dff7df3870f0ecc01206afb"
+    parent_artifacts: ["manuscript-manifest", "re-review-report"]
+    verification_state: "verified"
+  - type: "workspace-guidance"
+    path: "AGENTS.md"
+    version: "report-structure-2026-07-01"
+    sha256: "e120573633004617e90f1c13b00be2fa4a779640b6c679b80ce573007b4ef3e8"
     parent_artifacts: ["manuscript-manifest"]
     verification_state: "verified"
 
 review:
-  issues: []
+  issues:
+    - id: "R1"
+      priority: "P1"
+      comment: "Test-set wording overstates single-use isolation and must clarify the CV-led selection chronology."
+      commitment: "Revise Methods and Validation to describe reserved repeated reporting, CV-led selection and the test-ranked diagnostic helper."
+      response: "Replaced single-use language and documented every reserved-test use, the CV chronology, the diagnostic helper and the external-evaluation limitation."
+      revision_location: "Assignment Report/sections/03_methods.md; Assignment Report/sections/06_model_validation.md"
+      resolution_state: "resolved"
+    - id: "R2"
+      priority: "P2"
+      comment: "Methods should name plotting package versions."
+      commitment: "Add Matplotlib 3.10.9 and seaborn 0.13.2."
+      response: "Added Matplotlib 3.10.9 and seaborn 0.13.2."
+      revision_location: "Assignment Report/sections/03_methods.md"
+      resolution_state: "resolved"
+    - id: "R3"
+      priority: "P2"
+      comment: "Validation table requires a standalone note."
+      commitment: "Define abbreviations, bolding and unavailable values beneath Table 7."
+      response: "Added a note defining abbreviations, bolding and unavailable values."
+      revision_location: "Assignment Report/sections/06_model_validation.md"
+      resolution_state: "resolved"
+    - id: "R4"
+      priority: "P2"
+      comment: "Related-work comparison table requires a boundary note."
+      commitment: "Define abbreviations and explain metric non-comparability beneath Table 2."
+      response: "Added a note defining AI, GenAI and VLE and the comparison boundary."
+      revision_location: "Assignment Report/sections/02_related_works.md"
+      resolution_state: "resolved"
+    - id: "R5"
+      priority: "P2"
+      comment: "Evidence and disclosure warnings must remain visible."
+      commitment: "Recheck and preserve provenance, perfect-cleanliness, causal, review-label and disclosure warnings."
+      response: "Re-review confirmed that all evidence and disclosure warnings remain explicit."
+      revision_location: "Cross-manuscript"
+      resolution_state: "resolved"
+    - id: "R6"
+      priority: "P3"
+      comment: "Markdown whitespace warnings should be removed."
+      commitment: "Remove trailing spaces and excess final blank lines."
+      response: "Removed trailing whitespace and excess final blank lines; deterministic checks pass."
+      revision_location: "Assignment Report/sections; academic-research/integrity-audit-draft-v1.md"
+      resolution_state: "resolved"
 
 integrity:
   status: "PASS-WITH-WARNINGS"
@@ -410,17 +507,24 @@ integrity:
     - check: "Ethics, provenance and disclosure"
       status: "PASS-WITH-WARNINGS"
       warning: "Dataset provenance is undocumented and final AI-assistance disclosure wording remains a placeholder"
+    - check: "Round-1 re-review"
+      status: "PASS"
+    - check: "Current manuscript manifest hashes"
+      status: "PASS"
+    - check: "Final integrity audit"
+      status: "PASS-WITH-WARNINGS"
+      warning: "Typst assembly, administrative completion and rendered-output inspection remain outside this phase"
   critical_findings: []
 
 certification:
-  status: "drafted"
+  status: "verified"
   venue_formatting_complete: false
   rendered_output_inspected: false
   administrative_complete: false
 
 next_action:
-  gate: "independent-full-manuscript-review"
-  responsible_party: "agent"
+  gate: "later-typst-assembly-and-submission-finalisation"
+  responsible_party: "user"
   required_inputs:
-    - "Draft-v1 manuscript manifest"
-    - "Assignment rubric and pre-review integrity audit"
+    - "Confirmed assistance names and AI-disclosure wording"
+    - "APU Typst template and administrative cover requirements"
