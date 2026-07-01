@@ -15,7 +15,7 @@ workflow:
   mode: "pipeline"
   current_stage: "research"
   writing_phase: null
-  checkpoint: "experiment-reproducibility"
+  checkpoint: "corpus-approval"
   revision_round: 0
   delegation: "disabled; inline workflow only"
 
@@ -180,7 +180,7 @@ experiments:
   approval_scope: "Deterministic rerun of notebook 05 solely to verify saved metrics and export four report figures; no model or data changes"
   records:
     - id: "RERUN-NOTEBOOK-05"
-      status: "approved"
+      status: "completed"
       provenance:
         operation: "Execute the unchanged notebook in memory and extract plot outputs"
         notebook: "Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb"
@@ -206,6 +206,22 @@ experiments:
           - "Assignment Report/assets/fig02_model_test_rmse_and_actual_vs_predicted.png"
           - "Assignment Report/assets/fig03_residual_diagnostics.png"
           - "Assignment Report/assets/fig04_permutation_importance.png"
+        executed_at: "2026-07-01T14:54:59Z"
+        duration_seconds: 70.9278
+        verdict: "REPRODUCIBLE"
+        exact_raw_summary_match: true
+        exact_displayed_table_matches: 8
+        warnings:
+          - "Windows ZMQ event-loop shutdown warning"
+          - "joblib resource-tracker cleanup KeyErrors for temporary memmapping folders"
+        warning_impact: "Cleanup-only; notebook execution, raw values, displayed tables and figure exports were unaffected"
+        reproduced_results:
+          final_mae: 0.11119387315239335
+          final_rmse: 0.14136665572557847
+          final_r_squared: 0.41846967761479426
+          context_only_r_squared: 0.23817440562079406
+          ai_only_r_squared: 0.1702941288306299
+          combined_r_squared: 0.4169779887758607
 
 decisions:
   - decision: "Approved the distinction-level modular report plan, including the research question, notebook-only model scope, open-database strategy, word budget, deterministic rerun, and full-draft-first review cadence."
@@ -226,6 +242,9 @@ decisions:
   - decision: "Record OpenAlex, Semantic Scholar Graph API and Kaggle kernel-list degradation rather than interpreting unavailable searches as negative evidence."
     actor: "agent"
     timestamp: "2026-07-01T14:50:49Z"
+  - decision: "Accept the deterministic notebook rerun as reproducible with cleanup warnings because the raw summary and all eight checked result tables matched exactly."
+    actor: "agent"
+    timestamp: "2026-07-01T14:54:59Z"
 
 artifacts:
   - type: "assignment-requirements"
@@ -290,6 +309,42 @@ artifacts:
     sha256: "a079d1f36288c84fbde86c3ef10c8018d4e98ac7ce0af523832d892fe8176d75"
     parent_artifacts: ["literature-source-matrix", "experiment-notebook"]
     verification_state: "verified"
+  - type: "reproduction-script"
+    path: "academic-research/reproduce_notebook_outputs.py"
+    version: "notebook-05-reproduction-v1"
+    sha256: "b7b0466624b82845051177cc6028c5dbd34b25af278d248325736cd01f8cedbd"
+    parent_artifacts: ["experiment-notebook", "dataset"]
+    verification_state: "verified"
+  - type: "experiment-provenance"
+    path: "academic-research/experiment-provenance.md"
+    version: "notebook-05-reproduction-v1"
+    sha256: "9cb965593b31f8d20607f1d3551606775b9183daebbc20358ca6214a1d5e232e"
+    parent_artifacts: ["reproduction-script", "experiment-notebook", "dataset"]
+    verification_state: "verified"
+  - type: "report-figure"
+    path: "Assignment Report/assets/fig01_gpa_change_eda.png"
+    version: "notebook-05-reproduction-v1"
+    sha256: "8bb6333f4092da176589c63c28e6712ee7c990dea5ba6d73fe76782fba84d356"
+    parent_artifacts: ["experiment-notebook"]
+    verification_state: "verified"
+  - type: "report-figure"
+    path: "Assignment Report/assets/fig02_model_test_rmse_and_actual_vs_predicted.png"
+    version: "notebook-05-reproduction-v1"
+    sha256: "4f78a96e573127ad48c3d3221b58e616c3876121ec0e6c50794b42b0fffd505a"
+    parent_artifacts: ["experiment-notebook"]
+    verification_state: "verified"
+  - type: "report-figure"
+    path: "Assignment Report/assets/fig03_residual_diagnostics.png"
+    version: "notebook-05-reproduction-v1"
+    sha256: "a2bc5f073268878d4f3470067483b33d4f6bda9f11ea86a036c02f3f455c3ca4"
+    parent_artifacts: ["experiment-notebook"]
+    verification_state: "verified"
+  - type: "report-figure"
+    path: "Assignment Report/assets/fig04_permutation_importance.png"
+    version: "notebook-05-reproduction-v1"
+    sha256: "62fa2cf01104055334110ee81e7ce0e9e54fd3e1f9f4b061b24d3d5c31cc81e7"
+    parent_artifacts: ["experiment-notebook"]
+    verification_state: "verified"
 
 review:
   issues: []
@@ -307,7 +362,8 @@ integrity:
       status: "PASS-WITH-WARNINGS"
       warning: "Candidate corpus verified but not yet user-approved; OpenAlex and Kaggle kernel access degraded"
     - check: "Deterministic notebook reproduction"
-      status: "INSUFFICIENT-EVIDENCE"
+      status: "PASS-WITH-WARNINGS"
+      warning: "Exact raw summary and eight result tables reproduced; cleanup-only ZMQ and joblib warnings were retained"
     - check: "Corpus approval"
       status: "INSUFFICIENT-EVIDENCE"
   critical_findings: []
@@ -319,8 +375,7 @@ certification:
   administrative_complete: false
 
 next_action:
-  gate: "run-approved-notebook-reproduction"
-  responsible_party: "agent"
+  gate: "approve-literature-corpus"
+  responsible_party: "user"
   required_inputs:
-    - "Canonical dataset with SHA-256 4d911088c4b12d60a450a9acae6b606f4119ebbb48679518e427a4fc00778472"
-    - "Notebook 05 with SHA-256 e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c"
+    - "Explicit approval of candidate corpus aml-report-corpus-v1"
