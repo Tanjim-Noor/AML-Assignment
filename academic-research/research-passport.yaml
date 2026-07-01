@@ -15,7 +15,7 @@ workflow:
   mode: "pipeline"
   current_stage: "research"
   writing_phase: null
-  checkpoint: "literature-corpus-build"
+  checkpoint: "experiment-reproducibility"
   revision_round: 0
   delegation: "disabled; inline workflow only"
 
@@ -35,7 +35,7 @@ research:
     evaluation: "80/20 development-test split with shuffled five-fold cross-validation inside development data"
     evidence_boundary: "Predictive associations within a provenance-opaque dataset; no causal or population-level inference"
   search_protocol:
-    status: "approved-plan-awaiting-execution"
+    status: "executed-with-documented-degradation"
     databases:
       - "OpenAlex"
       - "Semantic Scholar"
@@ -47,7 +47,12 @@ research:
       - "machine learning prediction of GPA or academic achievement"
       - "exact Kaggle dataset title, filename and creator"
     corpus_approval_required: true
-  corpus_version: null
+    included_core_sources: 15
+    degradation:
+      - "OpenAlex anonymous API search unavailable because of rate limiting/API-key requirement"
+      - "Semantic Scholar Graph API returned HTTP 429; public result pages used for discovery"
+      - "Kaggle kernel listing returned HTTP 401"
+  corpus_version: "candidate-aml-report-corpus-v1"
 
 evidence:
   sources:
@@ -76,6 +81,81 @@ evidence:
       verification_state: "verified"
       human_read: true
       role: "Author interpretation checked against notebook outputs"
+    - id: "S01-ZAWACKI-RICHTER-2019"
+      citation_locator: "https://doi.org/10.1186/s41239-019-0171-0"
+      verification_state: "verified"
+      human_read: true
+      role: "Foundational higher-education AI systematic review"
+    - id: "S02-CROMPTON-BURKE-2023"
+      citation_locator: "https://doi.org/10.1186/s41239-023-00392-8"
+      verification_state: "verified"
+      human_read: true
+      role: "Current higher-education AI systematic review"
+    - id: "S03-LO-2023"
+      citation_locator: "https://doi.org/10.3390/educsci13040410"
+      verification_state: "verified"
+      human_read: true
+      role: "Early ChatGPT education rapid review"
+    - id: "S04-KASNECI-2023"
+      citation_locator: "https://doi.org/10.1016/j.lindif.2023.102274"
+      verification_state: "verified"
+      human_read: true
+      role: "Multidisciplinary opportunities and risks"
+    - id: "S05-ABBAS-2024"
+      citation_locator: "https://doi.org/10.1186/s41239-024-00444-7"
+      verification_state: "verified"
+      human_read: true
+      role: "University-student ChatGPT usage and academic outcomes"
+    - id: "S06-SUN-ZHOU-2024"
+      citation_locator: "https://doi.org/10.1177/07356331241277937"
+      verification_state: "verified"
+      human_read: true
+      role: "GenAI academic-achievement meta-analysis"
+    - id: "S07-MOLEROV-2026"
+      citation_locator: "https://doi.org/10.1007/s42010-026-00242-2"
+      verification_state: "verified"
+      human_read: true
+      role: "Recent AI-chatbot use and learning-outcome study"
+    - id: "S08-NG-2021"
+      citation_locator: "https://doi.org/10.1016/j.caeai.2021.100041"
+      verification_state: "verified"
+      human_read: true
+      role: "AI-literacy framework"
+    - id: "S09-LAUPICHLER-2022"
+      citation_locator: "https://doi.org/10.1016/j.caeai.2022.100101"
+      verification_state: "verified"
+      human_read: true
+      role: "Higher/adult AI-literacy scoping review"
+    - id: "S10-LEE-PALMER-2025"
+      citation_locator: "https://doi.org/10.1186/s41239-025-00503-7"
+      verification_state: "verified"
+      human_read: true
+      role: "Prompt-engineering systematic review"
+    - id: "S11-ALYAHYAN-DUSTEGOR-2020"
+      citation_locator: "https://doi.org/10.1186/s41239-020-0177-7"
+      verification_state: "verified"
+      human_read: true
+      role: "Academic-success prediction best practices"
+    - id: "S12-HELLAS-2018"
+      citation_locator: "https://doi.org/10.1145/3293881.3295783"
+      verification_state: "verified"
+      human_read: true
+      role: "Academic-performance prediction systematic review"
+    - id: "S13-WAHEED-2020"
+      citation_locator: "https://doi.org/10.1016/j.chb.2019.106189"
+      verification_state: "verified"
+      human_read: true
+      role: "VLE academic-performance prediction experiment"
+    - id: "S14-YAGCI-2022"
+      citation_locator: "https://doi.org/10.1186/s40561-022-00192-z"
+      verification_state: "verified"
+      human_read: true
+      role: "Educational-data-mining model comparison"
+    - id: "S15-PROBST-2019"
+      citation_locator: "https://doi.org/10.1002/widm.1301"
+      verification_state: "verified"
+      human_read: true
+      role: "Random-forest tuning methodology"
   claim_mappings:
     - claim_id: "CLAIM-RQ"
       claim: "The report evaluates whether AI-usage variables add predictive information beyond student context."
@@ -140,6 +220,12 @@ decisions:
   - decision: "Treat the current cross-sectional dataset as predictive evidence only and prohibit causal or population-level claims."
     actor: "agent"
     timestamp: "2026-07-01T14:36:51Z"
+  - decision: "Admit 15 DOI-verified sources to candidate corpus aml-report-corpus-v1 while preserving positive, negative and null or qualified findings."
+    actor: "agent"
+    timestamp: "2026-07-01T14:50:49Z"
+  - decision: "Record OpenAlex, Semantic Scholar Graph API and Kaggle kernel-list degradation rather than interpreting unavailable searches as negative evidence."
+    actor: "agent"
+    timestamp: "2026-07-01T14:50:49Z"
 
 artifacts:
   - type: "assignment-requirements"
@@ -174,6 +260,36 @@ artifacts:
     sha256: "f19b0e5285aeb88a284b52f2c84f1614f1add814d2bf99a18531299ba827cf55"
     parent_artifacts: ["experiment-notebook"]
     verification_state: "verified"
+  - type: "literature-search-protocol"
+    path: "academic-research/literature/search-protocol.md"
+    version: "candidate-corpus-v1"
+    sha256: "ea9aa8b11cf685b8717b144bf2c992cc4942884c635d947238be4b6228533f88"
+    parent_artifacts: []
+    verification_state: "verified"
+  - type: "literature-search-log"
+    path: "academic-research/literature/search-log.md"
+    version: "candidate-corpus-v1"
+    sha256: "2bd68b07733776afea6fe08c34ec61d2c3ea3ea4eb3a7bfe4d367c78b91a4254"
+    parent_artifacts: ["literature-search-protocol"]
+    verification_state: "verified"
+  - type: "literature-source-matrix"
+    path: "academic-research/literature/source-matrix.md"
+    version: "candidate-corpus-v1"
+    sha256: "fb9d9541495c6c98ec3a2e3fbf5575894b6033982d170c63fa3822dc8aad94a9"
+    parent_artifacts: ["literature-search-log"]
+    verification_state: "verified"
+  - type: "corpus-approval-package"
+    path: "academic-research/literature/corpus-approval.md"
+    version: "candidate-corpus-v1"
+    sha256: "1cd2b4335dcd80d82bd723704272eee5eed85cc7cd325de2b64f8a469cda0f69"
+    parent_artifacts: ["literature-source-matrix"]
+    verification_state: "verified"
+  - type: "claim-evidence-map"
+    path: "academic-research/claim-evidence-map.md"
+    version: "candidate-corpus-v1"
+    sha256: "a079d1f36288c84fbde86c3ef10c8018d4e98ac7ce0af523832d892fe8176d75"
+    parent_artifacts: ["literature-source-matrix", "experiment-notebook"]
+    verification_state: "verified"
 
 review:
   issues: []
@@ -188,6 +304,11 @@ integrity:
       status: "PASS"
       warning: "Byte hashes differ because Git converted LF to CRLF in the worktree"
     - check: "External literature corpus"
+      status: "PASS-WITH-WARNINGS"
+      warning: "Candidate corpus verified but not yet user-approved; OpenAlex and Kaggle kernel access degraded"
+    - check: "Deterministic notebook reproduction"
+      status: "INSUFFICIENT-EVIDENCE"
+    - check: "Corpus approval"
       status: "INSUFFICIENT-EVIDENCE"
   critical_findings: []
 
@@ -198,6 +319,8 @@ certification:
   administrative_complete: false
 
 next_action:
-  gate: "build-literature-corpus"
+  gate: "run-approved-notebook-reproduction"
   responsible_party: "agent"
-  required_inputs: []
+  required_inputs:
+    - "Canonical dataset with SHA-256 4d911088c4b12d60a450a9acae6b606f4119ebbb48679518e427a4fc00778472"
+    - "Notebook 05 with SHA-256 e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c"
