@@ -1,0 +1,9 @@
+# Claim–Evidence Map
+
+| Claim ID | Planned claim | Evidence | Evidence state | Reasoning and qualification | Counterevidence or limitation | Destination |
+|---|---|---|---|---|---|---|
+| C01 | AI-use variables add predictive information beyond context in the supplied dataset. | Notebook 05 feature-set comparison | Verified saved output; rerun pending | Combined test R² is higher than context-only under the same HGB procedure. | Prediction is not causation; test set is confirmatory. | Abstract, Analysis, Conclusion |
+| C02 | Tuned HGB is the preferred final model. | Notebook 05 CV, tuning and test results | Verified saved output; rerun pending | HGB leads untuned CV RMSE and tuning selects its final configuration before test confirmation. | Tuning gain is small; avoid test-guided selection language. | Model Implementation, Validation, Analysis |
+| C03 | Nonlinear models outperform linear models for this task. | Notebook 05 model comparison | Verified saved output; rerun pending | HGB and RF have lower CV/test error than Linear and Ridge under the same preprocessing and folds. | Does not establish a universal advantage outside this dataset. | Validation, Analysis |
+| C04 | Traditional study hours and several AI-use variables are useful predictors. | Notebook 05 permutation importance | Verified saved output; rerun pending | Shuffling these variables causes the largest RMSE deterioration. | Importance is model- and dataset-specific and not causal. | Analysis |
+| C05 | The external literature provides mixed and context-dependent evidence about generative AI and academic outcomes. | Approved literature corpus | Pending | Requires thematic synthesis of empirical studies. | Publication, self-report and design limitations must be preserved. | Introduction, Related Works, Analysis |

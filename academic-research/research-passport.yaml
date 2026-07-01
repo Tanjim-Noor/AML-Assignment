@@ -1,0 +1,203 @@
+schema_version: "1.0"
+
+project:
+  deliverable: "Modular Applied Machine Learning assignment report"
+  language: "British English"
+  audience: "APU CT046-3-M-AML lecturer and assignment marker"
+  venue: "Asia Pacific University CT046-3-M-AML Individual Assignment"
+  citation_style: "APA 7"
+  output_format: "Separate Markdown section files for later Typst assembly"
+  target_word_count: "7000-8000 words excluding references and appendices"
+  deadline: "2026-07-24"
+
+workflow:
+  route: "unified-pipeline"
+  mode: "pipeline"
+  current_stage: "research"
+  writing_phase: null
+  checkpoint: "literature-corpus-build"
+  revision_round: 0
+  delegation: "disabled; inline workflow only"
+
+research:
+  approved_question: "To what extent do AI-usage variables improve out-of-sample prediction of semester GPA change beyond previous GPA and general study context, and which regression model provides the strongest validated performance?"
+  scope:
+    discipline: "Applied machine learning and generative AI in higher education"
+    population: "Higher-education students represented by the supplied Kaggle modelling dataset"
+    outcome: "Semester GPA change"
+    objective_type: "Predictive and comparative, not causal"
+    publication_years: "2016-2026, with emphasis on 2022-2026 for generative AI"
+    language: "English"
+    target_core_sources: "12-15"
+  design:
+    type: "Cross-sectional predictive modelling study"
+    target: "GPA_Change = Post_Semester_GPA - Pre_Semester_GPA"
+    evaluation: "80/20 development-test split with shuffled five-fold cross-validation inside development data"
+    evidence_boundary: "Predictive associations within a provenance-opaque dataset; no causal or population-level inference"
+  search_protocol:
+    status: "approved-plan-awaiting-execution"
+    databases:
+      - "OpenAlex"
+      - "Semantic Scholar"
+      - "ERIC"
+      - "Crossref"
+    query_families:
+      - "generative AI or ChatGPT and university academic performance"
+      - "AI-use behaviour, prompt skill or digital literacy and student outcomes"
+      - "machine learning prediction of GPA or academic achievement"
+      - "exact Kaggle dataset title, filename and creator"
+    corpus_approval_required: true
+  corpus_version: null
+
+evidence:
+  sources:
+    - id: "REQ-QUESTION"
+      citation_locator: "Assignment Requirements/CT046-3-M-AML_Assignment Question.md"
+      verification_state: "verified"
+      human_read: true
+      role: "Assignment requirements"
+    - id: "REQ-MARKING"
+      citation_locator: "Assignment Requirements/CT046-3-M-AML_Assignment Marking Scheme and Minimum Document Requirements.md"
+      verification_state: "verified"
+      human_read: true
+      role: "Distinction rubric"
+    - id: "DATA-STUDENT-AI"
+      citation_locator: "Datasets/Impact of AI on Students/ai_student_impact_dataset.csv"
+      verification_state: "verified"
+      human_read: false
+      role: "Primary modelling data"
+    - id: "NOTEBOOK-05"
+      citation_locator: "Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb"
+      verification_state: "verified"
+      human_read: true
+      role: "Primary experiment evidence"
+    - id: "EXPLANATION-05"
+      citation_locator: "Final Assignment/explanation.md"
+      verification_state: "verified"
+      human_read: true
+      role: "Author interpretation checked against notebook outputs"
+  claim_mappings:
+    - claim_id: "CLAIM-RQ"
+      claim: "The report evaluates whether AI-usage variables add predictive information beyond student context."
+      source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      destination: "Introduction, Methods, Analysis, Conclusion"
+    - claim_id: "CLAIM-DATA"
+      claim: "The dataset contains 50000 rows and 16 original columns with no missing cells or duplicate rows."
+      source_ids: ["DATA-STUDENT-AI", "NOTEBOOK-05"]
+      destination: "Methods and Dataset Preparation"
+    - claim_id: "CLAIM-BEST-MODEL"
+      claim: "The tuned histogram gradient boosting model achieved test MAE 0.1112, RMSE 0.1414, and R-squared 0.4185."
+      source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      destination: "Abstract, Model Validation, Analysis, Conclusion"
+    - claim_id: "CLAIM-AI-INCREMENT"
+      claim: "The combined feature model achieved test R-squared 0.4170 compared with 0.2382 for context-only and 0.1703 for AI-only features."
+      source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      destination: "Abstract, Model Validation, Analysis, Conclusion"
+
+experiments:
+  intake_declared: true
+  execution_approved: true
+  approval_scope: "Deterministic rerun of notebook 05 solely to verify saved metrics and export four report figures; no model or data changes"
+  records:
+    - id: "RERUN-NOTEBOOK-05"
+      status: "approved"
+      provenance:
+        operation: "Execute the unchanged notebook in memory and extract plot outputs"
+        notebook: "Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb"
+        canonical_dataset: "D:/APU Study/1st Semester/Applied Machine Learning/AML Assignment/Datasets/Impact of AI on Students/ai_student_impact_dataset.csv"
+        random_state: 42
+        test_size: 0.20
+        cross_validation_folds: 5
+        determinism: "deterministic; exact raw metric reproduction required"
+        environment:
+          operating_system: "Windows 10 10.0.19044"
+          python: "3.13.11"
+          pandas: "3.0.3"
+          numpy: "2.4.6"
+          scikit_learn: "1.9.0"
+          matplotlib: "3.10.9"
+          seaborn: "0.13.2"
+          nbclient: "0.11.0"
+          nbformat: "5.10.4"
+        expected_duration: "10-30 minutes on local CPU"
+        external_cost: "none"
+        expected_outputs:
+          - "Assignment Report/assets/fig01_gpa_change_eda.png"
+          - "Assignment Report/assets/fig02_model_test_rmse_and_actual_vs_predicted.png"
+          - "Assignment Report/assets/fig03_residual_diagnostics.png"
+          - "Assignment Report/assets/fig04_permutation_importance.png"
+
+decisions:
+  - decision: "Approved the distinction-level modular report plan, including the research question, notebook-only model scope, open-database strategy, word budget, deterministic rerun, and full-draft-first review cadence."
+    actor: "user"
+    timestamp: "2026-07-01T14:36:51Z"
+  - decision: "Approved creation of an isolated worktree on branch codex/aml-report."
+    actor: "user"
+    timestamp: "2026-07-01T14:36:51Z"
+  - decision: "Use notebook 05 as the sole reported implementation; exclude the deep-learning experiments except as possible future work."
+    actor: "user"
+    timestamp: "2026-07-01T14:36:51Z"
+  - decision: "Treat the current cross-sectional dataset as predictive evidence only and prohibit causal or population-level claims."
+    actor: "agent"
+    timestamp: "2026-07-01T14:36:51Z"
+
+artifacts:
+  - type: "assignment-requirements"
+    path: "Assignment Requirements/CT046-3-M-AML_Assignment Question.md"
+    version: "worktree-2026-07-01"
+    sha256: "2cd9c719d81e1216d478f3a3ca7738a18dfbeec3e4118e1471932154ad4b6f8d"
+    parent_artifacts: []
+    verification_state: "verified"
+  - type: "marking-rubric"
+    path: "Assignment Requirements/CT046-3-M-AML_Assignment Marking Scheme and Minimum Document Requirements.md"
+    version: "worktree-2026-07-01"
+    sha256: "39ee4fde0484ce6627889f5d530295118930fc8881e4f11cb781748d0a5845d6"
+    parent_artifacts: []
+    verification_state: "verified"
+  - type: "dataset"
+    path: "D:/APU Study/1st Semester/Applied Machine Learning/AML Assignment/Datasets/Impact of AI on Students/ai_student_impact_dataset.csv"
+    version: "canonical-2026-06-27"
+    sha256: "4d911088c4b12d60a450a9acae6b606f4119ebbb48679518e427a4fc00778472"
+    parent_artifacts: []
+    verification_state: "verified"
+    worktree_checkout_sha256: "44ea8044236f16dc5b6ad3fb36a7de5106c68457bd621bfdea0aa3eeeec1feae"
+    checkout_difference: "LF versus CRLF only; pandas frames and row hashes are identical"
+  - type: "experiment-notebook"
+    path: "Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb"
+    version: "selected-final"
+    sha256: "e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c"
+    parent_artifacts: ["dataset"]
+    verification_state: "verified"
+  - type: "author-explanation"
+    path: "Final Assignment/explanation.md"
+    version: "worktree-2026-07-01"
+    sha256: "f19b0e5285aeb88a284b52f2c84f1614f1add814d2bf99a18531299ba827cf55"
+    parent_artifacts: ["experiment-notebook"]
+    verification_state: "verified"
+
+review:
+  issues: []
+
+integrity:
+  status: "INSUFFICIENT-EVIDENCE"
+  stale: true
+  checks:
+    - check: "Input artifact hashes recomputed"
+      status: "PASS"
+    - check: "Canonical and worktree dataset semantic equality"
+      status: "PASS"
+      warning: "Byte hashes differ because Git converted LF to CRLF in the worktree"
+    - check: "External literature corpus"
+      status: "INSUFFICIENT-EVIDENCE"
+  critical_findings: []
+
+certification:
+  status: "planned"
+  venue_formatting_complete: false
+  rendered_output_inspected: false
+  administrative_complete: false
+
+next_action:
+  gate: "build-literature-corpus"
+  responsible_party: "agent"
+  required_inputs: []
