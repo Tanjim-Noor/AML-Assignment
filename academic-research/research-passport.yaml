@@ -255,18 +255,21 @@ decisions:
   - decision: "Closed revision after one substantive round because re-review found all R1-R6 issues resolved and no P0 or P1 issue remained."
     actor: "agent"
     timestamp: "2026-07-01T15:52:00Z"
+  - decision: "Normalised hash-locked Markdown inputs to repository-stable LF line endings after the master merge exposed checkout-dependent CRLF hashes; text content was unchanged."
+    actor: "agent"
+    timestamp: "2026-07-02T00:10:00Z"
 
 artifacts:
   - type: "assignment-requirements"
     path: "Assignment Requirements/CT046-3-M-AML_Assignment Question.md"
-    version: "worktree-2026-07-01"
-    sha256: "2cd9c719d81e1216d478f3a3ca7738a18dfbeec3e4118e1471932154ad4b6f8d"
+    version: "canonical-lf-2026-07-02"
+    sha256: "5affc9b44f92b5bb7dde7fdb0988eba96e47e90d398667bb88be6bb5d733ec9a"
     parent_artifacts: []
     verification_state: "verified"
   - type: "marking-rubric"
     path: "Assignment Requirements/CT046-3-M-AML_Assignment Marking Scheme and Minimum Document Requirements.md"
-    version: "worktree-2026-07-01"
-    sha256: "39ee4fde0484ce6627889f5d530295118930fc8881e4f11cb781748d0a5845d6"
+    version: "canonical-lf-2026-07-02"
+    sha256: "0c1de002c683aaeea87e6fca2722a870b9db4edb5e5a56469c76d5420f9ff6de"
     parent_artifacts: []
     verification_state: "verified"
   - type: "dataset"
@@ -285,8 +288,8 @@ artifacts:
     verification_state: "verified"
   - type: "author-explanation"
     path: "Final Assignment/explanation.md"
-    version: "worktree-2026-07-01"
-    sha256: "f19b0e5285aeb88a284b52f2c84f1614f1add814d2bf99a18531299ba827cf55"
+    version: "canonical-lf-2026-07-02"
+    sha256: "09a5316c10a32dff72e4785b867b4ee81539271002e979392b2c141aacd3c006"
     parent_artifacts: ["experiment-notebook"]
     verification_state: "verified"
   - type: "literature-search-protocol"
@@ -424,13 +427,13 @@ artifacts:
   - type: "final-integrity-audit"
     path: "academic-research/final-integrity-audit.md"
     version: "verified-draft-v2"
-    sha256: "06a4b0aa23af57af6941005efa20eec0dd0375982dff7df3870f0ecc01206afb"
+    sha256: "992a4219c50317588ba99dcb33db2081134ed3c1f9579d6ffc73de9e734c4c50"
     parent_artifacts: ["manuscript-manifest", "re-review-report"]
     verification_state: "verified"
   - type: "workspace-guidance"
     path: "AGENTS.md"
-    version: "report-structure-2026-07-01"
-    sha256: "e120573633004617e90f1c13b00be2fa4a779640b6c679b80ce573007b4ef3e8"
+    version: "report-structure-lf-2026-07-02"
+    sha256: "421d91b389d79e15ee164eea79bd673a1a61406ca4f57b5ac39e54282767400a"
     parent_artifacts: ["manuscript-manifest"]
     verification_state: "verified"
 

@@ -11,11 +11,11 @@ Overall status: **PASS-WITH-WARNINGS**
 
 | Check | Status | Evidence |
 |---|---|---|
-| Assignment question hash | PASS | `2cd9c719d81e1216d478f3a3ca7738a18dfbeec3e4118e1471932154ad4b6f8d` |
-| Marking rubric hash | PASS | `39ee4fde0484ce6627889f5d530295118930fc8881e4f11cb781748d0a5845d6` |
+| Assignment question hash | PASS | `5affc9b44f92b5bb7dde7fdb0988eba96e47e90d398667bb88be6bb5d733ec9a` |
+| Marking rubric hash | PASS | `0c1de002c683aaeea87e6fca2722a870b9db4edb5e5a56469c76d5420f9ff6de` |
 | Canonical dataset hash | PASS | `4d911088c4b12d60a450a9acae6b606f4119ebbb48679518e427a4fc00778472` |
 | Notebook 05 hash | PASS | `e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c` |
-| Explanation hash | PASS | `f19b0e5285aeb88a284b52f2c84f1614f1add814d2bf99a18531299ba827cf55` |
+| Explanation hash | PASS | `09a5316c10a32dff72e4785b867b4ee81539271002e979392b2c141aacd3c006` |
 | Literature source-matrix hash | PASS | `fb9d9541495c6c98ec3a2e3fbf5575894b6033982d170c63fa3822dc8aad94a9` |
 | Manuscript file hashes | PASS | Every file in `manuscript-manifest.yaml` matched its recorded SHA-256. |
 | Word budget | PASS | 7,383 words excluding references; every module remains within its approved range. |

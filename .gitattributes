@@ -1,4 +1,7 @@
 # Restrict notebook cleaning to active assignment work areas.
+AGENTS.md text eol=lf
+Assignment*Requirements/**/*.md text eol=lf
+Final*Assignment/explanation.md text eol=lf
 Learning*Application*Assigment/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
 Final*Assignment/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
 # Preserve executed results in the essential notebook and deep-learning experiments.
