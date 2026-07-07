@@ -1,8 +1,13 @@
 # Modular AML Assignment Report
 
-This directory contains the reviewable Markdown draft for later Typst assembly.
-Notebook 05 is the sole reported implementation. Typst conversion, cover pages,
-pagination and rendered PDF inspection are intentionally deferred.
+This directory contains the reviewable Markdown source, modular Typst assembly,
+and rendered PDF for the assignment report. Notebook 05 is the sole reported
+implementation.
+
+The current rendered deliverable is `AML_Assignment_Report.pdf`. It includes
+the APU assignment cover, declaration, title page, abstract, table of contents,
+lists of figures and tables, the complete report body, references and
+acknowledgements.
 
 ## Merge order and status
 
@@ -18,10 +23,31 @@ pagination and rendered PDF inspection are intentionally deferred.
 | 8 | `sections/07_analysis_and_recommendations.md` | 1,071 | Verified modular draft |
 | 9 | `sections/08_conclusion.md` | 373 | Verified modular draft |
 | 10 | `sections/09_references.md` | Excluded | Verified and reconciled |
-| 11 | `sections/10_acknowledgements.md` | 69 | Verified with explicit administrative placeholders |
+| 11 | `sections/10_acknowledgements.md` | 80 | Verified; limited to documented contributors and tools |
 
-Total counted words excluding references: **7,383**. Counts use a
-Unicode-aware word-token expression and include headings and table text.
+The counted total is **7,394 words excluding references**. The
+acknowledgements were revised to remove speculative placeholders and add the
+documented AI-assistance disclosure.
+
+## Typst assembly
+
+| Path | Purpose |
+|---|---|
+| `typst/main.typ` | Canonical merge entry point and pagination control |
+| `typst/metadata.typ` | Student and assignment cover metadata |
+| `typst/template.typ` | A4 layout, Times New Roman typography, 1.5 line spacing, headers, tables and APA hanging indents |
+| `typst/front-matter/` | Cover, declaration, title and abstract modules |
+| `typst/sections/` | Ordered Typst body modules generated from the reviewed Markdown sections |
+| `typst/back-matter/` | References and acknowledgements modules |
+| `AML_Assignment_Report.pdf` | Compiled and visually inspected report |
+
+Compile from the workspace root with:
+
+```powershell
+typst compile --root "Assignment Report" `
+  "Assignment Report\typst\main.typ" `
+  "Assignment Report\AML_Assignment_Report.pdf"
+```
 
 ## Canonical metadata and assets
 
@@ -47,11 +73,14 @@ metrics and eight result tables matched the saved notebook exactly.
 - Phrasebank candidates are recorded in
   `../academic-research/phrasebank-usage-log.md` and are not evidence.
 
-## Unresolved placeholders and later work
+## Remaining student completion fields
 
-1. Confirm names and contributions of any people who provided direct
-   assistance.
-2. Insert the institution-required AI-assistance disclosure wording.
-3. Merge the Markdown modules into the final Typst template.
-4. Apply APU cover, declaration, pagination, font and spacing requirements.
-5. Render and inspect the final PDF before claiming `submission-ready`.
+Before submission, replace the three explicit values in
+`typst/metadata.typ`:
+
+1. `student-name`
+2. `student-id`
+3. `declaration-date`
+
+The assembly is verified, but it remains `not submission-ready` until those
+fields are completed and the student performs the final submission review.

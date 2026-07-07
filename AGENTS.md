@@ -163,9 +163,17 @@ AML Assignment/
 |   `-- reviews/
 |-- Assignment Report/
 |   |-- README.md
+|   |-- AML_Assignment_Report.pdf
 |   |-- references.bib
 |   |-- assets/
-|   `-- sections/
+|   |-- sections/
+|   `-- typst/
+|       |-- main.typ
+|       |-- metadata.typ
+|       |-- template.typ
+|       |-- front-matter/
+|       |-- sections/
+|       `-- back-matter/
 |-- scripts/
 |   |-- install_notebook_git_filter.ps1
 |   `-- strip_assignment_notebooks.ps1
@@ -183,7 +191,7 @@ AML Assignment/
 - `Learning Materials Application on Assigment/` is the exploratory workspace for applying lab concepts to the assignment datasets step by step.
 - `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale. Final student-impact versions should be standalone notebooks under `Final Assignment/notebooks/`, with all EDA, preprocessing, modelling, validation, plots, uncertainty, and interpretation shown inline in notebook cells. Treat `Final Assignment/_archive/` as historical reference, not active implementation.
 - `academic-research/` contains the UARS Research Passport, writing controls, literature-search evidence, reproducibility records, integrity audits and review history for the assignment report.
-- `Assignment Report/` contains the reviewable modular report. Use `README.md` for merge order and status, `references.bib` as canonical citation metadata, `sections/` for the ordered Markdown modules, and `assets/` for reproducibly generated figures. Typst source and exported output may be added here in the later assembly phase.
+- `Assignment Report/` contains the reviewable Markdown source, modular Typst assembly and rendered PDF. Use `README.md` for merge order and status, `references.bib` as canonical citation metadata, `sections/` for the ordered Markdown modules, `assets/` for reproducibly generated figures, `typst/main.typ` as the merge entry point, and `AML_Assignment_Report.pdf` as the compiled review artifact.
 - `.agents/skills/typst/` contains the local Typst-related skills for report work: `typst`, `typst-author`, and `touying-author`.
 
 ## Working Notes
@@ -203,7 +211,9 @@ AML Assignment/
 - Do not create a Lab 13 time-series application for the student-impact dataset unless a defensible temporal or repeated-student field is added later.
 - Use `Assignment Report/` for report writing and Typst compilation work. Preserve the Markdown module order and status recorded in `Assignment Report/README.md`.
 - Treat `Assignment Report/references.bib` as canonical bibliographic metadata and keep `sections/09_references.md` reconciled with it for human review.
-- Treat report status as `verified`, not `submission-ready`, until the Markdown modules are assembled in Typst, APU administrative requirements are applied, and the rendered PDF is inspected.
+- Treat `Assignment Report/typst/metadata.typ` as the canonical cover and declaration metadata file. Before submission, replace the student-name, student-id and declaration-date placeholders.
+- Compile the report from the workspace root with `typst compile --root "Assignment Report" "Assignment Report\typst\main.typ" "Assignment Report\AML_Assignment_Report.pdf"`.
+- Treat the Typst assembly and rendered PDF as `verified`, but not `submission-ready`, until the student metadata placeholders are completed and the student performs the final submission review.
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
 - If the local Git filter config is missing or stale, run `.\scripts\install_notebook_git_filter.ps1` from the workspace root.
