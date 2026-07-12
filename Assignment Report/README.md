@@ -1,8 +1,8 @@
 # Modular AML Assignment Report
 
 This directory contains the reviewable Markdown source, modular Typst assembly,
-and rendered PDF for the assignment report. Notebook 05 is the sole reported
-implementation.
+and rendered PDF for the assignment report. Notebook 06 is the sole reported
+implementation; notebook 05 is its byte-preserved modelling baseline.
 
 The current rendered deliverable is `AML_Assignment_Report.pdf`. It includes
 the APU assignment cover, declaration, title page, abstract, table of contents,
@@ -13,19 +13,19 @@ acknowledgements.
 
 | Order | File | Words | Status |
 |---:|---|---:|---|
-| 1 | `sections/00_title_and_abstract.md` | 296 | Verified modular draft |
+| 1 | `sections/00_title_and_abstract.md` | 303 | Verified revision-round-2 draft |
 | 2 | `sections/01_introduction_aim_objectives.md` | 758 | Verified modular draft |
-| 3 | `sections/02_related_works.md` | 1,861 | Verified modular draft |
-| 4 | `sections/03_methods.md` | 726 | Verified modular draft |
-| 5 | `sections/04_dataset_preparation.md` | 627 | Verified modular draft |
-| 6 | `sections/05_model_implementation.md` | 926 | Verified modular draft |
-| 7 | `sections/06_model_validation.md` | 676 | Verified modular draft |
-| 8 | `sections/07_analysis_and_recommendations.md` | 1,071 | Verified modular draft |
-| 9 | `sections/08_conclusion.md` | 373 | Verified modular draft |
+| 3 | `sections/02_related_works.md` | 2,002 | Verified revision-round-2 draft |
+| 4 | `sections/03_methods.md` | 771 | Verified revision-round-2 draft |
+| 5 | `sections/04_dataset_preparation.md` | 763 | Verified revision-round-2 draft |
+| 6 | `sections/05_model_implementation.md` | 996 | Verified revision-round-2 draft |
+| 7 | `sections/06_model_validation.md` | 773 | Verified revision-round-2 draft |
+| 8 | `sections/07_analysis_and_recommendations.md` | 1,148 | Verified revision-round-2 draft |
+| 9 | `sections/08_conclusion.md` | 406 | Verified revision-round-2 draft |
 | 10 | `sections/09_references.md` | Excluded | Verified and reconciled |
 | 11 | `sections/10_acknowledgements.md` | 80 | Verified; limited to documented contributors and tools |
 
-The counted total is **7,394 words excluding references**. The
+The counted total is **8,000 words excluding references**. The
 acknowledgements were revised to remove speculative placeholders and add the
 documented AI-assistance disclosure.
 
@@ -53,15 +53,18 @@ typst compile --root "Assignment Report" `
 
 - `references.bib` is the canonical bibliographic metadata file.
 - `sections/09_references.md` is the reviewable APA 7 presentation list.
-- `assets/fig01_gpa_change_eda.png` presents target and descriptive EDA.
-- `assets/fig02_model_test_rmse_and_actual_vs_predicted.png` presents model
-  RMSE and actual-versus-predicted values.
-- `assets/fig03_residual_diagnostics.png` presents residual diagnostics.
-- `assets/fig04_permutation_importance.png` presents feature importance.
+- Figures 1--6 present data quality, full-field distributions, correlations,
+  target imbalance and focused EDA.
+- Figures 7--10 present model comparison, residuals, direction-specific error
+  and permutation importance.
 
-The figures were exported from an unchanged deterministic rerun of
-`Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb`. Raw
-metrics and eight result tables matched the saved notebook exactly.
+Figures were exported from executed
+`Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb`.
+Core metrics match byte-preserved notebook 05 exactly.
+
+`AML_Assignment_Report_Merged.md` is generated from canonical section files for
+single-file review. Rebuild it with
+`academic-research/build_merged_report.py`; it does not replace the modules.
 
 ## Evidence and writing controls
 

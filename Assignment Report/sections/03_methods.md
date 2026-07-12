@@ -39,12 +39,17 @@ deliberate leakage control rather than optional feature selection.
 ## Experimental procedure
 
 The analysis was implemented in Python 3.13.11 with pandas 3.0.3, NumPy 2.4.6
-and scikit-learn 1.9.0 (Pedregosa et al., 2011). Matplotlib 3.10.9 and seaborn
-0.13.2 generated the figures. A fixed random state of 42 was used. A single
+and scikit-learn 1.9.0. These libraries respectively provided labelled tabular
+operations, numerical arrays and consistent machine-learning estimators
+(Harris et al., 2020; McKinney, 2010; Pedregosa et al., 2011). Matplotlib
+3.10.9 and seaborn 0.13.2 generated the statistical graphics (Hunter, 2007;
+Waskom, 2021). A fixed random state of 42 was used. A single
 random 80/20 split produced 40,000 development records and a reserved test set
 of 10,000 records. All model selection was performed within
 the development data using shuffled five-fold cross-validation with the same
-folds for every model. This consistent protocol was important because
+folds for every model. Cross-validation estimates performance across repeated
+development partitions and supports model selection without fitting on the
+reserved test observations (Arlot & Celisse, 2010). This consistent protocol was important because
 student-performance prediction studies often differ in targets, data and
 evaluation choices, making disciplined within-study comparison more informative
 than isolated scores (Alyahyan & Düştegör, 2020; Hellas et al., 2018).

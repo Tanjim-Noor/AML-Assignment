@@ -1,5 +1,23 @@
 # Final Integrity Audit
 
+## Revision-round-2 addendum — 13 July 2026
+
+Status: **PASS-WITH-WARNINGS; verified Markdown revision**.
+
+- Notebook 05 remained byte-identical at SHA-256
+  `e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c`.
+- Executed notebook 06 reproduced all core metrics and added complete
+  full-field EDA, preparation decisions and direction-specific test errors.
+- Report audit passed at exactly 8,000 words excluding references, with 27
+  reconciled citation families, ten sequential figures and eight tables.
+- Ten added software/method sources were verified from primary journal,
+  proceedings, publisher or DOI records.
+- Modular Markdown and generated merged Markdown agree by deterministic build.
+- Typst and PDF files were deliberately not regenerated or reviewed.
+- Warning retained: GPA-decrease cases have materially higher error than
+  increase cases, and dataset provenance remains undocumented. Neither risk is
+  resolved by the clean file or aggregate performance.
+
 Date: 2026-07-01
 
 Manuscript manifest:

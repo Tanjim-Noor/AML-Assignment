@@ -1,5 +1,20 @@
 # Literature Source Matrix
 
+## Revision-round-2 methodological additions
+
+| ID | Source | Role | Verification |
+|---|---|---|---|
+| M01 | Arlot and Celisse (2010), https://doi.org/10.1214/09-SS054 | Cross-validation and model selection | Publisher paper verified |
+| M02 | Bergstra and Bengio (2012), JMLR 13:281--305 | Random hyperparameter search | JMLR paper verified |
+| M03 | Breiman (2001), https://doi.org/10.1023/A:1010933404324 | Random Forest | DOI metadata verified |
+| M04 | Fisher, Rudin, and Dominici (2019), JMLR 20(177) | Permutation model reliance | JMLR paper verified |
+| M05 | Friedman (2001), https://doi.org/10.1214/aos/1013203451 | Gradient boosting | DOI metadata verified |
+| M06 | Harris et al. (2020), https://doi.org/10.1038/s41586-020-2649-2 | NumPy | Publisher citation verified |
+| M07 | Hoerl and Kennard (1970), https://doi.org/10.1080/00401706.1970.10488634 | Ridge regression | DOI metadata verified |
+| M08 | Hunter (2007), https://doi.org/10.1109/MCSE.2007.55 | Matplotlib | DOI metadata verified |
+| M09 | McKinney (2010), https://doi.org/10.25080/Majora-92bf1922-00a | pandas | Proceedings metadata verified |
+| M10 | Waskom (2021), https://doi.org/10.21105/joss.03021 | seaborn | JOSS paper verified |
+
 | Source ID | APA citation | Database(s) | Design and sample | Topic/target | Methods and validation | Main finding used | Limitations and quality | Report destination | Verification |
 |---|---|---|---|---|---|---|---|---|---|
 | S01 | Zawacki-Richter, O., Marín, V. I., Bond, M., & Gouverneur, F. (2019). *Systematic review of research on artificial intelligence applications in higher education—Where are the educators?* https://doi.org/10.1186/s41239-019-0171-0 | ERIC trail; Crossref; publisher | Systematic review; 2,656 records, 146 included studies, 2007–2018 | AI applications in higher education | Three databases, explicit screening and coded synthesis | Profiling/prediction was one of four main application areas; pedagogical and ethical reflection was sparse | Predates generative AI; English/Spanish journal scope and database restrictions | Related Works; Discussion | DOI metadata and full publisher text verified |

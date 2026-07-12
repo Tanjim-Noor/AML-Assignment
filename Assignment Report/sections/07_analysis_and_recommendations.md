@@ -66,7 +66,7 @@ importance (0.0328 increase in RMSE-based loss when shuffled), followed by
 small contributions, while tool diversity, perceived dependency, exam anxiety
 and major category were near zero in this fitted model.
 
-![Figure 4. Test-set permutation importance for the selected tuned HGB model. Values show the mean deterioration in RMSE-based score after shuffling each source feature across five repetitions.](../assets/fig04_permutation_importance.png)
+![Figure 10. Test-set permutation importance for the selected tuned HGB model. Values show the mean deterioration in RMSE-based score after shuffling each source feature across five repetitions.](../assets/fig10_permutation_importance.png)
 
 Traditional study hours ranking above any AI field is substantively important:
 AI behaviour did not replace conventional study context. At the same time,
@@ -95,11 +95,17 @@ control group. Its contribution is narrower: use-related fields improved
 prediction within the supplied records, and the form of the association was
 not simply monotonic.
 
-The final $R^2$ of 0.4185 also means that most test-set variation remained
-unaccounted for. Missing influences could include course difficulty,
-assessment format, instructor practice, prior ability, socioeconomic context
-and measurement error. Residual compression at extreme outcomes reinforces the
-need for caution when applying average-performing models to unusual students.
+The final $R^2$ of 0.4185 left most test variation unexplained. Missing course,
+assessment, instructor and socioeconomic context plus extreme-outcome
+compression require caution.
+
+Direction-specific validation revealed the clearest practical bias risk. Test
+MAE for GPA decreases (0.1979) was nearly twice that for increases (0.0993),
+and the mean residual of -0.1916 shows that declines were systematically
+predicted as less severe. This behaviour is consistent with the 87.52% positive
+target share and central prediction compression. The result does not justify
+changing the observed distribution, but it prevents the near-zero overall mean
+residual from being presented as evidence of equal performance.
 
 ## Recommendations
 
@@ -107,7 +113,9 @@ First, the tuned HGB should be retained as the assignment's predictive
 benchmark because it led both cross-validation and test evaluation. It should
 not be deployed as an intervention rule or used to label individual students
 as likely to benefit from AI. At most, its outputs could support hypothesis
-generation after independent validation.
+generation after independent validation. Any later deployment study must set
+direction-specific acceptance thresholds and examine errors across documented
+demographic and institutional groups that are absent from this file.
 
 Second, future data collection should document the institution, sampling frame,
 time period, consent, collection instrument and real-versus-synthetic status.

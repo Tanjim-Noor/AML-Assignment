@@ -1,5 +1,25 @@
 # References
 
+Arlot, S., & Celisse, A. (2010). A survey of cross-validation procedures for model selection. *Statistics Surveys, 4*, 40--79. https://doi.org/10.1214/09-SS054
+
+Bergstra, J., & Bengio, Y. (2012). Random search for hyper-parameter optimization. *Journal of Machine Learning Research, 13*(10), 281--305. https://jmlr.org/papers/v13/bergstra12a.html
+
+Breiman, L. (2001). Random forests. *Machine Learning, 45*, 5--32. https://doi.org/10.1023/A:1010933404324
+
+Fisher, A., Rudin, C., & Dominici, F. (2019). All models are wrong, but many are useful: Learning a variable's importance by studying an entire class of prediction models simultaneously. *Journal of Machine Learning Research, 20*(177), 1--81. https://jmlr.org/papers/v20/18-760.html
+
+Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. *The Annals of Statistics, 29*(5), 1189--1232. https://doi.org/10.1214/aos/1013203451
+
+Harris, C. R., Millman, K. J., van der Walt, S. J., et al. (2020). Array programming with NumPy. *Nature, 585*, 357--362. https://doi.org/10.1038/s41586-020-2649-2
+
+Hoerl, A. E., & Kennard, R. W. (1970). Ridge regression: Biased estimation for nonorthogonal problems. *Technometrics, 12*(1), 55--67. https://doi.org/10.1080/00401706.1970.10488634
+
+Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. *Computing in Science & Engineering, 9*(3), 90--95. https://doi.org/10.1109/MCSE.2007.55
+
+McKinney, W. (2010). Data structures for statistical computing in Python. In *Proceedings of the 9th Python in Science Conference* (pp. 56--61). https://doi.org/10.25080/Majora-92bf1922-00a
+
+Waskom, M. L. (2021). seaborn: Statistical data visualization. *Journal of Open Source Software, 6*(60), 3021. https://doi.org/10.21105/joss.03021
+
 Abbas, M., Jam, F. A., & Khan, T. I. (2024). Is it harmful or helpful? Examining the causes and consequences of generative AI usage among university students. *International Journal of Educational Technology in Higher Education, 21*(1), Article 10. https://doi.org/10.1186/s41239-024-00444-7
 
 Alyahyan, E., & Düştegör, D. (2020). Predicting academic success in higher education: Literature review and best practices. *International Journal of Educational Technology in Higher Education, 17*(1), Article 3. https://doi.org/10.1186/s41239-020-0177-7

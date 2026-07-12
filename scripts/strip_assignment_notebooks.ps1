@@ -26,6 +26,7 @@ $notebooks = foreach ($dir in $targetDirs) {
 
 $preserveOutputPaths = @(
     (Join-Path $repoRoot "Final Assignment\notebooks\05_essential_gpa_change_regression.ipynb"),
+    (Join-Path $repoRoot "Final Assignment\notebooks\06_comprehensive_gpa_change_regression.ipynb"),
     (Join-Path $repoRoot "Final Assignment\Deep Learning Experiments\01_category_embedding_mlp.ipynb"),
     (Join-Path $repoRoot "Final Assignment\Deep Learning Experiments\02_ft_transformer.ipynb"),
     (Join-Path $repoRoot "Final Assignment\Deep Learning Experiments\03_tabm.ipynb")

@@ -4,6 +4,12 @@
 
 Approve candidate corpus `aml-report-corpus-v1` for transfer to the UARS writing workflow.
 
+Revision-round-2 addendum (13 July 2026): professor feedback required sources
+for software, algorithms, tuning and testing. Ten primary methodological or
+software publications M01--M10 were verified and added without replacing the
+approved 15-source domain corpus. Corpus version is now
+`aml-report-corpus-v2-methods`; user approval came with the implementation plan.
+
 ## Corpus composition
 
 The corpus contains 15 DOI-verified scholarly sources:

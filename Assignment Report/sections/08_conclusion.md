@@ -10,9 +10,10 @@ and its tuned version achieved test MAE 0.1112, RMSE 0.1414 and
 $R^2=0.4185$. These values answer the research question within the supplied
 dataset; they do not show that AI use caused any student's GPA to change.
 
-All six objectives were met. The file was audited without altering the raw
-data, and its 50,000 rows, 16 source columns, absence of missing values and
-absence of duplicates were reported. GPA change was constructed as a
+All six objectives were met. Every field was profiled for type, completeness,
+cardinality, range, distribution and category frequency without altering the
+raw data. The 50,000 rows, 16 source columns, absence of missing values,
+duplicates and invalid ranges were reported. GPA change was constructed as a
 continuous target, while context, AI-only and combined feature groups enabled a
 direct ablation. Identifier and post-outcome fields were removed, and
 preprocessing was fitted within model pipelines. A baseline and four regressors
@@ -27,7 +28,9 @@ The feature-set experiment also answered a substantive question rather than
 merely selecting an algorithm. What worked less well was extensive tuning; the
 HGB improvement was small, indicating that the initial settings were already
 adequate. The final model also left most outcome variation unexplained and
-compressed extreme predictions.
+compressed extreme predictions. Direction-specific testing exposed this
+limitation: MAE was 0.1979 for GPA decreases versus 0.0993 for increases, with
+declines systematically predicted towards the positive centre.
 
 The main limitation is evidential rather than computational. Dataset
 collection, sampling, geography, ethics and real-versus-synthetic status are

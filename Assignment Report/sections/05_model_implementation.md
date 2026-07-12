@@ -25,9 +25,10 @@ benchmark. It assumes that the encoded predictors contribute through linear
 combinations and therefore cannot directly represent thresholds or
 interactions. Ridge Regression used the same functional form with an L2 penalty
 and `alpha=1.0`. It tests whether shrinking correlated or weak coefficients
-improves generalisation.
+improves generalisation (Hoerl & Kennard, 1970).
 
-Random Forest represented bagged nonlinear trees. The implementation used 180
+Random Forest represented bagged nonlinear trees with random feature selection
+(Breiman, 2001). The implementation used 180
 trees, a minimum of three samples per leaf and 80% of available features at
 each split (`max_features=0.8`). Setting `n_jobs=1` within the estimator avoided
 nested model-level parallelism, while the cross-validation operation could run
@@ -40,7 +41,8 @@ was methodological context, not a numerical benchmark for this regression.
 
 Histogram Gradient Boosting built trees sequentially, with each iteration
 reducing residual error from the preceding ensemble. Histogram binning makes
-the method efficient for 50,000 rows. The untuned comparison used 180 boosting
+the method efficient for 50,000 rows; its stage-wise logic follows gradient
+boosting (Friedman, 2001). The untuned comparison used 180 boosting
 iterations, learning rate 0.07 and 31 maximum leaf nodes. Its capacity to learn
 non-additive structure was relevant to the non-monotonic AI-hours pattern and
 the ceiling-shaped relation between previous GPA and GPA change.
@@ -79,6 +81,9 @@ development data preserved the test set for confirmation. A randomised search
 evaluated ten sampled combinations from the space in Table 6. RMSE was the
 search objective because it expresses error in GPA points while assigning
 greater cost to large mistakes.
+Random search was chosen because it can inspect more distinct values per
+influential hyperparameter than an equally sized grid when only some dimensions
+strongly affect performance (Bergstra & Bengio, 2012).
 
 **Table 6. HGB randomised-search space and selected configuration**
 
@@ -118,3 +123,6 @@ much the model relied on that feature. This method can capture contribution in
 a nonlinear pipeline but remains sensitive to correlated predictors and the
 specific fitted model. It was used for interpretation, not for asserting that a
 feature produced the outcome.
+Permutation-based importance measures model reliance rather than an independent
+or causal effect, and correlated predictors can share or mask reliance (Fisher
+et al., 2019).

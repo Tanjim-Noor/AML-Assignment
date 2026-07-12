@@ -20,8 +20,11 @@ higher-education studies, relevant reviews and methodological sources that
 could support model design or validation. Promotional material, unverifiable
 records, school-only studies, perception studies without a relevant outcome and
 duplicates were excluded. Records were deduplicated by DOI and normalised
-title. The review inspected 50 discovery records, verified 15 shortlisted
-records by DOI, title, author and year, and retained all 15 as the core corpus.
+title. The review inspected 50 discovery records, verified 15 domain records
+by DOI, title, author and year, and retained them as the problem-focused core.
+Ten primary software or methodological publications were then verified to
+document tools, algorithms, tuning, validation and interpretation used in the
+implementation.
 The exact-dataset search located the Kaggle metadata but no inspectable
 peer-reviewed benchmark. The review is therefore reproducible and systematic
 in its search logic, but it is not presented as a complete PRISMA systematic
@@ -37,24 +40,14 @@ review.
 | OpenAlex | Planned discovery source | 0 | 0; access unavailable |
 | Kaggle | Exact dataset and notebook search | Dataset metadata only | Dataset source; no comparative study |
 
-Table 1 makes the degraded sources visible rather than treating attempted
-access as completed coverage. The database counts overlap because the same
-high-relevance studies appeared through several routes. Broad Crossref queries
-were particularly noisy, so inclusion depended on targeted DOI and publisher
-verification rather than search rank. Semantic Scholar's Graph API returned
-HTTP 429, and its public index was used only to identify leads. The Kaggle
-dataset page indicated that public notebooks existed, but its notebook-listing
-endpoint required authentication; no notebook was admitted without inspectable
-methods and results.
+Counts overlap because studies appeared through several routes. Degraded API
+access was recorded rather than interpreted as negative evidence, and no
+Kaggle notebook was admitted without inspectable methods and results.
 
-Quality appraisal considered study design, sample and setting, outcome
-definition, validation, leakage risk, self-reporting, causal overreach and
-relevance to the present continuous target. Reviews were weighted for field
-coverage, while primary studies were used to illustrate design-dependent
-findings. Methodological sources were included where they supported target
-definition, model comparison or tuning. This appraisal prevented a large
-pooled effect, a local classification accuracy or an observational association
-from being transferred uncritically to the current GPA-change regression.
+Quality appraisal covered design, sample, outcome, validation, leakage,
+self-reporting and causal overreach. It prevented pooled effects,
+classification accuracy and observational associations from being transferred
+uncritically to this regression.
 
 ## AI in higher education
 
@@ -164,6 +157,28 @@ confined to development folds to prevent leakage. This study therefore compares
 all candidates on identical folds, reports variation across folds, tunes only
 the development data and reserves a test partition for confirmation.
 
+## Methodological and software foundations
+
+The implementation also depends on literature beyond the educational problem
+domain. pandas supplied labelled data structures (McKinney, 2010), NumPy
+provided numerical arrays (Harris et al., 2020), and scikit-learn supplied the
+common estimator, pipeline and evaluation interfaces (Pedregosa et al., 2011).
+Matplotlib and seaborn supported reproducible exploratory and statistical
+graphics (Hunter, 2007; Waskom, 2021). These sources document tools used to
+produce the work; they are cited in Methods rather than treated as evidence
+about student outcomes.
+
+Algorithm choice also had literature foundations. Ordinary and Ridge
+Regression supplied additive benchmarks, with Ridge adding coefficient
+shrinkage for correlated predictors (Hoerl & Kennard, 1970). Random Forest
+represented bootstrap-aggregated randomised trees (Breiman, 2001), while
+gradient boosting represented stage-wise fitting to residual error (Friedman,
+2001). Random search provided a reproducible, budget-limited alternative to an
+exhaustive grid (Bergstra & Bengio, 2012). Cross-validation supported
+development-only model selection (Arlot & Celisse, 2010), and permutation
+importance was interpreted as fitted-model reliance rather than causal effect
+(Fisher et al., 2019). Method citations also appear where each choice is used.
+
 ## Comparative synthesis and research gap
 
 **Table 2. Core literature informing the study**
@@ -185,6 +200,9 @@ the development data and reserves a test partition for confirmation.
 | Waheed et al. (2020) | VLE classification experiment | Demonstrated value of behavioural and prior-assessment data | Different target, setting and metric |
 | Yağcı (2022) | Six-model classification comparison; $N=1,854$ | Showed competitive nonlinear models in one course | Accuracy not comparable with regression error |
 | Probst et al. (2019) | Methodological review | Explained ensemble parameter and tuning effects | Not education-specific |
+| Breiman (2001); Friedman (2001) | Primary ensemble-method papers | Grounded Random Forest and gradient boosting choices | General methods, not educational evidence |
+| Arlot and Celisse (2010); Bergstra and Bengio (2012) | Methodological studies | Supported cross-validation and random search | Procedures still depend on suitable splits and search spaces |
+| Fisher et al. (2019) | Model-reliance methodology | Supported permutation-based interpretation | Importance remains model- and correlation-dependent |
 
 *Note.* AI = artificial intelligence; GenAI = generative artificial
 intelligence; VLE = virtual learning environment. The outcomes and metrics

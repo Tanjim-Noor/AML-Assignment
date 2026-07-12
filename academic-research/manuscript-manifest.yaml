@@ -1,46 +1,75 @@
-version: "draft-v2"
-status: "verified"
-word_count_excluding_references: 7383
-generated_at: "2026-07-01T15:48:00Z"
+version: revision-round-2
+status: verified
+word_count_excluding_references: 8000
+generated_at: '2026-07-12T16:28:18.505859+00:00'
 files:
-  - path: "Assignment Report/README.md"
-    sha256: "581dc7966ae96e3421f91d36b50122dbfe334709692dcb2f99b05bbaa3cdfc57"
-  - path: "Assignment Report/references.bib"
-    sha256: "0375098926e1226cd5fce0a1a23a0b4fac53dcbed5bbe06a820d756ad61a893c"
-  - path: "Assignment Report/sections/00_title_and_abstract.md"
-    words: 296
-    sha256: "42a854fb20979b6a60d6df49cd130015201304a4dbb222a0ebcdbc1e66a0cb2f"
-  - path: "Assignment Report/sections/01_introduction_aim_objectives.md"
-    words: 758
-    sha256: "e6534127541836c285949c3c8044b35daab9b57d8cf1bcb09ef5c8fd2ebf67e5"
-  - path: "Assignment Report/sections/02_related_works.md"
-    words: 1861
-    sha256: "eb16b1c6e67b5295f85436b1313052c2cae484dc71b36c6923620239ea121316"
-  - path: "Assignment Report/sections/03_methods.md"
-    words: 726
-    sha256: "9f5691b4379c7898b7c9938d1d42b1ae35e6645492b598a965b40a18f2037c45"
-  - path: "Assignment Report/sections/04_dataset_preparation.md"
-    words: 627
-    sha256: "d34e8381c0b6220a3ac5212537921e3f11cb74c6b8d6f1b2d9a9f477854a13a1"
-  - path: "Assignment Report/sections/05_model_implementation.md"
-    words: 926
-    sha256: "aacc8bfea89dd1dc944d690fd78f8847ee77b3d443f3e78617b4b62a212ae557"
-  - path: "Assignment Report/sections/06_model_validation.md"
-    words: 676
-    sha256: "65439ea6659cb1888a0692f52d27f85582396ae2d660da14822479f7969b7b18"
-  - path: "Assignment Report/sections/07_analysis_and_recommendations.md"
-    words: 1071
-    sha256: "0ff0ea57cafb6fbe9049b804cdf8bae69acdd1e812eb1b4906ee2e82414dcfb1"
-  - path: "Assignment Report/sections/08_conclusion.md"
-    words: 373
-    sha256: "11de4027c9de3b30294cb47d5fdeb7f3939e230ddb82b7a5c66581a6a9f3aa42"
-  - path: "Assignment Report/sections/09_references.md"
-    words: 667
-    sha256: "16307343493f982abb6d52ebd4ab40c38569596a04c0989f2a620ea4e28f7aae"
-  - path: "Assignment Report/sections/10_acknowledgements.md"
-    words: 69
-    sha256: "10cc8f84d41c3d1485ec28e3b42052bb040fb806f5ac7c040376f2f8c3f41107"
+- path: Assignment Report/README.md
+  sha256: b0303e758618ed809c0eaff440c3ae1218db1c18da2bf1357496cab15c0b728e
+- path: Assignment Report/references.bib
+  sha256: 3228d99ac4189c4c5be5cc5f505259da93bfb3d4574e6b84288d0245e796ab8f
+- path: Assignment Report/sections/00_title_and_abstract.md
+  sha256: a0796516b1e0cbef9842fcb2d5007651c73d7ef25750474388a911d901e0e976
+  words: 303
+- path: Assignment Report/sections/01_introduction_aim_objectives.md
+  sha256: e6534127541836c285949c3c8044b35daab9b57d8cf1bcb09ef5c8fd2ebf67e5
+  words: 758
+- path: Assignment Report/sections/02_related_works.md
+  sha256: af2693f44a11ff5984f2a737bae14192602305cc566a602c0083e8b12ea884c6
+  words: 2002
+- path: Assignment Report/sections/03_methods.md
+  sha256: a9f372dec90774f18967d832e7fbe57b13c51a3ff14c121fa8e6857fa2d743da
+  words: 771
+- path: Assignment Report/sections/04_dataset_preparation.md
+  sha256: 3ec6083ca691d63752f99bb23e430ea47802cca67a763eafd699d370a2a3d43b
+  words: 763
+- path: Assignment Report/sections/05_model_implementation.md
+  sha256: 622b662e03041678140aac7bddb729a8d307252609cfbccff934943e0f185d7d
+  words: 996
+- path: Assignment Report/sections/06_model_validation.md
+  sha256: e26700df2792a9533ec82358ac8a9348fe7856a9894457b593aea67b9efe0542
+  words: 773
+- path: Assignment Report/sections/07_analysis_and_recommendations.md
+  sha256: 045d6390bbf8020d44afd79084e00609f03e50ce42bc70ddebe2bfa7d24f4692
+  words: 1148
+- path: Assignment Report/sections/08_conclusion.md
+  sha256: 72e0f8cb8c95f3c652b823b97d3bffadf236f6d44fcc67d30619a8046be41837
+  words: 406
+- path: Assignment Report/sections/09_references.md
+  sha256: ba3addfb8e80b6eba60a6af1560d843f6c87f56cdb2231870b451c4e18da5c4a
+- path: Assignment Report/sections/10_acknowledgements.md
+  sha256: d14272ca71a92360fda3c87e7762ebc192adf9d04d2b87779411a396f595718b
+  words: 80
+- path: Assignment Report/AML_Assignment_Report_Merged.md
+  sha256: ef58d011e60446fc2aca7110c966dc87e6ee28a94a083dbbc83ce641acb8e8a7
+- path: Assignment Report/assets/fig01_data_quality_and_schema.png
+  sha256: a9181415f32f9ed2c2f2c9fa833e082dd417184aaf0bf2428b9dc3f110937f91
+- path: Assignment Report/assets/fig02_numeric_distributions.png
+  sha256: 5c85160447480cb125c376f681e96ce71482518ae1b1b14ed2affe31f69f7306
+- path: Assignment Report/assets/fig03_categorical_distributions.png
+  sha256: 193dae2e76dd9fa705d59c3ad9af05a1be879b246ddf0d19154bd107333ee2c7
+- path: Assignment Report/assets/fig04_correlation_and_target_relationships.png
+  sha256: 3f7f47003ed62b03b59f251651efbe143280de2edb904795462677be4781c208
+- path: Assignment Report/assets/fig05_gpa_direction_imbalance.png
+  sha256: 3ca3948d54047d78edd6ffa5b63ad60a84ce989e6d345244b3720afdbe1a4c05
+- path: Assignment Report/assets/fig06_gpa_change_eda.png
+  sha256: e83b6b1840d756ddc97bbdc71523496e825e733cea0501d34d6648253f900c24
+- path: Assignment Report/assets/fig07_model_test_rmse_and_actual_vs_predicted.png
+  sha256: 4f78a96e573127ad48c3d3221b58e616c3876121ec0e6c50794b42b0fffd505a
+- path: Assignment Report/assets/fig08_residual_diagnostics.png
+  sha256: a2bc5f073268878d4f3470067483b33d4f6bda9f11ea86a036c02f3f455c3ca4
+- path: Assignment Report/assets/fig09_direction_specific_errors.png
+  sha256: 6fcfc77931e79442f5360c24c7d6350cfad3b05ac3b25ab49d7cda6bf52121c3
+- path: Assignment Report/assets/fig10_permutation_importance.png
+  sha256: 62fa2cf01104055334110ee81e7ce0e9e54fd3e1f9f4b061b24d3d5c31cc81e7
+- path: Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb
+  sha256: 8e7e05669380899e615097392a7da8cbe492ed93a301f3d7b6ec510c4bbc0bc3
+- path: academic-research/build_notebook06.py
+  sha256: f9c625af3c7b94a491e0ba8f8aa1b9856993db7938918b1d99187fc66b3de44d
+- path: academic-research/build_merged_report.py
+  sha256: 6dc59b92e82e29a65943c314b64ba94705947bbaa12fe49875f6e456720fee93
+- path: academic-research/validate_report.py
+  sha256: 071ec1fa4551ad04316ddd5cec6a3666411f804e99198e85333bac4994ad9577
 audit:
-  validator: "academic-research/validate_report.py"
-  validator_sha256: "3090a60e2b778bd8b06808af3d34433c88a9a8c3019d1b1acc4e184650a59918"
-  result: "PASS"
+  validator: academic-research/validate_report.py
+  validator_sha256: 071ec1fa4551ad04316ddd5cec6a3666411f804e99198e85333bac4994ad9577
+  result: PASS

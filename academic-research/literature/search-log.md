@@ -31,6 +31,15 @@ These counts describe a structured assignment review, not a complete PRISMA syst
 
 ## Excluded records
 
+## 13 July 2026 methodological evidence update
+
+Targeted primary-source searches covered scikit-learn and scientific-Python
+software papers, Random Forest, Ridge Regression, gradient boosting,
+cross-validation, random search and permutation importance. Ten records were
+verified through JMLR, JOSS, publisher pages or DOI metadata and registered as
+M01--M10 in the source matrix. Searches were stopped when every package and
+method making a substantive report claim had authoritative support.
+
 | Record | Stage | Reason |
 |---|---|---|
 | ERIC Q4 hit: *Reshaping School Cultures* | Title screening | False positive; no relationship to the selected dataset |

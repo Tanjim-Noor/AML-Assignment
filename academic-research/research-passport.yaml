@@ -6,7 +6,7 @@ project:
   audience: "APU CT046-3-M-AML lecturer and assignment marker"
   venue: "Asia Pacific University CT046-3-M-AML Individual Assignment"
   citation_style: "APA 7"
-  output_format: "Separate Markdown section files for later Typst assembly"
+  output_format: "Canonical Markdown sections plus generated merged Markdown; Typst and PDF excluded from this revision"
   target_word_count: "7000-8000 words excluding references and appendices"
   deadline: "2026-07-24"
 
@@ -15,8 +15,8 @@ workflow:
   mode: "pipeline"
   current_stage: "certification"
   writing_phase: null
-  checkpoint: "verified-modular-draft"
-  revision_round: 1
+  checkpoint: "verified-professor-feedback-revision"
+  revision_round: 2
   delegation: "disabled; inline workflow only"
 
 research:
@@ -28,7 +28,7 @@ research:
     objective_type: "Predictive and comparative, not causal"
     publication_years: "2016-2026, with emphasis on 2022-2026 for generative AI"
     language: "English"
-    target_core_sources: "12-15"
+    target_core_sources: "15 domain sources plus verified software and methodology sources"
   design:
     type: "Cross-sectional predictive modelling study"
     target: "GPA_Change = Post_Semester_GPA - Pre_Semester_GPA"
@@ -47,12 +47,12 @@ research:
       - "machine learning prediction of GPA or academic achievement"
       - "exact Kaggle dataset title, filename and creator"
     corpus_approval_required: true
-    included_core_sources: 15
+    included_core_sources: 25
     degradation:
       - "OpenAlex anonymous API search unavailable because of rate limiting/API-key requirement"
       - "Semantic Scholar Graph API returned HTTP 429; public result pages used for discovery"
       - "Kaggle kernel listing returned HTTP 401"
-  corpus_version: "aml-report-corpus-v1"
+  corpus_version: "aml-report-corpus-v2-methods"
 
 evidence:
   sources:
@@ -75,7 +75,12 @@ evidence:
       citation_locator: "Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb"
       verification_state: "verified"
       human_read: true
-      role: "Primary experiment evidence"
+      role: "Byte-preserved modelling baseline"
+    - id: "NOTEBOOK-06"
+      citation_locator: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
+      verification_state: "verified"
+      human_read: true
+      role: "Primary comprehensive experiment evidence"
     - id: "EXPLANATION-05"
       citation_locator: "Final Assignment/explanation.md"
       verification_state: "verified"
@@ -159,29 +164,29 @@ evidence:
   claim_mappings:
     - claim_id: "CLAIM-RQ"
       claim: "The report evaluates whether AI-usage variables add predictive information beyond student context."
-      source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      source_ids: ["NOTEBOOK-06", "EXPLANATION-05"]
       verification_state: "verified"
       destination: "Introduction, Methods, Analysis, Conclusion"
     - claim_id: "CLAIM-DATA"
       claim: "The dataset contains 50000 rows and 16 original columns with no missing cells or duplicate rows."
-      source_ids: ["DATA-STUDENT-AI", "NOTEBOOK-05"]
+      source_ids: ["DATA-STUDENT-AI", "NOTEBOOK-06"]
       verification_state: "verified"
       destination: "Methods and Dataset Preparation"
     - claim_id: "CLAIM-BEST-MODEL"
       claim: "The tuned histogram gradient boosting model achieved test MAE 0.1112, RMSE 0.1414, and R-squared 0.4185."
-      source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      source_ids: ["NOTEBOOK-06", "EXPLANATION-05"]
       verification_state: "verified"
       destination: "Abstract, Model Validation, Analysis, Conclusion"
     - claim_id: "CLAIM-AI-INCREMENT"
       claim: "The combined feature model achieved test R-squared 0.4170 compared with 0.2382 for context-only and 0.1703 for AI-only features."
-      source_ids: ["NOTEBOOK-05", "EXPLANATION-05"]
+      source_ids: ["NOTEBOOK-06", "EXPLANATION-05"]
       verification_state: "verified"
       destination: "Abstract, Model Validation, Analysis, Conclusion"
 
 experiments:
   intake_declared: true
   execution_approved: true
-  approval_scope: "Deterministic rerun of notebook 05 solely to verify saved metrics and export four report figures; no model or data changes"
+  approval_scope: "Create and execute notebook 06 locally, preserve notebook 05, reproduce core metrics, add comprehensive EDA and direction diagnostics, and export ten figures"
   records:
     - id: "RERUN-NOTEBOOK-05"
       status: "completed"
@@ -226,8 +231,41 @@ experiments:
           context_only_r_squared: 0.23817440562079406
           ai_only_r_squared: 0.1702941288306299
           combined_r_squared: 0.4169779887758607
+    - id: "EXECUTE-NOTEBOOK-06"
+      status: "completed"
+      provenance:
+        operation: "Build and execute comprehensive notebook 06 from byte-locked notebook 05"
+        notebook: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
+        source_notebook_sha256: "e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c"
+        notebook_sha256: "8e7e05669380899e615097392a7da8cbe492ed93a301f3d7b6ec510c4bbc0bc3"
+        random_state: 42
+        test_size: 0.20
+        cross_validation_folds: 5
+        executed_at: "2026-07-13T00:00:00+08:00"
+        duration_seconds: 86.6
+        external_cost: "none"
+        verdict: "REPRODUCIBLE"
+        core_metrics_match_notebook_05: true
+        direction_results:
+          decrease_count: 1203
+          decrease_mae: 0.1979
+          decrease_rmse: 0.2208
+          decrease_mean_residual: -0.1916
+          increase_count: 8786
+          increase_mae: 0.0993
+          increase_rmse: 0.1266
+          increase_mean_residual: 0.0286
+        warnings:
+          - "Windows ZMQ selector-thread warning"
+          - "joblib temporary memmap resource-tracker cleanup KeyErrors"
 
 decisions:
+  - decision: "Approved the AML EDA and report revision plan, including creation and local execution of notebook 06 while keeping notebook 05 byte-unchanged; Typst and PDF regeneration excluded."
+    actor: "user"
+    timestamp: "2026-07-13T00:00:00+08:00"
+  - decision: "Retain the authentic continuous GPA-change distribution without resampling; report direction-specific errors because decrease cases are underrepresented and materially less accurate."
+    actor: "agent"
+    timestamp: "2026-07-13T00:00:00+08:00"
   - decision: "Approved the distinction-level modular report plan, including the research question, notebook-only model scope, open-database strategy, word budget, deterministic rerun, and full-draft-first review cadence."
     actor: "user"
     timestamp: "2026-07-01T14:36:51Z"
@@ -286,6 +324,24 @@ artifacts:
     sha256: "e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c"
     parent_artifacts: ["dataset"]
     verification_state: "verified"
+  - type: "experiment-notebook"
+    path: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
+    version: "reported-comprehensive-v1"
+    sha256: "8e7e05669380899e615097392a7da8cbe492ed93a301f3d7b6ec510c4bbc0bc3"
+    parent_artifacts: ["experiment-notebook", "dataset"]
+    verification_state: "verified"
+  - type: "notebook-builder"
+    path: "academic-research/build_notebook06.py"
+    version: "v1"
+    sha256: "f9c625af3c7b94a491e0ba8f8aa1b9856993db7938918b1d99187fc66b3de44d"
+    parent_artifacts: ["experiment-notebook"]
+    verification_state: "verified"
+  - type: "merged-markdown-report"
+    path: "Assignment Report/AML_Assignment_Report_Merged.md"
+    version: "revision-round-2"
+    sha256: "ef58d011e60446fc2aca7110c966dc87e6ee28a94a083dbbc83ce641acb8e8a7"
+    parent_artifacts: ["manuscript-manifest"]
+    verification_state: "verified"
   - type: "author-explanation"
     path: "Final Assignment/explanation.md"
     version: "canonical-lf-2026-07-02"
@@ -301,25 +357,25 @@ artifacts:
   - type: "literature-search-log"
     path: "academic-research/literature/search-log.md"
     version: "candidate-corpus-v1"
-    sha256: "2bd68b07733776afea6fe08c34ec61d2c3ea3ea4eb3a7bfe4d367c78b91a4254"
+    sha256: "0b87681935cb32eb298a6bb89daec1fd573a28cdcff6755b9f4fd4c568df278d"
     parent_artifacts: ["literature-search-protocol"]
     verification_state: "verified"
   - type: "literature-source-matrix"
     path: "academic-research/literature/source-matrix.md"
     version: "candidate-corpus-v1"
-    sha256: "fb9d9541495c6c98ec3a2e3fbf5575894b6033982d170c63fa3822dc8aad94a9"
+    sha256: "15caa40fa581fe500dd798d241bf69cf18c7a88709601282bbfa95a33d47d50c"
     parent_artifacts: ["literature-search-log"]
     verification_state: "verified"
   - type: "corpus-approval-package"
     path: "academic-research/literature/corpus-approval.md"
     version: "candidate-corpus-v1"
-    sha256: "1cd2b4335dcd80d82bd723704272eee5eed85cc7cd325de2b64f8a469cda0f69"
+    sha256: "4a8ab7fff12c1870e8ad4905d78cf05519e5981f22d1752132fc933fc1c15e29"
     parent_artifacts: ["literature-source-matrix"]
     verification_state: "verified"
   - type: "claim-evidence-map"
     path: "academic-research/claim-evidence-map.md"
     version: "approved-corpus-v1"
-    sha256: "6d4d59dbd3fcb9fadc9c8a6b59e9525ce61b320791113949d16eb95f6b761745"
+    sha256: "1d1118022c3c1f5f3186d455af6011272fe40476ad3b2edb25f36373a0a29782"
     parent_artifacts: ["literature-source-matrix", "experiment-notebook"]
     verification_state: "verified"
   - type: "writing-brief"
@@ -349,7 +405,7 @@ artifacts:
   - type: "experiment-provenance"
     path: "academic-research/experiment-provenance.md"
     version: "notebook-05-reproduction-v1"
-    sha256: "9cb965593b31f8d20607f1d3551606775b9183daebbc20358ca6214a1d5e232e"
+    sha256: "7da858ce74eac38c4fdc1c8c033ad6ab612d4f256f01074d5a38a2a14e02a0b1"
     parent_artifacts: ["reproduction-script", "experiment-notebook", "dataset"]
     verification_state: "verified"
   - type: "report-figure"
@@ -379,7 +435,7 @@ artifacts:
   - type: "manuscript-manifest"
     path: "academic-research/manuscript-manifest.yaml"
     version: "draft-v2-verified"
-    sha256: "945ab6d503d66e1d48b55ad1bb3d7763b28f5706635467f407559bcde861dad8"
+    sha256: "d72f2c7f6572f82ad2b79987985e2d6571e3494de89dabcf8501b059dbbc44e6"
     parent_artifacts: ["evidence-mapped-outline", "claim-evidence-map", "experiment-provenance"]
     verification_state: "verified"
   - type: "integrity-audit"
@@ -415,7 +471,7 @@ artifacts:
   - type: "revision-ledger"
     path: "academic-research/revision-ledger.md"
     version: "round-1-resolved"
-    sha256: "65087b695a41d784a40ab91786ea92124b32feb803059dbadd45ba485353134c"
+    sha256: "c2a45cedd66a699b51edf7b051cf0decf83f26f9ab7db7ee3b908c6c201a3f9b"
     parent_artifacts: ["editorial-synthesis"]
     verification_state: "verified"
   - type: "re-review-report"
@@ -427,13 +483,13 @@ artifacts:
   - type: "final-integrity-audit"
     path: "academic-research/final-integrity-audit.md"
     version: "verified-draft-v2"
-    sha256: "992a4219c50317588ba99dcb33db2081134ed3c1f9579d6ffc73de9e734c4c50"
+    sha256: "69a8081bdccf3cbcdcf2d13654bd4485b3a8d54ff16ae4d8cfbc1f47b664b125"
     parent_artifacts: ["manuscript-manifest", "re-review-report"]
     verification_state: "verified"
   - type: "workspace-guidance"
     path: "AGENTS.md"
     version: "report-structure-lf-2026-07-02"
-    sha256: "421d91b389d79e15ee164eea79bd673a1a61406ca4f57b5ac39e54282767400a"
+    sha256: "0e8148c984b9cab16aabac14c6e9d1929a723afc36dad8941a524b831688cd24"
     parent_artifacts: ["manuscript-manifest"]
     verification_state: "verified"
 
@@ -481,6 +537,13 @@ review:
       response: "Removed trailing whitespace and excess final blank lines; deterministic checks pass."
       revision_location: "Assignment Report/sections; academic-research/integrity-audit-draft-v1.md"
       resolution_state: "resolved"
+    - id: "R7-R10"
+      priority: "P1"
+      comment: "Professor requested complete EDA/preparation, target-bias justification and literature for all implemented methods; user required a new notebook and merged Markdown."
+      commitment: "Create notebook 06, preserve notebook 05, expand verified methods corpus, revise Markdown and add direction-specific validation."
+      response: "Implemented and independently re-reviewed; report validator passes at 8000 words with 27 citation families and 10 figures."
+      revision_location: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb; Assignment Report; academic-research/revision-ledger.md"
+      resolution_state: "resolved"
 
 integrity:
   status: "PASS-WITH-WARNINGS"
@@ -496,7 +559,12 @@ integrity:
       warning: "Approved corpus verified; OpenAlex and Kaggle kernel access remained degraded"
     - check: "Deterministic notebook reproduction"
       status: "PASS-WITH-WARNINGS"
-      warning: "Exact raw summary and eight result tables reproduced; cleanup-only ZMQ and joblib warnings were retained"
+      warning: "Notebook 06 reproduced notebook 05 core metrics exactly; cleanup-only ZMQ and joblib warnings were retained"
+    - check: "Complete EDA and preparation coverage"
+      status: "PASS"
+    - check: "Direction-specific target bias diagnostics"
+      status: "PASS-WITH-WARNINGS"
+      warning: "Decrease cases have materially higher error; model is not suitable for individual decisions"
     - check: "Corpus approval"
       status: "PASS"
     - check: "Modular section set and word budget"

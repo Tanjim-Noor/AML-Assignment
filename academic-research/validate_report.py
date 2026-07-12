@@ -11,28 +11,37 @@ REPORT = ROOT / "Assignment Report"
 SECTIONS = REPORT / "sections"
 
 EXPECTED = {
-    "00_title_and_abstract.md": (250, 300),
+    "00_title_and_abstract.md": (280, 330),
     "01_introduction_aim_objectives.md": (750, 850),
-    "02_related_works.md": (1800, 2000),
-    "03_methods.md": (650, 750),
-    "04_dataset_preparation.md": (600, 700),
-    "05_model_implementation.md": (900, 1000),
-    "06_model_validation.md": (600, 700),
-    "07_analysis_and_recommendations.md": (1000, 1150),
+    "02_related_works.md": (1900, 2100),
+    "03_methods.md": (700, 800),
+    "04_dataset_preparation.md": (700, 850),
+    "05_model_implementation.md": (900, 1050),
+    "06_model_validation.md": (700, 850),
+    "07_analysis_and_recommendations.md": (1000, 1200),
     "08_conclusion.md": (350, 450),
     "09_references.md": None,
     "10_acknowledgements.md": (60, 100),
 }
 
 REQUIRED_CITATIONS = {
+    "Arlot": 2010,
     "Abbas": 2024,
     "Alyahyan": 2020,
+    "Bergstra": 2012,
+    "Breiman": 2001,
     "Crompton": 2023,
+    "Fisher": 2019,
+    "Friedman": 2001,
+    "Harris": 2020,
     "Hellas": 2018,
+    "Hoerl": 1970,
+    "Hunter": 2007,
     "Kasneci": 2023,
     "Laupichler": 2022,
     "Lee": 2025,
     "Lo": 2023,
+    "McKinney": 2010,
     "Molerov": 2026,
     "Nagi sisiro": 2026,
     "Ng": 2021,
@@ -40,6 +49,7 @@ REQUIRED_CITATIONS = {
     "Probst": 2019,
     "Sun": 2024,
     "Waheed": 2020,
+    "Waskom": 2021,
     "Yağcı": 2022,
     "Zawacki-Richter": 2019,
 }
@@ -63,6 +73,8 @@ REQUIRED_VALUES = {
         "0.4185",
         "53.57%",
         "84.34%",
+        "0.1979",
+        "0.0993",
     ],
     "07_analysis_and_recommendations.md": [
         "0.2382",
@@ -119,9 +131,9 @@ def main() -> None:
 
     bib = (REPORT / "references.bib").read_text(encoding="utf-8")
     if len(re.findall(r"^@", bib, flags=re.MULTILINE)) != len(REQUIRED_CITATIONS):
-        failures.append("references.bib does not contain exactly 17 records")
-    if len(re.findall(r"doi\s*=", bib, flags=re.IGNORECASE)) != 15:
-        failures.append("references.bib does not contain exactly 15 DOI fields")
+        failures.append(f"references.bib does not contain exactly {len(REQUIRED_CITATIONS)} records")
+    if len(re.findall(r"doi\s*=", bib, flags=re.IGNORECASE)) != 23:
+        failures.append("references.bib does not contain exactly 23 DOI fields")
 
     for name, values in REQUIRED_VALUES.items():
         text = texts.get(name, "")
@@ -130,8 +142,8 @@ def main() -> None:
                 failures.append(f"required value {value} absent from {name}")
 
     image_links = re.findall(r"!\[[^\]]+\]\(([^)]+)\)", body)
-    if len(image_links) != 4:
-        failures.append(f"expected 4 report figures, found {len(image_links)}")
+    if len(image_links) != 10:
+        failures.append(f"expected 10 report figures, found {len(image_links)}")
     for source in image_links:
         resolved = (SECTIONS / source).resolve()
         if not resolved.exists():
@@ -146,16 +158,12 @@ def main() -> None:
     figure_numbers = [
         int(value) for value in re.findall(r"!\[Figure (\d+)\.", body)
     ]
-    if figure_numbers != [1, 2, 3, 4]:
-        failures.append(f"figure numbering is not sequential 1-4: {figure_numbers}")
+    if figure_numbers != list(range(1, 11)):
+        failures.append(f"figure numbering is not sequential 1-10: {figure_numbers}")
 
-    placeholder_locations = [
-        name for name, text in texts.items() if "[names and" in text
-    ]
-    if placeholder_locations != ["10_acknowledgements.md"]:
-        failures.append(
-            f"unexpected or missing acknowledgement placeholder: {placeholder_locations}"
-        )
+    merged = REPORT / "AML_Assignment_Report_Merged.md"
+    if not merged.exists():
+        failures.append("merged Markdown report is missing")
 
     if failures:
         print("REPORT AUDIT: FAIL")

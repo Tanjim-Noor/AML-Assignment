@@ -152,7 +152,8 @@ AML Assignment/
 |       |-- 02_skill_retention_regression.ipynb
 |       |-- 03_gpa_change_regression.ipynb
 |       |-- 04_gpa_decline_classifier.ipynb
-|       `-- 05_essential_gpa_change_regression.ipynb
+|       |-- 05_essential_gpa_change_regression.ipynb
+|       `-- 06_comprehensive_gpa_change_regression.ipynb
 |-- academic-research/
 |   |-- research-passport.yaml
 |   |-- writing-brief.md
@@ -191,7 +192,7 @@ AML Assignment/
 - `Learning Materials Application on Assigment/` is the exploratory workspace for applying lab concepts to the assignment datasets step by step.
 - `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale. Final student-impact versions should be standalone notebooks under `Final Assignment/notebooks/`, with all EDA, preprocessing, modelling, validation, plots, uncertainty, and interpretation shown inline in notebook cells. Treat `Final Assignment/_archive/` as historical reference, not active implementation.
 - `academic-research/` contains the UARS Research Passport, writing controls, literature-search evidence, reproducibility records, integrity audits and review history for the assignment report.
-- `Assignment Report/` contains the reviewable Markdown source, modular Typst assembly and rendered PDF. Use `README.md` for merge order and status, `references.bib` as canonical citation metadata, `sections/` for the ordered Markdown modules, `assets/` for reproducibly generated figures, `typst/main.typ` as the merge entry point, and `AML_Assignment_Report.pdf` as the compiled review artifact.
+- `Assignment Report/` contains the reviewable Markdown source, modular Typst assembly and rendered PDF. Use `README.md` for merge order and status, `references.bib` as canonical citation metadata, `sections/` for ordered modules, `AML_Assignment_Report_Merged.md` for generated single-file review, `assets/` for reproducible figures, `typst/main.typ` as the Typst entry point, and `AML_Assignment_Report.pdf` as the compiled review artifact.
 - `.agents/skills/typst/` contains the local Typst-related skills for report work: `typst`, `typst-author`, and `touying-author`.
 
 ## Working Notes
@@ -202,7 +203,8 @@ AML Assignment/
 - Use `Learning Materials Application on Assigment/` for experiments and learning-driven iterations.
 - Use `Final Assignment/` for the final notebook-only assignment versions that support the report.
 - For final student-impact assignment versions, do not create shared pipeline scripts, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries. Each notebook should be standalone and display all tables, plots, training results, validation metrics, uncertainty, and recommendations inline when run.
-- Treat `Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb` as the recommended concise final implementation. Unlike the advanced variants, it intentionally retains executed cell outputs, and `Final Assignment/explanation.md` is its canonical plain-language results analysis.
+- Treat `Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb` as the reported comprehensive implementation. It extends byte-preserved notebook 05 with complete EDA, preparation evidence and direction-specific bias diagnostics, and retains executed outputs.
+- Keep `Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb` byte-unchanged as the concise historical baseline unless the user explicitly authorises changes.
 - Treat `Final Assignment/Deep Learning Experiments/` as executed GPU comparison work that supplements notebook 05 rather than replacing it. FT-Transformer is the strongest tested neural model, but its validation gain is below the material-improvement gate, so HGB remains the recommended final model.
 - The deep-learning experiment environment uses `rtdl-revisiting-models==0.0.2` and `tabm==0.0.3`. Do not add `pytorch-tabular` to this workspace because its resolved dependency set would downgrade pandas 3.0.3.
 - Treat the student-impact dataset as a Kaggle-provided modelling dataset with undocumented collection and real-versus-synthetic provenance. Do not make causal or population-level claims about AI use, GPA, retention, anxiety, dependency, policy, or burnout.
@@ -217,7 +219,7 @@ AML Assignment/
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
 - If the local Git filter config is missing or stale, run `.\scripts\install_notebook_git_filter.ps1` from the workspace root.
-- Before commit, run `.\scripts\strip_assignment_notebooks.ps1` to normalize notebook metadata/output in assignment notebook scopes. The script must preserve the executed outputs of `05_essential_gpa_change_regression.ipynb` and the three notebooks under `Final Assignment/Deep Learning Experiments/`.
+- Before commit, run `.\scripts\strip_assignment_notebooks.ps1` to normalize notebook metadata/output in assignment notebook scopes. The script must preserve the executed outputs of notebooks 05 and 06 and the three notebooks under `Final Assignment/Deep Learning Experiments/`.
 - Keep folder boundaries stable unless the user explicitly asks to reorganize the workspace.
 - Microsoft Office temporary and lock files, such as files beginning with `~$`, are ignored and should not be committed.
 
