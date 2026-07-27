@@ -59,20 +59,184 @@ def build() -> nbformat.NotebookNode:
     }.items():
         nb.cells[index].metadata["report_figure"] = filename
 
-    # Replace code-facing labels in exported plots with reader-facing language.
-    nb.cells[6].source = nb.cells[6].source.replace(
-        'axes[0, 0].set_title("Distribution of semester GPA change")',
-        'axes[0, 0].set(title="Distribution of semester GPA change", xlabel="Semester GPA change")',
-    ).replace(
-        'axes[0, 1].set_title("Previous GPA and GPA change")',
-        'axes[0, 1].set(title="Previous GPA and GPA change", xlabel="Previous-semester GPA", ylabel="Semester GPA change")',
-    ).replace(
-        'axes[1, 0].set_title("GPA change by prompt skill")',
-        'axes[1, 0].set(title="GPA change by prompt skill", xlabel="Prompt-engineering skill", ylabel="Semester GPA change")',
-    ).replace(
-        'axes[1, 1].set_title("Mean GPA change by weekly AI-hours quartile")',
-        'axes[1, 1].set(title="Mean GPA change by weekly AI-hours quartile", xlabel="Weekly GenAI-hours quartile", ylabel="Mean semester GPA change")',
+    # Rebuild the original compact report figures at a print-readable scale.
+    nb.cells[6].source = """
+with plt.rc_context({
+    "figure.dpi": 180,
+    "font.size": 14,
+    "axes.titlesize": 16,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 14,
+    "ytick.labelsize": 14,
+    "legend.fontsize": 14,
+}):
+    fig, axes = plt.subplots(2, 2, figsize=(10, 12))
+
+    sns.histplot(df["GPA_Change"], bins=40, kde=True, ax=axes[0, 0])
+    axes[0, 0].axvline(0, color="black", linestyle="--")
+    axes[0, 0].set(
+        title="(a) Distribution of semester GPA change",
+        xlabel="Semester GPA change",
+        ylabel="Students",
     )
+
+    sample = df.sample(5000, random_state=RANDOM_STATE)
+    sns.scatterplot(
+        data=sample, x="Pre_Semester_GPA", y="GPA_Change",
+        alpha=0.25, ax=axes[0, 1]
+    )
+    axes[0, 1].set(
+        title="(b) Previous GPA and GPA change",
+        xlabel="Previous-semester GPA",
+        ylabel="Semester GPA change",
+    )
+
+    sns.boxplot(
+        data=df, x="Prompt_Engineering_Skill", y="GPA_Change",
+        order=["Beginner", "Intermediate", "Advanced"], ax=axes[1, 0]
+    )
+    axes[1, 0].set(
+        title="(c) GPA change by prompt skill",
+        xlabel="Prompt-engineering skill",
+        ylabel="Semester GPA change",
+    )
+
+    df["AI_Hours_Quartile"] = pd.qcut(
+        df["Weekly_GenAI_Hours"], 4,
+        labels=["Lowest", "Lower-\\nmiddle", "Upper-\\nmiddle", "Highest"]
+    )
+    sns.pointplot(
+        data=df, x="AI_Hours_Quartile", y="GPA_Change",
+        errorbar=("ci", 95), ax=axes[1, 1]
+    )
+    axes[1, 1].set(
+        title="(d) Mean GPA change by weekly AI-hours quartile",
+        xlabel="Weekly GenAI-hours quartile",
+        ylabel="Mean semester GPA change",
+    )
+
+    fig.tight_layout()
+    plt.show()
+
+display(
+    df.groupby("Prompt_Engineering_Skill", observed=True)["GPA_Change"]
+    .agg(["count", "mean", "std"])
+    .round(4)
+)
+display(
+    df.groupby("AI_Hours_Quartile", observed=True)["GPA_Change"]
+    .agg(["count", "mean", "std"])
+    .round(4)
+)
+""".strip() + "\n"
+
+    nb.cells[17].source = """
+fitted_models["Tuned histogram gradient boosting"] = tuning_search.best_estimator_
+
+test_rows = []
+predictions = {}
+for model_name, model in fitted_models.items():
+    prediction = model.predict(X_test)
+    predictions[model_name] = prediction
+    test_rows.append({
+        "Model": model_name,
+        "Test MAE": mean_absolute_error(y_test, prediction),
+        "Test RMSE": mean_squared_error(y_test, prediction) ** 0.5,
+        "Test R2": r2_score(y_test, prediction),
+    })
+
+test_results = (
+    pd.DataFrame(test_rows)
+    .sort_values("Test RMSE")
+    .reset_index(drop=True)
+)
+display(test_results.style.format({
+    "Test MAE": "{:.4f}",
+    "Test RMSE": "{:.4f}",
+    "Test R2": "{:.4f}",
+}))
+
+best_model_name = test_results.iloc[0]["Model"]
+best_model = fitted_models[best_model_name]
+best_prediction = predictions[best_model_name]
+
+with plt.rc_context({
+    "figure.dpi": 180,
+    "font.size": 14,
+    "axes.titlesize": 16,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 14,
+    "ytick.labelsize": 14,
+}):
+    fig, axes = plt.subplots(2, 1, figsize=(10, 13))
+    sns.barplot(
+        data=test_results,
+        y="Model", x="Test RMSE",
+        color="#4C78A8", ax=axes[0]
+    )
+    axes[0].set(
+        title="(a) Reserved-test RMSE comparison",
+        xlabel="RMSE in GPA points (lower is better)",
+        ylabel="Model",
+    )
+    for container in axes[0].containers:
+        axes[0].bar_label(container, fmt="%.4f", padding=4, fontsize=14)
+
+    sns.scatterplot(
+        x=y_test, y=best_prediction,
+        alpha=0.25, ax=axes[1]
+    )
+    lower = min(float(y_test.min()), float(best_prediction.min()))
+    upper = max(float(y_test.max()), float(best_prediction.max()))
+    axes[1].plot([lower, upper], [lower, upper], "k--")
+    axes[1].set(
+        xlabel="Actual semester GPA change",
+        ylabel="Predicted semester GPA change",
+        title="(b) Actual and predicted values for tuned HGB",
+    )
+    fig.tight_layout()
+    plt.show()
+""".strip() + "\n"
+
+    nb.cells[19].source = """
+residuals = np.asarray(y_test) - np.asarray(best_prediction)
+absolute_errors = np.abs(residuals)
+
+residual_summary = pd.Series({
+    "Mean residual": residuals.mean(),
+    "Residual standard deviation": residuals.std(ddof=1),
+    "Median absolute error": np.median(absolute_errors),
+    "Predictions within 0.10 GPA points": (absolute_errors <= 0.10).mean(),
+    "Predictions within 0.20 GPA points": (absolute_errors <= 0.20).mean(),
+})
+display(residual_summary.to_frame("Value").style.format("{:.4f}"))
+
+with plt.rc_context({
+    "figure.dpi": 180,
+    "font.size": 14,
+    "axes.titlesize": 16,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 14,
+    "ytick.labelsize": 14,
+}):
+    fig, axes = plt.subplots(2, 1, figsize=(10, 13))
+    sns.scatterplot(x=best_prediction, y=residuals, alpha=0.25, ax=axes[0])
+    axes[0].axhline(0, color="black", linestyle="--")
+    axes[0].set(
+        xlabel="Predicted semester GPA change",
+        ylabel="Residual (actual minus predicted)",
+        title="(a) Residuals against predictions",
+    )
+    sns.histplot(residuals, bins=40, kde=True, ax=axes[1])
+    axes[1].axvline(0, color="black", linestyle="--")
+    axes[1].set(
+        xlabel="Residual (actual minus predicted)",
+        ylabel="Students",
+        title="(b) Residual distribution",
+    )
+    fig.tight_layout()
+    plt.show()
+""".strip() + "\n"
     nb.cells[21].source = nb.cells[21].source.replace(
         'importance_results = (\n    pd.DataFrame({',
         'DISPLAY_LABELS = {\n'
@@ -95,8 +259,15 @@ def build() -> nbformat.NotebookNode:
         '    .assign(Feature=lambda frame: frame["Feature"].map(DISPLAY_LABELS).fillna(frame["Feature"]))\n'
         '    .sort_values("Importance", ascending=False)',
     ).replace(
+        'plt.figure(figsize=(9, 6))',
+        'plt.figure(figsize=(10, 6), dpi=180)',
+    ).replace(
         'plt.title("Top permutation importances")',
-        'plt.title("Top permutation importances")\nplt.xlabel("Increase in RMSE-based loss after shuffling")\nplt.ylabel("Predictor")',
+        'plt.title("Top permutation importances", fontsize=18)\n'
+        'plt.xlabel("Increase in RMSE-based loss after shuffling", fontsize=14)\n'
+        'plt.ylabel("Predictor", fontsize=14)\n'
+        'plt.xticks(fontsize=14)\n'
+        'plt.yticks(fontsize=14)',
     )
 
     understanding = [
@@ -143,6 +314,16 @@ assert validity_checks.loc[["Missing cells", "Duplicate rows", "Duplicate studen
 assert validity_checks.filter(like="outside").sum() == 0
 """),
         code("""
+plt.rcParams.update({
+    "figure.dpi": 180,
+    "font.size": 14,
+    "axes.titlesize": 16,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 14,
+    "ytick.labelsize": 14,
+    "legend.fontsize": 14,
+})
+
 quality_plot = pd.DataFrame({
     "Check": ["Missing cells", "Duplicate rows", "Duplicate IDs", "Invalid-range rows"],
     "Count": [
@@ -150,12 +331,12 @@ quality_plot = pd.DataFrame({
         validity_checks["Duplicate student IDs"], validity_checks.filter(like="outside").sum(),
     ],
 })
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+fig, axes = plt.subplots(1, 2, figsize=(10, 4.5))
 sns.barplot(data=quality_plot, x="Count", y="Check", color="#4C78A8", ax=axes[0])
-axes[0].set_title("Data-quality audit")
+axes[0].set(title="(a) Data-quality audit", xlabel="Count", ylabel="Check")
 dtype_counts = schema_profile["Data type"].replace({"str": "categorical", "bool": "boolean"}).value_counts()
 axes[1].pie(dtype_counts.values, labels=dtype_counts.index, autopct="%1.0f%%", startangle=90)
-axes[1].set_title("Original field types")
+axes[1].set_title("(b) Original field types")
 fig.tight_layout()
 plt.show()
 """, "fig01_data_quality_and_schema.png"),
@@ -186,34 +367,79 @@ categorical_summary = pd.DataFrame(category_rows)
 display(categorical_summary.style.format({"Percentage": "{:.2f}%"}))
 """),
         code("""
-fig, axes = plt.subplots(3, 3, figsize=(15, 12))
-for ax, column in zip(axes.flat, numeric_columns):
+context_numeric = [
+    ("Pre_Semester_GPA", "Previous-semester GPA"),
+    ("Traditional_Study_Hours", "Traditional study hours"),
+    ("Anxiety_Level_During_Exams", "Exam anxiety"),
+]
+fig, axes = plt.subplots(3, 1, figsize=(10, 12))
+for ax, (column, label) in zip(axes, context_numeric):
     sns.histplot(original[column], bins=30, kde=True, ax=ax, color="#4C78A8")
-    ax.set_title(column.replace("_", " "))
-    ax.set_xlabel(column.replace("_", " "))
-for ax in axes.flat[len(numeric_columns):]:
-    ax.axis("off")
-fig.suptitle("Numeric-field distributions", y=1.01)
-fig.tight_layout()
+    ax.set(title=label, xlabel=label, ylabel="Students")
+fig.suptitle("(a) Academic and study-context measures", fontsize=18, y=.995)
+fig.tight_layout(rect=(0, 0, 1, .97))
 plt.show()
-""", "fig02_numeric_distributions.png"),
+""", "fig02a_context_numeric_distributions.png"),
         code("""
-fig, axes = plt.subplots(2, 3, figsize=(16, 9))
+ai_numeric = [
+    ("Weekly_GenAI_Hours", "Weekly GenAI hours"),
+    ("Tool_Diversity", "Tool diversity"),
+    ("Perceived_AI_Dependency", "Perceived AI dependency"),
+]
+fig, axes = plt.subplots(3, 1, figsize=(10, 12))
+for ax, (column, label) in zip(axes, ai_numeric):
+    sns.histplot(original[column], bins=30, kde=True, ax=ax, color="#4C78A8")
+    ax.set(title=label, xlabel=label, ylabel="Students")
+fig.suptitle("(b) Generative-AI usage measures", fontsize=18, y=.995)
+fig.tight_layout(rect=(0, 0, 1, .97))
+plt.show()
+""", "fig02b_ai_numeric_distributions.png"),
+        code("""
+excluded_outcomes = [
+    ("Post_Semester_GPA", "Post-semester GPA"),
+    ("Skill_Retention_Score", "Skill-retention score"),
+]
+fig, axes = plt.subplots(2, 1, figsize=(10, 8.5))
+for ax, (column, label) in zip(axes, excluded_outcomes):
+    sns.histplot(original[column], bins=30, kde=True, ax=ax, color="#4C78A8")
+    ax.set(title=label, xlabel=label, ylabel="Students")
+fig.suptitle("(c) Post-semester outcome fields excluded from prediction", fontsize=18, y=.995)
+fig.tight_layout(rect=(0, 0, 1, .96))
+plt.show()
+""", "fig02c_excluded_outcome_distributions.png"),
+        code("""
 categorical_plot_data = original[categorical_columns].copy()
 for column in categorical_columns:
     categorical_plot_data[column] = categorical_plot_data[column].astype(str).str.replace("_", " ", regex=False)
-for ax, column in zip(axes.flat, categorical_columns):
+context_categorical = [
+    ("Major_Category", "Major category"),
+    ("Year_of_Study", "Year of study"),
+    ("Institutional_Policy", "Institutional policy"),
+]
+fig, axes = plt.subplots(3, 1, figsize=(10, 12))
+for ax, (column, label) in zip(axes, context_categorical):
     order = categorical_plot_data[column].value_counts().index
     sns.countplot(data=categorical_plot_data, y=column, order=order, ax=ax, color="#72B7B2")
-    ax.set_title(column.replace("_", " "))
-    ax.set_ylabel(column.replace("_", " "))
-    ax.set_xlabel("Students")
-for ax in axes.flat[len(categorical_columns):]:
-    ax.axis("off")
-fig.suptitle("Categorical-field distributions", y=1.01)
-fig.tight_layout()
+    ax.set(title=label, xlabel="Students", ylabel="")
+fig.suptitle("(a) Academic and institutional categories", fontsize=18, y=.995)
+fig.tight_layout(rect=(0, 0, 1, .97))
 plt.show()
-""", "fig03_categorical_distributions.png"),
+""", "fig03a_context_categorical_distributions.png"),
+        code("""
+ai_categorical = [
+    ("Primary_Use_Case", "Primary AI use case"),
+    ("Prompt_Engineering_Skill", "Prompt-engineering skill"),
+    ("Paid_Subscription", "Paid subscription"),
+]
+fig, axes = plt.subplots(3, 1, figsize=(10, 12))
+for ax, (column, label) in zip(axes, ai_categorical):
+    order = categorical_plot_data[column].value_counts().index
+    sns.countplot(data=categorical_plot_data, y=column, order=order, ax=ax, color="#72B7B2")
+    ax.set(title=label, xlabel="Students", ylabel="")
+fig.suptitle("(b) Generative-AI use and access categories", fontsize=18, y=.995)
+fig.tight_layout(rect=(0, 0, 1, .97))
+plt.show()
+""", "fig03b_ai_categorical_distributions.png"),
         md("""
 ### 3.3 Correlation, target structure, and imbalance
 
@@ -224,7 +450,7 @@ corr_frame = df[[*numeric_columns, "GPA_Change"]].drop(columns=["Post_Semester_G
 correlations = corr_frame.corr(numeric_only=True)
 display(correlations["GPA_Change"].sort_values(ascending=False).to_frame("Correlation with GPA change").round(4))
 
-fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+fig, axes = plt.subplots(2, 1, figsize=(10, 13))
 display_names = {
     "Pre_Semester_GPA": "Previous GPA",
     "Weekly_GenAI_Hours": "Weekly GenAI hours",
@@ -235,11 +461,15 @@ display_names = {
     "GPA_Change": "GPA change",
 }
 plot_correlations = correlations.rename(index=display_names, columns=display_names)
-sns.heatmap(plot_correlations, annot=True, fmt=".2f", cmap="vlag", center=0, ax=axes[0])
-axes[0].set_title("Numeric correlation matrix")
+sns.heatmap(
+    plot_correlations, annot=True, fmt=".2f", cmap="vlag", center=0,
+    annot_kws={"size": 14}, ax=axes[0]
+)
+axes[0].set_title("(a) Numeric correlation matrix")
+axes[0].tick_params(axis="x", rotation=30)
 sns.scatterplot(data=df.sample(5000, random_state=RANDOM_STATE), x="Pre_Semester_GPA", y="GPA_Change", alpha=.25, ax=axes[1])
 axes[1].axhline(0, color="black", linestyle="--")
-axes[1].set(title="Previous GPA and GPA change", xlabel="Previous-semester GPA", ylabel="Semester GPA change")
+axes[1].set(title="(b) Previous GPA and GPA change", xlabel="Previous-semester GPA", ylabel="Semester GPA change")
 fig.tight_layout()
 plt.show()
 """, "fig04_correlation_and_target_relationships.png"),
@@ -255,12 +485,12 @@ direction_summary = (
 direction_summary["Percentage"] = 100 * direction_summary["Count"] / len(df)
 display(direction_summary.style.format({"Percentage": "{:.2f}%"}))
 
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+fig, axes = plt.subplots(1, 2, figsize=(10, 4.5))
 sns.countplot(data=df, x="GPA_Direction", order=["Decrease", "Unchanged", "Increase"], color="#E45756", ax=axes[0])
-axes[0].set(title="Observed GPA-change direction", xlabel="Observed direction", ylabel="Students")
+axes[0].set(title="(a) Observed GPA-change direction", xlabel="Observed direction", ylabel="Students")
 sns.histplot(data=df, x="GPA_Change", hue="GPA_Direction", bins=45, element="step", ax=axes[1])
 axes[1].axvline(0, color="black", linestyle="--")
-axes[1].set(title="Continuous target retained without balancing", xlabel="Semester GPA change", ylabel="Students")
+axes[1].set(title="(b) Continuous target retained without balancing", xlabel="Semester GPA change", ylabel="Students")
 axes[1].legend_.set_title("Observed direction")
 fig.tight_layout()
 plt.show()
@@ -370,13 +600,21 @@ direction_error_summary["RMSE"] = np.sqrt(direction_error_summary.pop("MSE"))
 direction_error_summary = direction_error_summary.reindex(["Decrease", "Unchanged", "Increase"]).dropna(how="all")
 display(direction_error_summary.style.format({"MAE": "{:.4f}", "RMSE": "{:.4f}", "Mean_residual": "{:+.4f}", "Median_residual": "{:+.4f}"}))
 
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+fig, axes = plt.subplots(2, 1, figsize=(10, 13))
 plot_errors = direction_error_summary.reset_index().melt(id_vars=["Direction"], value_vars=["MAE", "RMSE"], var_name="Metric", value_name="Error")
 sns.barplot(data=plot_errors, x="Direction", y="Error", hue="Metric", ax=axes[0])
-axes[0].set_title("Test error by observed GPA direction")
+axes[0].set(
+    title="(a) Test error by observed GPA-change direction",
+    xlabel="Observed direction",
+    ylabel="Error in GPA points",
+)
 sns.boxplot(data=direction_test, x="Direction", y="Residual", order=["Decrease", "Unchanged", "Increase"], ax=axes[1])
 axes[1].axhline(0, color="black", linestyle="--")
-axes[1].set_title("Residual distribution by direction")
+axes[1].set(
+    title="(b) Residual distribution by observed direction",
+    xlabel="Observed direction",
+    ylabel="Residual (actual minus predicted)",
+)
 fig.tight_layout()
 plt.show()
 """, "fig09_direction_specific_errors.png"),

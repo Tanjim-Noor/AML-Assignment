@@ -3,14 +3,15 @@
 The current submission candidates are:
 
 - `AML_Assignment_Report_Final.md`: canonical reviewable source.
-- `AML_Assignment_Report_Final_Revised.docx`: formatted submission document.
+- `AML_Assignment_Report_Final_Readable_Figures.docx`: formatted submission
+  document with readability-first figure plates.
 
 They supersede `AML_Assignment_Report_Submission_Source.md` and
 `AML_Assignment_Report_Updated_Fixed.docx`. The earlier
-`AML_Assignment_Report_Final.docx` is also retained because it was open during
-the final correction pass. These files remain revision inputs rather than the
-current submission pair. The modular Markdown, Typst and PDF files remain
-historical assembly artefacts.
+`AML_Assignment_Report_Final.docx` and
+`AML_Assignment_Report_Final_Revised.docx` are retained as revision inputs
+rather than the current submission pair. The modular Markdown, Typst and PDF
+files remain historical assembly artefacts.
 
 Notebook 06 is the comprehensive implementation supporting the final
 documents. Notebook 05 remains the byte-preserved modelling baseline.
@@ -35,12 +36,14 @@ narrative. The revised structure explains:
 The DOCX uses A4 pages, Times New Roman throughout, black headings, 1.5-line
 body spacing, accessible table headers and alternative text for figures. It
 uses equal one-inch margins, inline centred figures and no external-file
-relationships or automatic field-update request. It was rendered to 42 pages
-and visually inspected page by page. The main sections occupy 35 numbered
+relationships or automatic field-update request. Dense exploratory and
+validation graphics use dedicated, full-width plates with reader-facing panel
+titles and alternative text. It was rendered to 52 pages and visually
+inspected page by page. The main sections occupy 45 numbered
 pages: Introduction 1--3, Related Works 4--8, Methods 9--12, Dataset
-Preparation 13--17, Model Implementation 18--22, Model Validation 23--26,
-Analysis and Recommendations 27--30, Conclusion 31--32, References 33--35
-and Acknowledgements 35.
+Preparation 13--23, Model Implementation 24--28, Model Validation 29--36,
+Analysis and Recommendations 37--41, Conclusion 41--42, References 43--45
+and Acknowledgements 45.
 
 ## Merge order and status
 
@@ -87,7 +90,8 @@ typst compile --root "Assignment Report" `
 - `references.bib` is the canonical bibliographic metadata file.
 - `sections/09_references.md` is the reviewable APA 7 presentation list.
 - Figures 1--6 present data quality, full-field distributions, correlations,
-  target imbalance and focused EDA.
+  target imbalance and focused EDA. Figures 2 and 3 are split into five
+  readable plates while retaining their main numbers.
 - Figures 7--10 present model comparison, residuals, direction-specific error
   and permutation importance.
 

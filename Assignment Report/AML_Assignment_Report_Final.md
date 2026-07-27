@@ -96,49 +96,49 @@ Generative-AI tools are increasingly used in higher education, yet their relatio
 
 4.1 Data understanding, audit and target construction    13
 
-4.2 Preparation and leakage control    16
+4.2 Preparation and leakage control    22
 
-5 Model Implementation    18
+5 Model Implementation    24
 
-5.1 Common pipeline    18
+5.1 Common pipeline    24
 
-5.2 Candidate regressors    18
+5.2 Candidate regressors    24
 
-5.3 Feature-set ablation    19
+5.3 Feature-set ablation    25
 
-5.4 Hyperparameter optimisation    20
+5.4 Hyperparameter optimisation    26
 
-5.5 Neural-model comparison and selection decision    21
+5.5 Neural-model comparison and selection decision    27
 
-5.6 Final fitting and interpretation outputs    22
+5.6 Final fitting and interpretation outputs    28
 
-6 Model Validation    23
+6 Model Validation    29
 
-6.1 Cross-validation and model selection    23
+6.1 Cross-validation and model selection    29
 
-6.2 Test confirmation    24
+6.2 Test confirmation    30
 
-6.3 Residual behaviour    25
+6.3 Residual behaviour    33
 
-6.4 Direction-specific error and bias risk    26
+6.4 Direction-specific error and bias risk    35
 
-7 Analysis and Recommendations    27
+7 Analysis and Recommendations    37
 
-7.1 Answer to the research question    27
+7.1 Answer to the research question    37
 
-7.2 Why nonlinear models performed better    28
+7.2 Why nonlinear models performed better    38
 
-7.3 Predictive importance and anomalies    29
+7.3 Predictive importance and anomalies    39
 
-7.4 Relationship to prior evidence    30
+7.4 Relationship to prior evidence    40
 
-7.5 Recommendations    30
+7.5 Recommendations    41
 
-8 Conclusion    31
+8 Conclusion    41
 
-References    33
+References    43
 
-Acknowledgements    35
+Acknowledgements    45
 
 <!-- Page break in the submitted DOCX -->
 
@@ -146,23 +146,29 @@ Acknowledgements    35
 
 Figure 1. Data-quality results and original field-type composition. Zero counts for missing cells, duplicate rows, duplicate identifiers and invalid-range rows document why no corrective cleaning was applied.    13
 
-Figure 2. Distributions of all original numeric and ordinal measures except the unique student identifier.    14
+Figure 2(a). Distributions of previous GPA, traditional-study hours and exam anxiety.    14
 
-Figure 3. Frequency distributions for every categorical and Boolean source field.    14
+Figure 2(b). Distributions of weekly GenAI hours, tool diversity and perceived AI dependency.    15
 
-Figure 4. Numeric correlation matrix and sampled relationship between previous GPA and GPA change. Post-semester outcomes are excluded from the predictor-focused matrix.    15
+Figure 2(c). Distributions of post-semester GPA and skill retention, which were excluded post-outcome fields.    16
 
-Figure 5. Counts and continuous distributions of GPA decreases, unchanged values and increases. The continuous target was retained without balancing.    15
+Figure 3(a). Frequency distributions of major, year of study and institutional policy.    17
 
-Figure 6. Distribution of GPA change and descriptive relationships with previous GPA, prompt-engineering skill and weekly generative-AI hours. Error bars show 95% confidence intervals for group means.    16
+Figure 3(b). Frequency distributions of primary AI use case, prompt skill and paid subscription.    18
 
-Figure 7. Reserved-test RMSE by model and actual versus predicted GPA change for the selected tuned HGB model. The dashed diagonal represents perfect predictions.    25
+Figure 4. Panel (a) shows the numeric correlation matrix; panel (b) shows the sampled relationship between previous GPA and GPA change. Post-semester outcomes are excluded from the predictor-focused matrix.    19
 
-Figure 8. Residuals against predicted GPA change and the residual distribution for tuned HGB.    26
+Figure 5. Panel (a) shows counts by observed direction; panel (b) shows the continuous distributions of decreases, unchanged values and increases. The continuous target was retained without balancing.    20
 
-Figure 9. Test MAE, RMSE and residual distributions separated by observed GPA-change direction. The same tuned model and untouched test set are used for all groups.    26
+Figure 6. Panel (a) shows the target distribution, panel (b) its relationship with previous GPA, panel (c) prompt-skill differences and panel (d) weekly GenAI-hours quartiles. Error bars show 95% confidence intervals for group means.    21
 
-Figure 10. Test-set permutation importance for the selected tuned HGB model. Values show the mean deterioration in RMSE-based score after shuffling each source feature across five repetitions.    29
+Figure 7. Panel (a) compares reserved-test RMSE by model; panel (b) compares actual and predicted GPA change for tuned HGB. The dashed diagonal represents perfect predictions.    32
+
+Figure 8. Panel (a) plots residuals against predicted GPA change; panel (b) shows the residual distribution for tuned HGB.    34
+
+Figure 9. Panel (a) compares test MAE and RMSE by observed GPA-change direction; panel (b) shows the corresponding residual distributions. The same tuned model and reserved test set are used for all groups.    36
+
+Figure 10. Test-set permutation importance for the selected tuned HGB model. Values show the mean deterioration in RMSE-based score after shuffling each source feature across five repetitions.    39
 
 <!-- Page break in the submitted DOCX -->
 
@@ -174,21 +180,21 @@ Table 2. Core literature informing the study    7
 
 Table 3. Experimental workflow and evidence role    12
 
-Table 4. Dataset preparation decisions    17
+Table 4. Dataset preparation decisions    22
 
-Table 5. Candidate model specification    19
+Table 5. Candidate model specification    25
 
-Table 6. HGB randomised-search space and selected configuration    20
+Table 6. HGB randomised-search space and selected configuration    26
 
-Table 7. Neural-model comparison    21
+Table 7. Neural-model comparison    27
 
-Table 8. Five-fold cross-validation performance    23
+Table 8. Five-fold cross-validation performance    29
 
-Table 9. Reserved-test confirmation    24
+Table 9. Reserved-test confirmation    30
 
-Table 10. Bootstrap uncertainty for selected-model test performance    25
+Table 10. Bootstrap uncertainty for selected-model test performance    31
 
-Table 11. HGB feature-set comparison    27
+Table 11. HGB feature-set comparison    37
 
 # 1 Introduction, Aim and Objectives
 
@@ -354,33 +360,47 @@ Every field was profiled for data type, non-null count, missing count, cardinali
 
 Figure 1. Data-quality results and original field-type composition. Zero counts for missing cells, duplicate rows, duplicate identifiers and invalid-range rows document why no corrective cleaning was applied.
 
-Numeric exploration reported descriptive statistics, distributions and IQR outlier flags for every measured field (Figure 2). Flags prompted inspection, not automatic deletion. Figure 3 reports every categorical and Boolean frequency before encoding.
+Numeric exploration reported descriptive statistics, distributions and IQR outlier flags for every measured field. Figures 2(a) and 2(b) show the six numeric and ordinal predictors, while Figure 2(c) separately shows the two post-semester outcome fields excluded from prediction. This separation keeps the complete audit visible without implying that excluded outcomes entered the model. Flags prompted inspection, not automatic deletion.
 
-![Figure 2](assets/fig02_numeric_distributions.png)
+![Figure 2(a): academic and study-context numeric distributions](assets/fig02a_context_numeric_distributions.png)
 
-Figure 2. Distributions of all original numeric and ordinal measures except the unique student identifier.
+Figure 2(a). Distributions of previous-semester GPA, traditional-study hours and exam anxiety.
 
-![Figure 3](assets/fig03_categorical_distributions.png)
+![Figure 2(b): generative-AI numeric distributions](assets/fig02b_ai_numeric_distributions.png)
 
-Figure 3. Frequency distributions for every categorical and Boolean source field.
+Figure 2(b). Distributions of weekly GenAI hours, tool diversity and perceived AI dependency.
+
+![Figure 2(c): excluded post-outcome distributions](assets/fig02c_excluded_outcome_distributions.png)
+
+Figure 2(c). Distributions of post-semester GPA and skill retention. Both are post-outcome fields excluded from prediction.
+
+Figures 3(a) and 3(b) report every categorical and Boolean frequency before encoding, separated into academic or institutional context and AI-use or access fields.
+
+![Figure 3(a): academic and institutional categorical distributions](assets/fig03a_context_categorical_distributions.png)
+
+Figure 3(a). Frequency distributions of major, year of study and institutional policy.
+
+![Figure 3(b): generative-AI use and access categorical distributions](assets/fig03b_ai_categorical_distributions.png)
+
+Figure 3(b). Frequency distributions of primary AI use case, prompt-engineering skill and paid subscription.
 
 Semester GPA change was derived as post-semester minus pre-semester GPA, increasing the working dataset to 17 variables without altering the source data. The target mean was 0.2032 GPA points, its standard deviation was 0.1872 and its median was 0.2040, with values from -0.924 to 1.008. Figure 4 presents numeric correlations and the bounded relationship between previous GPA and GPA change. These correlations support exploration of predictive structure but do not establish causation.
 
 ![Figure 4](assets/fig04_correlation_and_target_relationships.png)
 
-Figure 4. Numeric correlation matrix and sampled relationship between previous GPA and GPA change. Post-semester outcomes are excluded from the predictor-focused matrix.
+Figure 4. Panel (a) shows the numeric correlation matrix; panel (b) shows the sampled relationship between previous GPA and GPA change. Post-semester outcomes are excluded from the predictor-focused matrix.
 
 There were 43,759 positive changes (87.52%), 6,192 negative changes (12.38%) and 49 unchanged records (0.10%). Figure 5 makes this asymmetry explicit. It is not conventional class imbalance because the model predicts a continuous quantity rather than an increase/decrease class. Resampling by sign would change the observed target distribution and regression estimand. All records were therefore retained, while direction-specific test errors were added to detect performance differences hidden by aggregate metrics.
 
 ![Figure 5](assets/fig05_gpa_direction_imbalance.png)
 
-Figure 5. Counts and continuous distributions of GPA decreases, unchanged values and increases. The continuous target was retained without balancing.
+Figure 5. Panel (a) shows counts by observed direction; panel (b) shows the continuous distributions of decreases, unchanged values and increases. The continuous target was retained without balancing.
 
 Figure 6 shows an approximately unimodal target, a GPA-ceiling relationship, prompt-skill differences and non-monotonic AI-hours quartiles. These unadjusted patterns support nonlinear modelling but do not identify causal effects.
 
 ![Figure 6](assets/fig06_gpa_change_eda.png)
 
-Figure 6. Distribution of GPA change and descriptive relationships with previous GPA, prompt-engineering skill and weekly generative-AI hours. Error bars show 95% confidence intervals for group means.
+Figure 6. Panel (a) shows the target distribution, panel (b) its relationship with previous GPA, panel (c) prompt-skill differences and panel (d) weekly GenAI-hours quartiles. Error bars show 95% confidence intervals for group means.
 
 ## 4.2 Preparation and leakage control
 
@@ -540,7 +560,7 @@ Table 10. Bootstrap uncertainty for selected-model test performance
 
 ![Figure 7](assets/fig07_model_test_rmse_and_actual_vs_predicted.png)
 
-Figure 7. Reserved-test RMSE by model and actual versus predicted GPA change for the selected tuned HGB model. The dashed diagonal represents perfect predictions.
+Figure 7. Panel (a) compares reserved-test RMSE by model; panel (b) compares actual and predicted GPA change for tuned HGB. The dashed diagonal represents perfect predictions.
 
 ## 6.3 Residual behaviour
 
@@ -550,7 +570,7 @@ The median absolute error was 0.0922. Of the 10,000 test predictions, 53.57% wer
 
 ![Figure 8](assets/fig08_residual_diagnostics.png)
 
-Figure 8. Residuals against predicted GPA change and the residual distribution for tuned HGB.
+Figure 8. Panel (a) plots residuals against predicted GPA change; panel (b) shows the residual distribution for tuned HGB.
 
 ## 6.4 Direction-specific error and bias risk
 
@@ -558,7 +578,7 @@ The asymmetric target made the near-zero overall residual insufficient as a bias
 
 ![Figure 9](assets/fig09_direction_specific_errors.png)
 
-Figure 9. Test MAE, RMSE and residual distributions separated by observed GPA-change direction. The same tuned model and untouched test set are used for all groups.
+Figure 9. Panel (a) compares test MAE and RMSE by observed GPA-change direction; panel (b) shows the corresponding residual distributions. The same tuned model and reserved test set are used for all groups.
 
 These differences demonstrate predictive bias across outcome regions. Balancing by sign would redefine the continuous outcome, so aggregate and direction-specific results are reported instead. The model should not support individual interventions, especially for possible GPA declines.
 

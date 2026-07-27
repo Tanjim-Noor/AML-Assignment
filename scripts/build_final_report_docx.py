@@ -36,8 +36,76 @@ from lxml import etree
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_MD = ROOT / "Assignment Report/AML_Assignment_Report_Final.md"
 REFERENCE_DOCX = ROOT / "Assignment Report/AML_Assignment_Report_Updated_Fixed.docx"
-OUTPUT_DOCX = ROOT / "Assignment Report/AML_Assignment_Report_Final_Revised.docx"
+OUTPUT_DOCX = ROOT / "Assignment Report/AML_Assignment_Report_Final_Readable_Figures.docx"
 ASSETS = ROOT / "Assignment Report/assets"
+
+DENSE_FIGURE_ASSETS = {
+    "fig02a_context_numeric_distributions.png",
+    "fig02b_ai_numeric_distributions.png",
+    "fig02c_excluded_outcome_distributions.png",
+    "fig03a_context_categorical_distributions.png",
+    "fig03b_ai_categorical_distributions.png",
+    "fig04_correlation_and_target_relationships.png",
+    "fig06_gpa_change_eda.png",
+    "fig07_model_test_rmse_and_actual_vs_predicted.png",
+    "fig08_residual_diagnostics.png",
+    "fig09_direction_specific_errors.png",
+}
+
+FIGURE_ALT_TEXT = {
+    "fig01_data_quality_and_schema.png": (
+        "Data-quality audit with zero missing, duplicate and invalid-range records, "
+        "beside the original field-type composition."
+    ),
+    "fig02a_context_numeric_distributions.png": (
+        "Three distributions for previous-semester GPA, traditional study hours "
+        "and exam anxiety."
+    ),
+    "fig02b_ai_numeric_distributions.png": (
+        "Three distributions for weekly generative-AI hours, tool diversity and "
+        "perceived AI dependency."
+    ),
+    "fig02c_excluded_outcome_distributions.png": (
+        "Distributions of post-semester GPA and skill retention, both identified "
+        "as post-outcome fields excluded from prediction."
+    ),
+    "fig03a_context_categorical_distributions.png": (
+        "Frequency bar charts for major category, year of study and institutional "
+        "AI policy."
+    ),
+    "fig03b_ai_categorical_distributions.png": (
+        "Frequency bar charts for primary AI use case, prompt-engineering skill "
+        "and paid subscription."
+    ),
+    "fig04_correlation_and_target_relationships.png": (
+        "Numeric correlation matrix above a scatter plot of previous-semester GPA "
+        "against semester GPA change."
+    ),
+    "fig05_gpa_direction_imbalance.png": (
+        "Observed GPA-change direction counts beside the retained continuous target "
+        "distributions."
+    ),
+    "fig06_gpa_change_eda.png": (
+        "Four-panel exploration of GPA-change distribution, previous GPA, prompt "
+        "skill and weekly AI-hours quartiles."
+    ),
+    "fig07_model_test_rmse_and_actual_vs_predicted.png": (
+        "Reserved-test RMSE comparison above actual-versus-predicted GPA change for "
+        "the tuned histogram gradient boosting model."
+    ),
+    "fig08_residual_diagnostics.png": (
+        "Residuals against predicted GPA change above the residual distribution for "
+        "the tuned histogram gradient boosting model."
+    ),
+    "fig09_direction_specific_errors.png": (
+        "Direction-specific MAE and RMSE above residual distributions for GPA "
+        "decreases, unchanged values and increases."
+    ),
+    "fig10_permutation_importance.png": (
+        "Horizontal bars ranking test-set permutation importance for the tuned "
+        "histogram gradient boosting model."
+    ),
+}
 
 FONT = "Times New Roman"
 BODY_SIZE = 12
@@ -223,6 +291,8 @@ def add_inline(paragraph, text, allow_italics=False):
 def set_image_alt(picture_run, description):
     for node in picture_run._r.xpath(".//wp:docPr"):
         node.set("descr", description)
+    for node in picture_run._r.xpath(".//pic:cNvPr"):
+        node.set("name", description)
 
 
 def compatible_image(path):
@@ -308,7 +378,7 @@ def parse_markdown(md_text):
             blocks.append(("table_caption", line))
             i += 1
             continue
-        if re.match(r"^Figure \d+\.", line):
+        if re.match(r"^Figure \d+(?:\([a-z]\))?\.", line):
             flush()
             blocks.append(("figure_caption", line))
             i += 1
@@ -531,6 +601,7 @@ def add_body(doc, blocks):
     in_references = False
     first_h1 = True
     last_image = None
+    last_image_dense = False
     for kind, value in blocks:
         if kind == "h1":
             in_references = value == "References"
@@ -577,15 +648,22 @@ def add_body(doc, blocks):
         elif kind == "image":
             alt, rel_path = value
             path = ROOT / "Assignment Report" / rel_path
+            last_image_dense = path.name in DENSE_FIGURE_ASSETS
             p = doc.add_paragraph()
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.left_indent = Inches(0)
             p.paragraph_format.right_indent = Inches(0)
             p.paragraph_format.first_line_indent = Inches(0)
+            if last_image_dense:
+                p.paragraph_format.page_break_before = True
             set_spacing(p, line=1.0, before=4, after=2)
             run = p.add_run()
-            run.add_picture(str(path), width=Inches(5.7))
-            set_image_alt(run, alt)
+            run.add_picture(
+                str(path),
+                width=Inches(6.1 if last_image_dense else 5.7),
+            )
+            set_image_alt(run, FIGURE_ALT_TEXT.get(path.name, alt))
+            set_keep(p, next_=True, lines=True)
             last_image = run
         elif kind in ("figure_caption", "table_caption"):
             p = doc.add_paragraph(style="Caption")
@@ -593,6 +671,8 @@ def add_body(doc, blocks):
             if value.startswith("Table 9. Reserved-test confirmation"):
                 p.paragraph_format.page_break_before = True
             set_keep(p, next_=kind == "table_caption", lines=True)
+            if kind == "figure_caption":
+                last_image_dense = False
         elif kind == "table":
             rows = value
             table = doc.add_table(rows=len(rows), cols=len(rows[0]))

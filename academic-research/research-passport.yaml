@@ -186,7 +186,7 @@ evidence:
 experiments:
   intake_declared: true
   execution_approved: true
-  approval_scope: "Revise the final Markdown and DOCX, preserve the supplied source pair and notebook 05, execute notebook 06 with bootstrap uncertainty, regenerate ten reader-facing figures, compare classical and neural models, and verify the final DOCX"
+  approval_scope: "Revise the final Markdown and DOCX, preserve the supplied source pair and notebook 05, execute notebook 06 with bootstrap uncertainty, regenerate thirteen reader-facing figure assets, compare classical and neural models, and verify the final DOCX"
   records:
     - id: "RERUN-NOTEBOOK-05"
       status: "completed"
@@ -345,14 +345,14 @@ artifacts:
     verification_state: "verified"
   - type: "experiment-notebook"
     path: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
-    version: "reported-comprehensive-v3-complete-cv-reader-facing"
-    sha256: "6534acbf057196247aebe208b1351165e552c15089fc8039a25b3dc8c5bd4602"
+    version: "reported-comprehensive-v4-readable-figure-plates"
+    sha256: "ec755ce6afc0bb57f43fb5870a477e78e00c57ccfc37e339ca3b169c88f019db"
     parent_artifacts: ["experiment-notebook", "dataset"]
     verification_state: "verified"
   - type: "notebook-builder"
     path: "academic-research/build_notebook06.py"
-    version: "v3-complete-cv-reader-facing"
-    sha256: "f50ab0c0c9f64151a1633ea81f723c178d7a09f7979b42968c12856d02b92e6f"
+    version: "v4-readable-figure-plates"
+    sha256: "d8902709b85b457e439138e94369588eb775b4078856c928bbeeb6e013e4841c"
     parent_artifacts: ["experiment-notebook"]
     verification_state: "verified"
   - type: "merged-markdown-report"
@@ -363,20 +363,20 @@ artifacts:
     verification_state: "verified"
   - type: "final-markdown-report"
     path: "Assignment Report/AML_Assignment_Report_Final.md"
-    version: "submission-candidate-revised-2026-07-27"
-    sha256: "d03a89845b1ae4dac4325ac275779febb74e27dfd2553cc080a3f3e1c24e4b7b"
+    version: "submission-candidate-readable-figures-2026-07-27"
+    sha256: "c9bb7675912db39c949eaacc30741c8cc03624937802fda8d9ab6cf76ab3609b"
     parent_artifacts: ["experiment-notebook", "claim-evidence-map", "marking-rubric"]
     verification_state: "verified"
   - type: "final-docx-report"
-    path: "Assignment Report/AML_Assignment_Report_Final_Revised.docx"
-    version: "submission-candidate-revised-2026-07-27"
-    sha256: "14d6b1433fca5b0d5ac361a25ca7689c46240308140ef683dd53280b1822888d"
+    path: "Assignment Report/AML_Assignment_Report_Final_Readable_Figures.docx"
+    version: "submission-candidate-readable-figures-2026-07-27"
+    sha256: "4874287b41196bd93b08c3bfe9a8b6883c87cb5489c4a74809efc734f98995a9"
     parent_artifacts: ["final-markdown-report"]
     verification_state: "verified"
   - type: "docx-builder"
     path: "scripts/build_final_report_docx.py"
-    version: "submission-candidate-revised-2026-07-27"
-    sha256: "722c80c2e8d11b5392c8898d53d579f69fcd40b6bd4a5792748615c1dd5f132e"
+    version: "submission-candidate-readable-figures-2026-07-27"
+    sha256: "fd08ea49084eaaa613dda5c4c762bd9f37439734096f494294a503814aea0230"
     parent_artifacts: ["final-markdown-report"]
     verification_state: "verified"
   - type: "author-explanation"
@@ -593,6 +593,13 @@ review:
       commitment: "Create a preserved-source revision, execute the added analysis, rebuild the DOCX and verify content, evidence, formatting and accessibility."
       response: "All requested revisions were implemented; the final pair passed research-passport, content, font, accessibility, relationship and 42-page render checks."
       revision_location: "Assignment Report/AML_Assignment_Report_Final.md; Assignment Report/AML_Assignment_Report_Final_Revised.docx; Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
+      resolution_state: "resolved"
+    - id: "U7"
+      priority: "P1"
+      comment: "The complete EDA and validation composites were too dense to read at normal document size."
+      commitment: "Split the densest composites into full-width plates, enlarge retained panels, regenerate all assets from Notebook 06, rebuild pagination and alternative text, and repeat visual and structural verification."
+      response: "Figures 2 and 3 now use five plates; Figures 4 and 7-9 use vertical panels; Figure 6 has a dedicated page; the final 52-page DOCX passed full-resolution visual, accessibility, image, relationship, field and file-token checks."
+      revision_location: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb; academic-research/build_notebook06.py; Assignment Report/AML_Assignment_Report_Final.md; Assignment Report/AML_Assignment_Report_Final_Readable_Figures.docx; scripts/build_final_report_docx.py"
       resolution_state: "resolved"
 
 integrity:
