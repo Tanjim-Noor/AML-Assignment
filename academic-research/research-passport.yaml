@@ -1,21 +1,21 @@
 schema_version: "1.0"
 
 project:
-  deliverable: "Modular Applied Machine Learning assignment report"
+  deliverable: "Final Applied Machine Learning submission in Markdown and DOCX"
   language: "British English"
   audience: "APU CT046-3-M-AML lecturer and assignment marker"
   venue: "Asia Pacific University CT046-3-M-AML Individual Assignment"
   citation_style: "APA 7"
-  output_format: "Canonical Markdown sections plus generated merged Markdown; Typst and PDF excluded from this revision"
+  output_format: "Canonical final Markdown source plus visually verified DOCX"
   target_word_count: "7000-8000 words excluding references and appendices"
   deadline: "2026-07-24"
 
 workflow:
-  route: "unified-pipeline"
-  mode: "pipeline"
+  route: "writing"
+  mode: "revise"
   current_stage: "certification"
-  writing_phase: null
-  checkpoint: "verified-professor-feedback-revision"
+  writing_phase: "finalisation"
+  checkpoint: "verified-submission-document-revision"
   revision_round: 2
   delegation: "disabled; inline workflow only"
 
@@ -186,7 +186,7 @@ evidence:
 experiments:
   intake_declared: true
   execution_approved: true
-  approval_scope: "Create and execute notebook 06 locally, preserve notebook 05, reproduce core metrics, add comprehensive EDA and direction diagnostics, and export ten figures"
+  approval_scope: "Revise the final Markdown and DOCX, preserve the supplied source pair and notebook 05, execute notebook 06 with bootstrap uncertainty, regenerate ten reader-facing figures, compare classical and neural models, and verify the final DOCX"
   records:
     - id: "RERUN-NOTEBOOK-05"
       status: "completed"
@@ -237,7 +237,7 @@ experiments:
         operation: "Build and execute comprehensive notebook 06 from byte-locked notebook 05"
         notebook: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
         source_notebook_sha256: "e65b2a977561d173b506f03855d0ea9dbd13811993fdbc7b1da72cee003acd0c"
-        notebook_sha256: "8e7e05669380899e615097392a7da8cbe492ed93a301f3d7b6ec510c4bbc0bc3"
+        notebook_sha256: "c9df4d1b1e111b515c51e20f67e34a7fa2612ff160a5708dc57866397cbcc07a"
         random_state: 42
         test_size: 0.20
         cross_validation_folds: 5
@@ -255,11 +255,30 @@ experiments:
           increase_mae: 0.0993
           increase_rmse: 0.1266
           increase_mean_residual: 0.0286
+        bootstrap_results:
+          resamples: 2000
+          final_mae: 0.1112
+          final_mae_95_ci: [0.1095, 0.1130]
+          final_rmse: 0.1414
+          final_rmse_95_ci: [0.1394, 0.1434]
+          final_r_squared: 0.4185
+          final_r_squared_95_ci: [0.4007, 0.4360]
+          paired_rmse_improvement_over_random_forest: 0.0035
+          paired_rmse_improvement_95_ci: [0.0028, 0.0041]
         warnings:
           - "Windows ZMQ selector-thread warning"
           - "joblib temporary memmap resource-tracker cleanup KeyErrors"
 
 decisions:
+  - decision: "Approved implementation of the distinction-targeted final-document plan after checking the assignment question, marking scheme and academic-writing controls."
+    actor: "user"
+    timestamp: "2026-07-27T00:00:00+06:00"
+  - decision: "Retain tuned histogram gradient boosting because the strongest neural validation gain was 0.20%, below the predefined 1% material-improvement threshold, while neural models added complexity."
+    actor: "agent"
+    timestamp: "2026-07-27T00:00:00+06:00"
+  - decision: "Preserve the supplied DOCX and Markdown unchanged and create a new final pair so the revision remains recoverable."
+    actor: "agent"
+    timestamp: "2026-07-27T00:00:00+06:00"
   - decision: "Approved the AML EDA and report revision plan, including creation and local execution of notebook 06 while keeping notebook 05 byte-unchanged; Typst and PDF regeneration excluded."
     actor: "user"
     timestamp: "2026-07-13T00:00:00+08:00"
@@ -326,14 +345,14 @@ artifacts:
     verification_state: "verified"
   - type: "experiment-notebook"
     path: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
-    version: "reported-comprehensive-v1"
-    sha256: "8e7e05669380899e615097392a7da8cbe492ed93a301f3d7b6ec510c4bbc0bc3"
+    version: "reported-comprehensive-v3-complete-cv-reader-facing"
+    sha256: "6534acbf057196247aebe208b1351165e552c15089fc8039a25b3dc8c5bd4602"
     parent_artifacts: ["experiment-notebook", "dataset"]
     verification_state: "verified"
   - type: "notebook-builder"
     path: "academic-research/build_notebook06.py"
-    version: "v1"
-    sha256: "f9c625af3c7b94a491e0ba8f8aa1b9856993db7938918b1d99187fc66b3de44d"
+    version: "v3-complete-cv-reader-facing"
+    sha256: "f50ab0c0c9f64151a1633ea81f723c178d7a09f7979b42968c12856d02b92e6f"
     parent_artifacts: ["experiment-notebook"]
     verification_state: "verified"
   - type: "merged-markdown-report"
@@ -341,6 +360,24 @@ artifacts:
     version: "revision-round-2"
     sha256: "ef58d011e60446fc2aca7110c966dc87e6ee28a94a083dbbc83ce641acb8e8a7"
     parent_artifacts: ["manuscript-manifest"]
+    verification_state: "verified"
+  - type: "final-markdown-report"
+    path: "Assignment Report/AML_Assignment_Report_Final.md"
+    version: "submission-candidate-revised-2026-07-27"
+    sha256: "d03a89845b1ae4dac4325ac275779febb74e27dfd2553cc080a3f3e1c24e4b7b"
+    parent_artifacts: ["experiment-notebook", "claim-evidence-map", "marking-rubric"]
+    verification_state: "verified"
+  - type: "final-docx-report"
+    path: "Assignment Report/AML_Assignment_Report_Final_Revised.docx"
+    version: "submission-candidate-revised-2026-07-27"
+    sha256: "14d6b1433fca5b0d5ac361a25ca7689c46240308140ef683dd53280b1822888d"
+    parent_artifacts: ["final-markdown-report"]
+    verification_state: "verified"
+  - type: "docx-builder"
+    path: "scripts/build_final_report_docx.py"
+    version: "submission-candidate-revised-2026-07-27"
+    sha256: "722c80c2e8d11b5392c8898d53d579f69fcd40b6bd4a5792748615c1dd5f132e"
+    parent_artifacts: ["final-markdown-report"]
     verification_state: "verified"
   - type: "author-explanation"
     path: "Final Assignment/explanation.md"
@@ -374,9 +411,15 @@ artifacts:
     verification_state: "verified"
   - type: "claim-evidence-map"
     path: "academic-research/claim-evidence-map.md"
-    version: "approved-corpus-v1"
-    sha256: "1d1118022c3c1f5f3186d455af6011272fe40476ad3b2edb25f36373a0a29782"
+    version: "submission-candidate-2026-07-27"
+    sha256: "8cc2fe5e8eac2a62671ab7ac82cb72d8a6da2ec01702d52bfc6c40a191aaae3d"
     parent_artifacts: ["literature-source-matrix", "experiment-notebook"]
+    verification_state: "verified"
+  - type: "rubric-evidence-matrix"
+    path: "academic-research/rubric-evidence-matrix.md"
+    version: "submission-candidate-2026-07-27"
+    sha256: "8a1bc491c8cd9bb591aed9d47367fd1dfe72cb8406a3021210a365ad5c2e374a"
+    parent_artifacts: ["marking-rubric", "final-markdown-report"]
     verification_state: "verified"
   - type: "writing-brief"
     path: "academic-research/writing-brief.md"
@@ -470,8 +513,8 @@ artifacts:
     verification_state: "verified"
   - type: "revision-ledger"
     path: "academic-research/revision-ledger.md"
-    version: "round-1-resolved"
-    sha256: "c2a45cedd66a699b51edf7b051cf0decf83f26f9ab7db7ee3b908c6c201a3f9b"
+    version: "submission-candidate-resolved"
+    sha256: "16806f8a00dac1e391e1a8f690f69ed2acf87d25c8859eb43efaf5517791463b"
     parent_artifacts: ["editorial-synthesis"]
     verification_state: "verified"
   - type: "re-review-report"
@@ -544,6 +587,13 @@ review:
       response: "Implemented and independently re-reviewed; report validator passes at 8000 words with 27 citation families and 10 figures."
       revision_location: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb; Assignment Report; academic-research/revision-ledger.md"
       resolution_state: "resolved"
+    - id: "U1-U6"
+      priority: "P1"
+      comment: "The final documents required removal of implementation artefacts and assessment meta-commentary, clearer model rationale, neural comparison, uncertainty analysis and consistent submission formatting."
+      commitment: "Create a preserved-source revision, execute the added analysis, rebuild the DOCX and verify content, evidence, formatting and accessibility."
+      response: "All requested revisions were implemented; the final pair passed research-passport, content, font, accessibility, relationship and 42-page render checks."
+      revision_location: "Assignment Report/AML_Assignment_Report_Final.md; Assignment Report/AML_Assignment_Report_Final_Revised.docx; Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
+      resolution_state: "resolved"
 
 integrity:
   status: "PASS-WITH-WARNINGS"
@@ -583,19 +633,25 @@ integrity:
     - check: "Current manuscript manifest hashes"
       status: "PASS"
     - check: "Final integrity audit"
-      status: "PASS-WITH-WARNINGS"
-      warning: "Typst assembly, administrative completion and rendered-output inspection remain outside this phase"
+      status: "PASS"
+    - check: "Final DOCX visual and accessibility verification"
+      status: "PASS"
+    - check: "Main-body filenames, raw identifiers and meta-commentary"
+      status: "PASS"
+    - check: "Font and italic consistency"
+      status: "PASS"
+      warning: "Italics are confined to conventional APA reference formatting"
   critical_findings: []
 
 certification:
-  status: "verified"
-  venue_formatting_complete: false
-  rendered_output_inspected: false
-  administrative_complete: false
+  status: "submission-ready"
+  venue_formatting_complete: true
+  rendered_output_inspected: true
+  administrative_complete: true
 
 next_action:
-  gate: "later-typst-assembly-and-submission-finalisation"
+  gate: "student-final-authorship-declaration-and-upload-check"
   responsible_party: "user"
   required_inputs:
-    - "Confirmed assistance names and AI-disclosure wording"
-    - "APU Typst template and administrative cover requirements"
+    - "Confirm the final DOCX opens correctly on the submission device"
+    - "Confirm authorship, declaration details and institutional upload requirements"

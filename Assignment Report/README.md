@@ -1,13 +1,46 @@
-# Modular AML Assignment Report
+# AML Submission Documents
 
-This directory contains the reviewable Markdown source, modular Typst assembly,
-and rendered PDF for the assignment report. Notebook 06 is the sole reported
-implementation; notebook 05 is its byte-preserved modelling baseline.
+The current submission candidates are:
 
-The current rendered deliverable is `AML_Assignment_Report.pdf`. It includes
-the APU assignment cover, declaration, title page, abstract, table of contents,
-lists of figures and tables, the complete report body, references and
-acknowledgements.
+- `AML_Assignment_Report_Final.md`: canonical reviewable source.
+- `AML_Assignment_Report_Final_Revised.docx`: formatted submission document.
+
+They supersede `AML_Assignment_Report_Submission_Source.md` and
+`AML_Assignment_Report_Updated_Fixed.docx`. The earlier
+`AML_Assignment_Report_Final.docx` is also retained because it was open during
+the final correction pass. These files remain revision inputs rather than the
+current submission pair. The modular Markdown, Typst and PDF files remain
+historical assembly artefacts.
+
+Notebook 06 is the comprehensive implementation supporting the final
+documents. Notebook 05 remains the byte-preserved modelling baseline.
+
+## Final-document status
+
+The final documents were rewritten around the prediction problem rather than
+the production process. Visible filenames, notebook references, raw variable
+identifiers and assessment-oriented commentary were removed from the main
+narrative. The revised structure explains:
+
+- the problem, research question, aim and measurable objectives;
+- why continuous GPA change is treated as a regression target;
+- what each benchmark, linear, ensemble and neural model does;
+- why randomised hyperparameter search is appropriate;
+- why the best neural result did not justify replacing gradient boosting;
+- how cross-validation, the reserved test set and deterministic bootstrap
+  intervals support model selection and uncertainty assessment; and
+- where provenance, outcome-direction error and non-causal interpretation
+  limit use of the findings.
+
+The DOCX uses A4 pages, Times New Roman throughout, black headings, 1.5-line
+body spacing, accessible table headers and alternative text for figures. It
+uses equal one-inch margins, inline centred figures and no external-file
+relationships or automatic field-update request. It was rendered to 42 pages
+and visually inspected page by page. The main sections occupy 35 numbered
+pages: Introduction 1--3, Related Works 4--8, Methods 9--12, Dataset
+Preparation 13--17, Model Implementation 18--22, Model Validation 23--26,
+Analysis and Recommendations 27--30, Conclusion 31--32, References 33--35
+and Acknowledgements 35.
 
 ## Merge order and status
 
@@ -76,14 +109,8 @@ single-file review. Rebuild it with
 - Phrasebank candidates are recorded in
   `../academic-research/phrasebank-usage-log.md` and are not evidence.
 
-## Remaining student completion fields
+## Submission boundary
 
-Before submission, replace the three explicit values in
-`typst/metadata.typ`:
-
-1. `student-name`
-2. `student-id`
-3. `declaration-date`
-
-The assembly is verified, but it remains `not submission-ready` until those
-fields are completed and the student performs the final submission review.
+The final pair is technically verified and aligned to the marking scheme.
+Distinction remains a marker judgement, and the student should still perform
+the final authorship, declaration and upload checks before submitting.

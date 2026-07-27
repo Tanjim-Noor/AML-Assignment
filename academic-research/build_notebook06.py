@@ -59,6 +59,46 @@ def build() -> nbformat.NotebookNode:
     }.items():
         nb.cells[index].metadata["report_figure"] = filename
 
+    # Replace code-facing labels in exported plots with reader-facing language.
+    nb.cells[6].source = nb.cells[6].source.replace(
+        'axes[0, 0].set_title("Distribution of semester GPA change")',
+        'axes[0, 0].set(title="Distribution of semester GPA change", xlabel="Semester GPA change")',
+    ).replace(
+        'axes[0, 1].set_title("Previous GPA and GPA change")',
+        'axes[0, 1].set(title="Previous GPA and GPA change", xlabel="Previous-semester GPA", ylabel="Semester GPA change")',
+    ).replace(
+        'axes[1, 0].set_title("GPA change by prompt skill")',
+        'axes[1, 0].set(title="GPA change by prompt skill", xlabel="Prompt-engineering skill", ylabel="Semester GPA change")',
+    ).replace(
+        'axes[1, 1].set_title("Mean GPA change by weekly AI-hours quartile")',
+        'axes[1, 1].set(title="Mean GPA change by weekly AI-hours quartile", xlabel="Weekly GenAI-hours quartile", ylabel="Mean semester GPA change")',
+    )
+    nb.cells[21].source = nb.cells[21].source.replace(
+        'importance_results = (\n    pd.DataFrame({',
+        'DISPLAY_LABELS = {\n'
+        '    "Traditional_Study_Hours": "Traditional study hours",\n'
+        '    "Primary_Use_Case": "Primary AI use case",\n'
+        '    "Weekly_GenAI_Hours": "Weekly GenAI hours",\n'
+        '    "Year_of_Study": "Year of study",\n'
+        '    "Prompt_Engineering_Skill": "Prompt-engineering skill",\n'
+        '    "Pre_Semester_GPA": "Previous-semester GPA",\n'
+        '    "Institutional_Policy": "Institutional AI policy",\n'
+        '    "Paid_Subscription": "Paid subscription",\n'
+        '    "Tool_Diversity": "Tool diversity",\n'
+        '    "Perceived_AI_Dependency": "Perceived AI dependency",\n'
+        '    "Anxiety_Level_During_Exams": "Exam anxiety",\n'
+        '    "Major_Category": "Major category",\n'
+        '}\n\n'
+        'importance_results = (\n    pd.DataFrame({',
+    ).replace(
+        '    .sort_values("Importance", ascending=False)',
+        '    .assign(Feature=lambda frame: frame["Feature"].map(DISPLAY_LABELS).fillna(frame["Feature"]))\n'
+        '    .sort_values("Importance", ascending=False)',
+    ).replace(
+        'plt.title("Top permutation importances")',
+        'plt.title("Top permutation importances")\nplt.xlabel("Increase in RMSE-based loss after shuffling")\nplt.ylabel("Predictor")',
+    )
+
     understanding = [
         md("""
 ### 3.1 Full schema, quality, and validity audit
@@ -150,6 +190,7 @@ fig, axes = plt.subplots(3, 3, figsize=(15, 12))
 for ax, column in zip(axes.flat, numeric_columns):
     sns.histplot(original[column], bins=30, kde=True, ax=ax, color="#4C78A8")
     ax.set_title(column.replace("_", " "))
+    ax.set_xlabel(column.replace("_", " "))
 for ax in axes.flat[len(numeric_columns):]:
     ax.axis("off")
 fig.suptitle("Numeric-field distributions", y=1.01)
@@ -158,10 +199,14 @@ plt.show()
 """, "fig02_numeric_distributions.png"),
         code("""
 fig, axes = plt.subplots(2, 3, figsize=(16, 9))
+categorical_plot_data = original[categorical_columns].copy()
+for column in categorical_columns:
+    categorical_plot_data[column] = categorical_plot_data[column].astype(str).str.replace("_", " ", regex=False)
 for ax, column in zip(axes.flat, categorical_columns):
-    order = original[column].value_counts().index
-    sns.countplot(data=original, y=column, order=order, ax=ax, color="#72B7B2")
+    order = categorical_plot_data[column].value_counts().index
+    sns.countplot(data=categorical_plot_data, y=column, order=order, ax=ax, color="#72B7B2")
     ax.set_title(column.replace("_", " "))
+    ax.set_ylabel(column.replace("_", " "))
     ax.set_xlabel("Students")
 for ax in axes.flat[len(categorical_columns):]:
     ax.axis("off")
@@ -180,11 +225,21 @@ correlations = corr_frame.corr(numeric_only=True)
 display(correlations["GPA_Change"].sort_values(ascending=False).to_frame("Correlation with GPA change").round(4))
 
 fig, axes = plt.subplots(1, 2, figsize=(15, 6))
-sns.heatmap(correlations, annot=True, fmt=".2f", cmap="vlag", center=0, ax=axes[0])
+display_names = {
+    "Pre_Semester_GPA": "Previous GPA",
+    "Weekly_GenAI_Hours": "Weekly GenAI hours",
+    "Traditional_Study_Hours": "Traditional study hours",
+    "Tool_Diversity": "Tool diversity",
+    "Perceived_AI_Dependency": "AI dependency",
+    "Anxiety_Level_During_Exams": "Exam anxiety",
+    "GPA_Change": "GPA change",
+}
+plot_correlations = correlations.rename(index=display_names, columns=display_names)
+sns.heatmap(plot_correlations, annot=True, fmt=".2f", cmap="vlag", center=0, ax=axes[0])
 axes[0].set_title("Numeric correlation matrix")
 sns.scatterplot(data=df.sample(5000, random_state=RANDOM_STATE), x="Pre_Semester_GPA", y="GPA_Change", alpha=.25, ax=axes[1])
 axes[1].axhline(0, color="black", linestyle="--")
-axes[1].set_title("Previous GPA and GPA change")
+axes[1].set(title="Previous GPA and GPA change", xlabel="Previous-semester GPA", ylabel="Semester GPA change")
 fig.tight_layout()
 plt.show()
 """, "fig04_correlation_and_target_relationships.png"),
@@ -202,10 +257,11 @@ display(direction_summary.style.format({"Percentage": "{:.2f}%"}))
 
 fig, axes = plt.subplots(1, 2, figsize=(13, 5))
 sns.countplot(data=df, x="GPA_Direction", order=["Decrease", "Unchanged", "Increase"], color="#E45756", ax=axes[0])
-axes[0].set_title("Observed GPA-change direction")
+axes[0].set(title="Observed GPA-change direction", xlabel="Observed direction", ylabel="Students")
 sns.histplot(data=df, x="GPA_Change", hue="GPA_Direction", bins=45, element="step", ax=axes[1])
 axes[1].axvline(0, color="black", linestyle="--")
-axes[1].set_title("Continuous target retained without balancing")
+axes[1].set(title="Continuous target retained without balancing", xlabel="Semester GPA change", ylabel="Students")
+axes[1].legend_.set_title("Observed direction")
 fig.tight_layout()
 plt.show()
 """, "fig05_gpa_direction_imbalance.png"),
@@ -241,6 +297,43 @@ display(preparation_log)
     # Locate data-preparation feature-definition cell and insert before its markdown.
     prep_index = next(i for i, c in enumerate(nb.cells) if c.cell_type == "markdown" and "## 4. Data preparation" in c.source)
     nb.cells[prep_index + 1:prep_index + 1] = preparation
+
+    # Re-evaluate the selected tuned configuration with all report metrics.
+    # RandomizedSearchCV stored only its primary RMSE score, which previously
+    # left avoidable blanks in the validation table.
+    tuning_index = next(
+        i for i, c in enumerate(nb.cells)
+        if c.cell_type == "code" and "tuned_cv_rmse = -tuning_search.best_score_" in c.source
+    )
+    tuned_metric_cells = [
+        md("""
+### 7.1 Complete cross-validation metrics for the tuned configuration
+
+The search object retains the primary RMSE score used for optimisation. The selected configuration is therefore re-evaluated on the same five folds with MAE, RMSE and R² so its row can be compared without missing values.
+"""),
+        code("""
+tuned_cv_scores = cross_validate(
+    tuning_search.best_estimator_,
+    X_train,
+    y_train,
+    cv=cv,
+    scoring={
+        "MAE": "neg_mean_absolute_error",
+        "RMSE": "neg_root_mean_squared_error",
+        "R2": "r2",
+    },
+    n_jobs=-1,
+)
+tuned_cv_summary = pd.Series({
+    "CV MAE": -tuned_cv_scores["test_MAE"].mean(),
+    "CV RMSE": -tuned_cv_scores["test_RMSE"].mean(),
+    "CV R2": tuned_cv_scores["test_R2"].mean(),
+    "R2 standard deviation": tuned_cv_scores["test_R2"].std(ddof=1),
+}, name="Tuned histogram gradient boosting")
+display(tuned_cv_summary.to_frame().T.style.format("{:.4f}"))
+"""),
+    ]
+    nb.cells[tuning_index + 1:tuning_index + 1] = tuned_metric_cells
 
     # Direction diagnostics follow residual analysis after execution variables exist.
     residual_index = next(i for i, c in enumerate(nb.cells) if c.cell_type == "code" and "residual_summary =" in c.source)
@@ -289,6 +382,57 @@ plt.show()
 """, "fig09_direction_specific_errors.png"),
     ]
     nb.cells[residual_index + 1:residual_index + 1] = direction_cells
+
+    # Quantify sampling uncertainty on the untouched test predictions. The
+    # paired comparison resamples rows once per iteration so both models are
+    # evaluated on identical bootstrap samples.
+    test_index = next(
+        i for i, c in enumerate(nb.cells)
+        if c.cell_type == "code" and "best_prediction = predictions[best_model_name]" in c.source
+    )
+    uncertainty_cells = [
+        md("""
+### 8.1 Bootstrap uncertainty on reserved-test performance
+
+Percentile bootstrap intervals quantify sampling uncertainty for the selected model's test metrics. A paired bootstrap also compares its RMSE with random forest using the same resampled rows. These intervals describe uncertainty conditional on this test sample and do not resolve uncertainty about the dataset's undocumented provenance.
+"""),
+        code("""
+BOOTSTRAP_REPETITIONS = 2000
+bootstrap_rng = np.random.default_rng(RANDOM_STATE)
+y_test_array = np.asarray(y_test)
+hgb_prediction = np.asarray(best_prediction)
+rf_prediction = np.asarray(predictions["Random forest"])
+
+bootstrap_rows = []
+for _ in range(BOOTSTRAP_REPETITIONS):
+    indices = bootstrap_rng.integers(0, len(y_test_array), len(y_test_array))
+    actual = y_test_array[indices]
+    hgb = hgb_prediction[indices]
+    rf = rf_prediction[indices]
+    hgb_rmse = mean_squared_error(actual, hgb) ** 0.5
+    bootstrap_rows.append({
+        "MAE": mean_absolute_error(actual, hgb),
+        "RMSE": hgb_rmse,
+        "R2": r2_score(actual, hgb),
+        "RMSE improvement over random forest": (mean_squared_error(actual, rf) ** 0.5) - hgb_rmse,
+    })
+
+bootstrap_results = pd.DataFrame(bootstrap_rows)
+bootstrap_intervals = pd.DataFrame({
+    "Estimate": [
+        mean_absolute_error(y_test_array, hgb_prediction),
+        mean_squared_error(y_test_array, hgb_prediction) ** 0.5,
+        r2_score(y_test_array, hgb_prediction),
+        (mean_squared_error(y_test_array, rf_prediction) ** 0.5)
+        - (mean_squared_error(y_test_array, hgb_prediction) ** 0.5),
+    ],
+    "95% lower": bootstrap_results.quantile(0.025).values,
+    "95% upper": bootstrap_results.quantile(0.975).values,
+}, index=bootstrap_results.columns)
+display(bootstrap_intervals.style.format("{:.4f}"))
+"""),
+    ]
+    nb.cells[test_index + 1:test_index + 1] = uncertainty_cells
     nb.metadata["source_notebook"] = str(SOURCE.relative_to(ROOT)).replace("\\", "/")
     nb.metadata["source_sha256"] = SOURCE_SHA256
     return nb
