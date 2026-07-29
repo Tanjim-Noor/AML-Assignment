@@ -166,6 +166,7 @@ AML Assignment/
 |   |-- README.md
 |   |-- AML_Assignment_Report.pdf
 |   |-- references.bib
+|   |-- _backup/
 |   |-- assets/
 |   |-- sections/
 |   `-- typst/
@@ -192,7 +193,7 @@ AML Assignment/
 - `Learning Materials Application on Assigment/` is the exploratory workspace for applying lab concepts to the assignment datasets step by step.
 - `Final Assignment/` is for the polished final implementation. Move only cleaned, intentional, reproducible work here after it has been explored elsewhere. Use `Final Assignment/dataset_selection_rubric.md` as the canonical dataset-selection rationale. Final student-impact versions should be standalone notebooks under `Final Assignment/notebooks/`, with all EDA, preprocessing, modelling, validation, plots, uncertainty, and interpretation shown inline in notebook cells. Treat `Final Assignment/_archive/` as historical reference, not active implementation.
 - `academic-research/` contains the UARS Research Passport, writing controls, literature-search evidence, reproducibility records, integrity audits and review history for the assignment report.
-- `Assignment Report/` contains the reviewable Markdown source, modular Typst assembly and rendered PDF. Use `README.md` for merge order and status, `references.bib` as canonical citation metadata, `sections/` for ordered modules, `AML_Assignment_Report_Merged.md` for generated single-file review, `assets/` for reproducible figures, `typst/main.typ` as the Typst entry point, and `AML_Assignment_Report.pdf` as the compiled review artifact.
+- `Assignment Report/` contains the reviewable Markdown source, current submission DOCX, modular Typst assembly and rendered PDF. Use `README.md` for merge order and status, `_backup/` for superseded recoverable DOCX revisions, `references.bib` as canonical citation metadata, `sections/` for ordered modules, `AML_Assignment_Report_Merged.md` for generated single-file review, `assets/` for reproducible figures, `typst/main.typ` as the Typst entry point, and `AML_Assignment_Report.pdf` as the compiled review artifact.
 - `.agents/skills/typst/` contains the local Typst-related skills for report work: `typst`, `typst-author`, and `touying-author`.
 
 ## Working Notes

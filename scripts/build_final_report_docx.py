@@ -35,7 +35,10 @@ from lxml import etree
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_MD = ROOT / "Assignment Report/AML_Assignment_Report_Final.md"
-REFERENCE_DOCX = ROOT / "Assignment Report/AML_Assignment_Report_Updated_Fixed.docx"
+REFERENCE_DOCX = (
+    ROOT
+    / "Assignment Report/_backup/docx-2026-07-29/AML_Assignment_Report_Updated_Fixed.docx"
+)
 OUTPUT_DOCX = ROOT / "Assignment Report/AML_Assignment_Report_Final_Readable_Figures.docx"
 ASSETS = ROOT / "Assignment Report/assets"
 

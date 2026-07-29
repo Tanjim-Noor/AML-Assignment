@@ -6,12 +6,11 @@ The current submission candidates are:
 - `AML_Assignment_Report_Final_Readable_Figures.docx`: formatted submission
   document with readability-first figure plates.
 
-They supersede `AML_Assignment_Report_Submission_Source.md` and
-`AML_Assignment_Report_Updated_Fixed.docx`. The earlier
-`AML_Assignment_Report_Final.docx` and
-`AML_Assignment_Report_Final_Revised.docx` are retained as revision inputs
-rather than the current submission pair. The modular Markdown, Typst and PDF
-files remain historical assembly artefacts.
+They supersede `AML_Assignment_Report_Submission_Source.md` and the earlier
+Word revisions. The older DOCX files are retained under
+`_backup/docx-2026-07-29/` as recoverable revision inputs; only the current
+submission DOCX remains in the main report folder. The modular Markdown, Typst
+and PDF files remain historical assembly artefacts.
 
 Notebook 06 is the comprehensive implementation supporting the final
 documents. Notebook 05 remains the byte-preserved modelling baseline.
