@@ -8,7 +8,7 @@ This folder contains the notebook-only final Applied Machine Learning assignment
 
 The final assignment variations are standalone notebooks. Do not add shared pipeline modules, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries.
 
-All EDA tables, preprocessing checks, plots, training results, validation metrics, uncertainty estimates, interpretations, and recommendations appear inline when each notebook is run. The advanced variants are kept with outputs and execution counts cleared. `05_essential_gpa_change_regression.ipynb` and the three notebooks under `Deep Learning Experiments/` deliberately retain executed outputs so their final results and analyses are immediately visible.
+All EDA tables, preprocessing checks, plots, training results, validation metrics, uncertainty estimates, interpretations, and recommendations appear inline when each notebook is run. The advanced variants are kept with outputs and execution counts cleared. The essential, comprehensive and interactive demonstration notebooks, together with the three notebooks under `Deep Learning Experiments/`, deliberately retain executed outputs so their final results and analyses are immediately visible.
 
 ## Final Dataset Context
 
@@ -30,12 +30,26 @@ The Kaggle source does not document collection, geography, sampling, ethics, or 
 | `notebooks/03_gpa_change_regression.ipynb` | `Post_Semester_GPA - Pre_Semester_GPA` | Academic-change regression | RMSE, MAE, R-squared |
 | `notebooks/04_gpa_decline_classifier.ipynb` | `GPA_Change < 0` | Imbalanced binary classification | Macro-F1, balanced accuracy, recall, ROC-AUC, average precision |
 | `notebooks/05_essential_gpa_change_regression.ipynb` | `Post_Semester_GPA - Pre_Semester_GPA` | Recommended essential final regression workflow | MAE, RMSE, R-squared, residual analysis |
+| `notebooks/06_comprehensive_gpa_change_regression.ipynb` | `Post_Semester_GPA - Pre_Semester_GPA` | Reported comprehensive regression workflow | Full EDA, validation, uncertainty and direction-specific diagnostics |
+| `notebooks/07_interactive_gpa_prediction_demo.ipynb` | `Post_Semester_GPA - Pre_Semester_GPA` | Interactive model showcase with matched information modes | Context-only and context-plus-AI predictions |
 
 ## Recommended Essential Notebook
 
 Use `notebooks/05_essential_gpa_change_regression.ipynb` as the primary final implementation when a concise, understandable notebook is required. It contains only the sections needed to satisfy the assignment: EDA, preparation, leakage control, an 80/20 split, five-fold validation, four regression models plus a baseline, tuning, test evaluation, residuals, feature importance, results analysis, recommendations, and conclusion.
 
 `explanation.md` explains every section and provides a complete interpretation of the saved execution results.
+
+## Interactive Prediction Demonstration
+
+The executed demonstration provides three reader-facing modes: **Context + AI**, **Context only**, and **Compare both**. It recreates the reported 80/20 split, fits two matched tuned histogram gradient boosting pipelines, validates the selected combined model, and keeps prediction logic separate from the widget layer for direct testing. Context-only mode hides and ignores the AI-related controls; comparison mode holds academic context fixed and shows both predictions, illustrative post-semester GPAs, and their information-based prediction difference.
+
+The interface uses `ipywidgets==8.1.8`. Install it only in the workspace environment if it is missing:
+
+```powershell
+.venv\Scripts\python.exe -m pip install ipywidgets==8.1.8
+```
+
+The notebook performs a readable dependency check and never installs packages from a notebook cell. Its saved worked example uses a previous GPA of 3.40 and produces context-only and context-plus-AI GPA-change predictions of approximately +0.267 and +0.335. These values demonstrate predictive associations only; they are not causal effects or academic advice.
 
 ## Deep-Learning Experiments
 

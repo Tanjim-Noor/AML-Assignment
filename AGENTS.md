@@ -153,7 +153,8 @@ AML Assignment/
 |       |-- 03_gpa_change_regression.ipynb
 |       |-- 04_gpa_decline_classifier.ipynb
 |       |-- 05_essential_gpa_change_regression.ipynb
-|       `-- 06_comprehensive_gpa_change_regression.ipynb
+|       |-- 06_comprehensive_gpa_change_regression.ipynb
+|       `-- 07_interactive_gpa_prediction_demo.ipynb
 |-- academic-research/
 |   |-- research-passport.yaml
 |   |-- writing-brief.md
@@ -205,6 +206,7 @@ AML Assignment/
 - Use `Final Assignment/` for the final notebook-only assignment versions that support the report.
 - For final student-impact assignment versions, do not create shared pipeline scripts, CLI runners, generated result folders, saved plot files, CSV metric exports, model dumps, or Markdown run summaries. Each notebook should be standalone and display all tables, plots, training results, validation metrics, uncertainty, and recommendations inline when run.
 - Treat `Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb` as the reported comprehensive implementation. It extends byte-preserved notebook 05 with complete EDA, preparation evidence and direction-specific bias diagnostics, and retains executed outputs.
+- Treat `Final Assignment/notebooks/07_interactive_gpa_prediction_demo.ipynb` as the executed reader-facing demonstration. Preserve its widget state and worked-example outputs; keep prediction logic independently testable and never describe the matched-pipeline difference as an AI effect.
 - Keep `Final Assignment/notebooks/05_essential_gpa_change_regression.ipynb` byte-unchanged as the concise historical baseline unless the user explicitly authorises changes.
 - Treat `Final Assignment/Deep Learning Experiments/` as executed GPU comparison work that supplements notebook 05 rather than replacing it. FT-Transformer is the strongest tested neural model, but its validation gain is below the material-improvement gate, so HGB remains the recommended final model.
 - The deep-learning experiment environment uses `rtdl-revisiting-models==0.0.2` and `tabm==0.0.3`. Do not add `pytorch-tabular` to this workspace because its resolved dependency set would downgrade pandas 3.0.3.
@@ -220,7 +222,7 @@ AML Assignment/
 - Use the workspace virtual environment at `.venv/` for Python execution and package installation. On Windows/PowerShell, run scripts with `.venv\Scripts\python.exe path\to\script.py` and install packages with `.venv\Scripts\python.exe -m pip install package-name`. Do not install assignment dependencies into the global Python environment unless explicitly requested.
 - Keep notebook metadata noise out of commits by using the repo `nbstripout` filter in `.gitattributes` for `*.ipynb` files.
 - If the local Git filter config is missing or stale, run `.\scripts\install_notebook_git_filter.ps1` from the workspace root.
-- Before commit, run `.\scripts\strip_assignment_notebooks.ps1` to normalize notebook metadata/output in assignment notebook scopes. The script must preserve the executed outputs of notebooks 05 and 06 and the three notebooks under `Final Assignment/Deep Learning Experiments/`.
+- Before commit, run `.\scripts\strip_assignment_notebooks.ps1` to normalize notebook metadata/output in assignment notebook scopes. The script must preserve the executed outputs of notebooks 05, 06 and 07 and the three notebooks under `Final Assignment/Deep Learning Experiments/`.
 - Keep folder boundaries stable unless the user explicitly asks to reorganize the workspace.
 - Microsoft Office temporary and lock files, such as files beginning with `~$`, are ignored and should not be committed.
 

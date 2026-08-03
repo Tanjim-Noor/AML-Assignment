@@ -7,13 +7,16 @@ The current submission candidates are:
   document with readability-first figure plates.
 
 They supersede `AML_Assignment_Report_Submission_Source.md` and the earlier
-Word revisions. The older DOCX files are retained under
-`_backup/docx-2026-07-29/` as recoverable revision inputs; only the current
-submission DOCX remains in the main report folder. The modular Markdown, Typst
-and PDF files remain historical assembly artefacts.
+Word revisions. The immediately preceding submission is archived under
+`_backup/docx-2026-08-03/`; earlier recoverable revisions remain under
+`_backup/`. Only the current submission DOCX remains in the main report
+folder. The modular Markdown, Typst and PDF files remain historical assembly
+artefacts.
 
-Notebook 06 is the comprehensive implementation supporting the final
-documents. Notebook 05 remains the byte-preserved modelling baseline.
+Notebook 06 is the comprehensive implementation supporting the reported model
+evidence. Notebook 07 is the executed interactive prediction demonstration;
+it requires `ipywidgets==8.1.8` in the project virtual environment. Notebook
+05 remains the byte-preserved modelling baseline.
 
 ## Final-document status
 
@@ -30,19 +33,22 @@ narrative. The revised structure explains:
 - how cross-validation, the reserved test set and deterministic bootstrap
   intervals support model selection and uncertainty assessment; and
 - where provenance, outcome-direction error and non-causal interpretation
-  limit use of the findings.
+  limit use of the findings; and
+- how a reader-facing demonstration compares matched context-only and
+  context-plus-AI predictions without presenting their difference as an AI
+  effect.
 
 The DOCX uses A4 pages, Times New Roman throughout, black headings, 1.5-line
 body spacing, accessible table headers and alternative text for figures. It
 uses equal one-inch margins, inline centred figures and no external-file
 relationships or automatic field-update request. Dense exploratory and
 validation graphics use dedicated, full-width plates with reader-facing panel
-titles and alternative text. It was rendered to 52 pages and visually
-inspected page by page. The main sections occupy 45 numbered
-pages: Introduction 1--3, Related Works 4--8, Methods 9--12, Dataset
-Preparation 13--23, Model Implementation 24--28, Model Validation 29--36,
-Analysis and Recommendations 37--41, Conclusion 41--42, References 43--45
-and Acknowledgements 45.
+titles and alternative text. It was rendered to 54 pages and visually
+inspected page by page. The main sections occupy 47 numbered pages:
+Introduction 1--3, Related Works 4--8, Methods 9--12, Dataset Preparation
+13--23, Model Implementation 24--28, Model Validation 29--36, Analysis and
+Recommendations 37--41, Interactive Prediction Demonstration 42--43,
+Conclusion 44, References 45--47 and Acknowledgements 47.
 
 ## Merge order and status
 
@@ -63,6 +69,10 @@ and Acknowledgements 45.
 The counted total is **8,000 words excluding references**. The
 acknowledgements were revised to remove speculative placeholders and add the
 documented AI-assistance disclosure.
+
+The canonical submission source contains **8,299 body words excluding
+references** after adding the concise interactive-demonstration section; the
+8,000-word figure above remains the historical modular-source total.
 
 ## Typst assembly
 
@@ -93,10 +103,12 @@ typst compile --root "Assignment Report" `
   readable plates while retaining their main numbers.
 - Figures 7--10 present model comparison, residuals, direction-specific error
   and permutation importance.
+- Figures 11--12 present the completed interactive form and the worked-example
+  comparison output.
 
-Figures were exported from executed
-`Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb`.
-Core metrics match byte-preserved notebook 05 exactly.
+Figures 1--10 were exported from executed notebook 06. Figures 11--12 are
+tightly cropped captures of the live interactive demonstration. Core reported
+metrics match byte-preserved notebook 05 exactly.
 
 `AML_Assignment_Report_Merged.md` is generated from canonical section files for
 single-file review. Rebuild it with

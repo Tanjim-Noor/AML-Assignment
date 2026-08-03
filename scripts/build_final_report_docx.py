@@ -55,6 +55,11 @@ DENSE_FIGURE_ASSETS = {
     "fig09_direction_specific_errors.png",
 }
 
+FULL_WIDTH_FIGURE_ASSETS = {
+    "fig11_interactive_prediction_inputs.png",
+    "fig12_interactive_prediction_results.png",
+}
+
 FIGURE_ALT_TEXT = {
     "fig01_data_quality_and_schema.png": (
         "Data-quality audit with zero missing, duplicate and invalid-range records, "
@@ -107,6 +112,15 @@ FIGURE_ALT_TEXT = {
     "fig10_permutation_importance.png": (
         "Horizontal bars ranking test-set permutation importance for the tuned "
         "histogram gradient boosting model."
+    ),
+    "fig11_interactive_prediction_inputs.png": (
+        "Completed comparison form with a three-mode selector, five academic-context "
+        "controls and seven recorded AI-related controls."
+    ),
+    "fig12_interactive_prediction_results.png": (
+        "Side-by-side context-only and context-plus-AI GPA-change predictions, "
+        "illustrative post-semester GPAs, a prediction-difference explanation and "
+        "an accessible horizontal comparison chart."
     ),
 }
 
@@ -616,6 +630,8 @@ def add_body(doc, blocks):
                 "4 Dataset Preparation",
                 "5 Model Implementation",
                 "6 Model Validation",
+                "8 Interactive Prediction Demonstration",
+                "9 Conclusion",
                 "References",
             }:
                 p.paragraph_format.page_break_before = True
@@ -652,6 +668,7 @@ def add_body(doc, blocks):
             alt, rel_path = value
             path = ROOT / "Assignment Report" / rel_path
             last_image_dense = path.name in DENSE_FIGURE_ASSETS
+            full_width = last_image_dense or path.name in FULL_WIDTH_FIGURE_ASSETS
             p = doc.add_paragraph()
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.left_indent = Inches(0)
@@ -663,7 +680,7 @@ def add_body(doc, blocks):
             run = p.add_run()
             run.add_picture(
                 str(path),
-                width=Inches(6.1 if last_image_dense else 5.7),
+                width=Inches(6.1 if full_width else 5.7),
             )
             set_image_alt(run, FIGURE_ALT_TEXT.get(path.name, alt))
             set_keep(p, next_=True, lines=True)

@@ -134,11 +134,17 @@ Generative-AI tools are increasingly used in higher education, yet their relatio
 
 7.5 Recommendations    41
 
-8 Conclusion    41
+8 Interactive Prediction Demonstration    42
 
-References    43
+8.1 Purpose and prediction modes    42
 
-Acknowledgements    45
+8.2 Worked example and interpretation    43
+
+9 Conclusion    44
+
+References    45
+
+Acknowledgements    47
 
 <!-- Page break in the submitted DOCX -->
 
@@ -169,6 +175,10 @@ Figure 8. Panel (a) plots residuals against predicted GPA change; panel (b) show
 Figure 9. Panel (a) compares test MAE and RMSE by observed GPA-change direction; panel (b) shows the corresponding residual distributions. The same tuned model and reserved test set are used for all groups.    36
 
 Figure 10. Test-set permutation importance for the selected tuned HGB model. Values show the mean deterioration in RMSE-based score after shuffling each source feature across five repetitions.    39
+
+Figure 11. Completed prediction form in comparison mode. Academic context is held constant while the second card supplies the recorded AI-related information used by the matched combined pipeline.    42
+
+Figure 12. Side-by-side worked-example predictions for identical academic context. Adding recorded AI-related information changes the fitted prediction from +0.267 to +0.335, a +0.068 information-based prediction difference.    43
 
 <!-- Page break in the submitted DOCX -->
 
@@ -648,7 +658,31 @@ Third, future analysis should predefine a genuine low-use or non-use comparison 
 
 Finally, educational recommendations should emphasise purposeful and critical use rather than maximising AI hours. Teaching should combine prompt practice with subject knowledge, output verification and ethical judgement, consistent with AI-literacy research (Laupichler et al., 2022; Lee & Palmer, 2025). Whether such support improves GPA requires controlled evaluation; it cannot be inferred from the present feature importances.
 
-# 8 Conclusion
+# 8 Interactive Prediction Demonstration
+
+## 8.1 Purpose and prediction modes
+
+The interactive demonstration provides a direct, reader-facing way to enter one student profile and inspect the selected model's output. **Context + AI** uses the full leakage-safe feature set. **Context only** uses previous GPA, major, year of study, traditional study hours and exam anxiety while hiding and ignoring the AI-related controls. **Compare both** holds that academic context fixed and presents both fitted predictions together. The training split and tuned histogram gradient boosting configuration remain identical, so the comparison isolates the information supplied to the pipelines rather than changing the modelling procedure.
+
+Figure 11 shows the completed comparison form. Numeric controls are bounded, categories use reader-friendly labels, and identifiers and post-outcome variables are not requested. Invalid programmatic values are rejected. If adding a predicted change to the previous GPA produces a value outside the 0-4 scale, the interface warns the reader and leaves the model output unclipped.
+
+![Figure 11](assets/fig11_interactive_prediction_inputs.png)
+
+Figure 11. Completed prediction form in comparison mode. Academic context is held constant while the second card supplies the recorded AI-related information used by the matched combined pipeline.
+
+## 8.2 Worked example and interpretation
+
+The worked example uses a previous GPA of 3.40 for a Business student in the junior year, with 14 traditional-study hours per week and exam anxiety of 3. The additional recorded information is 10 weekly GenAI hours, ideation as the primary use, advanced prompt skill, three tools, a paid subscription, perceived dependency of 3 and an institution where AI is actively encouraged.
+
+As Figure 12 shows, the context-only prediction is a GPA change of +0.267, giving an illustrative post-semester GPA of 3.67. With the additional recorded AI-related information, the prediction is +0.335 and the illustration is 3.73. The +0.068 difference describes how the fitted prediction changes when more information is supplied. It is not an estimated effect of AI use.
+
+![Figure 12](assets/fig12_interactive_prediction_results.png)
+
+Figure 12. Side-by-side worked-example predictions for identical academic context. Adding recorded AI-related information changes the fitted prediction from +0.267 to +0.335, a +0.068 information-based prediction difference.
+
+The demonstration is a model showcase rather than an academic decision tool. Its outputs are predictive associations learned from the supplied data, not guarantees, causal findings, policy evidence or individual academic advice. The provenance and direction-specific error limitations reported earlier therefore remain fully applicable.
+
+# 9 Conclusion
 
 AI-use variables improved held-out prediction of semester GPA change when combined with previous GPA and general study context. The combined HGB feature set achieved test R² = 0.4170, compared with 0.2382 for context only and 0.1703 for AI variables only. AI variables were therefore useful but insufficient alone; the strongest prediction depended on both study context and AI-related behaviour.
 

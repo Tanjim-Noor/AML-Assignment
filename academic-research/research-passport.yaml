@@ -81,6 +81,11 @@ evidence:
       verification_state: "verified"
       human_read: true
       role: "Primary comprehensive experiment evidence"
+    - id: "NOTEBOOK-07"
+      citation_locator: "Final Assignment/notebooks/07_interactive_gpa_prediction_demo.ipynb"
+      verification_state: "verified"
+      human_read: true
+      role: "Executed interactive prediction demonstration"
     - id: "EXPLANATION-05"
       citation_locator: "Final Assignment/explanation.md"
       verification_state: "verified"
@@ -320,13 +325,13 @@ artifacts:
   - type: "assignment-requirements"
     path: "Assignment Requirements/CT046-3-M-AML_Assignment Question.md"
     version: "canonical-lf-2026-07-02"
-    sha256: "5affc9b44f92b5bb7dde7fdb0988eba96e47e90d398667bb88be6bb5d733ec9a"
+    sha256: "2cd9c719d81e1216d478f3a3ca7738a18dfbeec3e4118e1471932154ad4b6f8d"
     parent_artifacts: []
     verification_state: "verified"
   - type: "marking-rubric"
     path: "Assignment Requirements/CT046-3-M-AML_Assignment Marking Scheme and Minimum Document Requirements.md"
     version: "canonical-lf-2026-07-02"
-    sha256: "0c1de002c683aaeea87e6fca2722a870b9db4edb5e5a56469c76d5420f9ff6de"
+    sha256: "39ee4fde0484ce6627889f5d530295118930fc8881e4f11cb781748d0a5845d6"
     parent_artifacts: []
     verification_state: "verified"
   - type: "dataset"
@@ -346,7 +351,7 @@ artifacts:
   - type: "experiment-notebook"
     path: "Final Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb"
     version: "reported-comprehensive-v4-readable-figure-plates"
-    sha256: "ec755ce6afc0bb57f43fb5870a477e78e00c57ccfc37e339ca3b169c88f019db"
+    sha256: "d61761ce63fe56d2ba8d06522b57756e48bdb698ee4df245f049450de9b149fa"
     parent_artifacts: ["experiment-notebook", "dataset"]
     verification_state: "verified"
   - type: "notebook-builder"
@@ -354,6 +359,24 @@ artifacts:
     version: "v4-readable-figure-plates"
     sha256: "d8902709b85b457e439138e94369588eb775b4078856c928bbeeb6e013e4841c"
     parent_artifacts: ["experiment-notebook"]
+    verification_state: "verified"
+  - type: "interactive-demo-notebook"
+    path: "Final Assignment/notebooks/07_interactive_gpa_prediction_demo.ipynb"
+    version: "interactive-demo-2026-08-03"
+    sha256: "e77057a51ef3af2920c9c2c4811ca4d0785c55b37f934987829a54465adac259"
+    parent_artifacts: ["experiment-notebook", "dataset"]
+    verification_state: "verified"
+  - type: "report-figure"
+    path: "Assignment Report/assets/fig11_interactive_prediction_inputs.png"
+    version: "interactive-demo-2026-08-03"
+    sha256: "a7f3bc7468765757373902392e7b673504d6778ad63842149f44116b87786398"
+    parent_artifacts: ["interactive-demo-notebook"]
+    verification_state: "verified"
+  - type: "report-figure"
+    path: "Assignment Report/assets/fig12_interactive_prediction_results.png"
+    version: "interactive-demo-2026-08-03"
+    sha256: "4b3bffa769977c64ce9282fd7f3273c89a0f3259a8d63a900a3fe18a1523a650"
+    parent_artifacts: ["interactive-demo-notebook"]
     verification_state: "verified"
   - type: "merged-markdown-report"
     path: "Assignment Report/AML_Assignment_Report_Merged.md"
@@ -363,26 +386,26 @@ artifacts:
     verification_state: "verified"
   - type: "final-markdown-report"
     path: "Assignment Report/AML_Assignment_Report_Final.md"
-    version: "submission-candidate-readable-figures-2026-07-27"
-    sha256: "c9bb7675912db39c949eaacc30741c8cc03624937802fda8d9ab6cf76ab3609b"
+    version: "interactive-demo-2026-08-03"
+    sha256: "03e73017ab26b9ed301ad41585517513bd5e3426445823416d29eedaca435ba8"
     parent_artifacts: ["experiment-notebook", "claim-evidence-map", "marking-rubric"]
     verification_state: "verified"
   - type: "final-docx-report"
     path: "Assignment Report/AML_Assignment_Report_Final_Readable_Figures.docx"
-    version: "submission-candidate-readable-figures-2026-07-27"
-    sha256: "4874287b41196bd93b08c3bfe9a8b6883c87cb5489c4a74809efc734f98995a9"
+    version: "interactive-demo-2026-08-03"
+    sha256: "db357a353066885594662c5a7a273a8b59bb534cc81e9e1b19db58df23332c0b"
     parent_artifacts: ["final-markdown-report"]
     verification_state: "verified"
   - type: "docx-builder"
     path: "scripts/build_final_report_docx.py"
-    version: "submission-candidate-readable-figures-2026-07-27"
-    sha256: "fd08ea49084eaaa613dda5c4c762bd9f37439734096f494294a503814aea0230"
+    version: "interactive-demo-2026-08-03"
+    sha256: "cbd1559995209933f9e8324cd256c2e0b2e5e254725c8c52fc5f7be470ec3124"
     parent_artifacts: ["final-markdown-report"]
     verification_state: "verified"
   - type: "author-explanation"
     path: "Final Assignment/explanation.md"
     version: "canonical-lf-2026-07-02"
-    sha256: "09a5316c10a32dff72e4785b867b4ee81539271002e979392b2c141aacd3c006"
+    sha256: "f19b0e5285aeb88a284b52f2c84f1614f1add814d2bf99a18531299ba827cf55"
     parent_artifacts: ["experiment-notebook"]
     verification_state: "verified"
   - type: "literature-search-protocol"
@@ -412,13 +435,13 @@ artifacts:
   - type: "claim-evidence-map"
     path: "academic-research/claim-evidence-map.md"
     version: "submission-candidate-2026-07-27"
-    sha256: "8cc2fe5e8eac2a62671ab7ac82cb72d8a6da2ec01702d52bfc6c40a191aaae3d"
+    sha256: "e0ec86f5fd45733f350f25f59928941511a668689e4f8818ce613fad76fe974d"
     parent_artifacts: ["literature-source-matrix", "experiment-notebook"]
     verification_state: "verified"
   - type: "rubric-evidence-matrix"
     path: "academic-research/rubric-evidence-matrix.md"
     version: "submission-candidate-2026-07-27"
-    sha256: "8a1bc491c8cd9bb591aed9d47367fd1dfe72cb8406a3021210a365ad5c2e374a"
+    sha256: "6e405b936e95f0e67cf3354d8a9cfb3c2375cf8f110d2dbd02ae8df9dcc9055b"
     parent_artifacts: ["marking-rubric", "final-markdown-report"]
     verification_state: "verified"
   - type: "writing-brief"
@@ -478,7 +501,7 @@ artifacts:
   - type: "manuscript-manifest"
     path: "academic-research/manuscript-manifest.yaml"
     version: "draft-v2-verified"
-    sha256: "d72f2c7f6572f82ad2b79987985e2d6571e3494de89dabcf8501b059dbbc44e6"
+    sha256: "ed8433398fda171cc15ea9f24a4e0b2b5b73136f58e501541ce6f3d7e73a7320"
     parent_artifacts: ["evidence-mapped-outline", "claim-evidence-map", "experiment-provenance"]
     verification_state: "verified"
   - type: "integrity-audit"
@@ -514,7 +537,7 @@ artifacts:
   - type: "revision-ledger"
     path: "academic-research/revision-ledger.md"
     version: "submission-candidate-resolved"
-    sha256: "16806f8a00dac1e391e1a8f690f69ed2acf87d25c8859eb43efaf5517791463b"
+    sha256: "99b9665177b652470713d17231d9cb4c93587392bed7b06d103448712339d50d"
     parent_artifacts: ["editorial-synthesis"]
     verification_state: "verified"
   - type: "re-review-report"
@@ -526,13 +549,13 @@ artifacts:
   - type: "final-integrity-audit"
     path: "academic-research/final-integrity-audit.md"
     version: "verified-draft-v2"
-    sha256: "69a8081bdccf3cbcdcf2d13654bd4485b3a8d54ff16ae4d8cfbc1f47b664b125"
+    sha256: "b84538f61db92f9fc589d01909294a70d1ad4a9ead2fffe53b4f02a3107bf1bc"
     parent_artifacts: ["manuscript-manifest", "re-review-report"]
     verification_state: "verified"
   - type: "workspace-guidance"
     path: "AGENTS.md"
     version: "report-structure-lf-2026-07-02"
-    sha256: "0e8148c984b9cab16aabac14c6e9d1929a723afc36dad8941a524b831688cd24"
+    sha256: "f9f473ff317c9c9b105b4b14f911ab5d3c4f0009eefdc429dfc709c9ae1ee60b"
     parent_artifacts: ["manuscript-manifest"]
     verification_state: "verified"
 

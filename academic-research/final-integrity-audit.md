@@ -1,5 +1,26 @@
 # Final Integrity Audit
 
+## Interactive-demonstration addendum — 3 August 2026
+
+Status: **PASS-WITH-WARNINGS; verified submission revision**.
+
+- Executed notebook 07 recreates the reported split and tuned HGB
+  configuration, reproducing MAE 0.1112, RMSE 0.1414 and R-squared 0.4185.
+- Direct assertions verify forbidden-field exclusion, context-only isolation,
+  invalid-input rejection, derived-GPA warnings and the worked-example outputs.
+- The live interface was checked in all three modes; the saved example and
+  widget state were preserved.
+- The report adds two full-width, reader-facing screenshots on numbered pages
+  42--43 and starts the renumbered conclusion on page 44.
+- The rebuilt 54-page DOCX was inspected page by page at full resolution and
+  retains the non-causal, provenance and direction-specific error warnings.
+- Only the current submission DOCX remains at the report top level; superseded
+  Word revisions are recoverable under `_backup/`.
+
+Warnings retained: the demonstration is a model showcase, not academic advice
+or an estimate of an AI effect, and the supplied dataset has undocumented
+collection and real-versus-synthetic provenance.
+
 ## Revision-round-2 addendum — 13 July 2026
 
 Status: **PASS-WITH-WARNINGS; verified Markdown revision**.

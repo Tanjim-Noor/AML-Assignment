@@ -4,8 +4,11 @@ Assignment*Requirements/**/*.md text eol=lf
 Final*Assignment/explanation.md text eol=lf
 Learning*Application*Assigment/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
 Final*Assignment/**/*.ipynb filter=nbstripout diff=ipynb text eol=lf
-# Preserve executed results in the essential notebook and deep-learning experiments.
+# Preserve executed results in the essential, comprehensive, demonstration,
+# and deep-learning notebooks.
 Final*Assignment/notebooks/05_essential_gpa_change_regression.ipynb -filter diff=ipynb text eol=lf
+Final*Assignment/notebooks/06_comprehensive_gpa_change_regression.ipynb -filter diff=ipynb text eol=lf
+Final*Assignment/notebooks/07_interactive_gpa_prediction_demo.ipynb -filter diff=ipynb text eol=lf
 Final*Assignment/Deep*Learning*Experiments/01_category_embedding_mlp.ipynb -filter diff=ipynb text eol=lf
 Final*Assignment/Deep*Learning*Experiments/02_ft_transformer.ipynb -filter diff=ipynb text eol=lf
 Final*Assignment/Deep*Learning*Experiments/03_tabm.ipynb -filter diff=ipynb text eol=lf
