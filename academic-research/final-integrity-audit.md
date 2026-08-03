@@ -10,9 +10,10 @@ Status: **PASS-WITH-WARNINGS; verified submission revision**.
   invalid-input rejection, derived-GPA warnings and the worked-example outputs.
 - The live interface was checked in all three modes; the saved example and
   widget state were preserved.
-- The report adds two full-width, reader-facing screenshots on numbered pages
-  42--43 and starts the renumbered conclusion on page 44.
-- The rebuilt 54-page DOCX was inspected page by page at full resolution and
+- The report presents two full-width, reader-facing screenshots on dedicated
+  A4 landscape plates within numbered pages 42--45 and starts the renumbered
+  conclusion on page 46.
+- The rebuilt 56-page DOCX was inspected page by page at full resolution and
   retains the non-causal, provenance and direction-specific error warnings.
 - Only the current submission DOCX remains at the report top level; superseded
   Word revisions are recoverable under `_backup/`.

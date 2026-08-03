@@ -43,12 +43,13 @@ body spacing, accessible table headers and alternative text for figures. It
 uses equal one-inch margins, inline centred figures and no external-file
 relationships or automatic field-update request. Dense exploratory and
 validation graphics use dedicated, full-width plates with reader-facing panel
-titles and alternative text. It was rendered to 54 pages and visually
-inspected page by page. The main sections occupy 47 numbered pages:
+titles and alternative text. It was rendered to 56 pages and visually
+inspected page by page. The main sections occupy 49 numbered pages:
 Introduction 1--3, Related Works 4--8, Methods 9--12, Dataset Preparation
 13--23, Model Implementation 24--28, Model Validation 29--36, Analysis and
-Recommendations 37--41, Interactive Prediction Demonstration 42--43,
-Conclusion 44, References 45--47 and Acknowledgements 47.
+Recommendations 37--41, Interactive Prediction Demonstration 42--45,
+Conclusion 46, References 47--49 and Acknowledgements 49. Figures 11 and 12
+each use a dedicated A4 landscape plate for normal-zoom readability.
 
 ## Merge order and status
 

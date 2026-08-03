@@ -16,7 +16,7 @@ import zipfile
 from pathlib import Path
 
 from docx import Document
-from docx.enum.section import WD_SECTION
+from docx.enum.section import WD_ORIENT, WD_SECTION
 from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_TABLE_ALIGNMENT
 from docx.enum.text import (
@@ -242,16 +242,18 @@ def set_page_number_format(section, fmt, start=None):
     node.set(qn("w:fmt"), fmt)
     if start is not None:
         node.set(qn("w:start"), str(start))
+    elif qn("w:start") in node.attrib:
+        del node.attrib[qn("w:start")]
 
 
-def set_header(section, left, right):
+def set_header(section, left, right, right_tab=6.27):
     section.header.is_linked_to_previous = False
     for table in list(section.header.tables):
         table._element.getparent().remove(table._element)
     p = section.header.paragraphs[0]
     p.clear()
     p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-    p.paragraph_format.tab_stops.add_tab_stop(Inches(6.27), WD_TAB_ALIGNMENT.RIGHT)
+    p.paragraph_format.tab_stops.add_tab_stop(Inches(right_tab), WD_TAB_ALIGNMENT.RIGHT)
     set_spacing(p, line=1.0, after=0)
     r = p.add_run(left)
     set_run_font(r, size=10)
@@ -276,6 +278,37 @@ def configure_section(section):
     section.bottom_margin = Inches(1.0)
     section.header_distance = Inches(0.45)
     section.footer_distance = Inches(0.45)
+
+
+def configure_demo_landscape_section(section):
+    """Use a dedicated A4 landscape plate for an interface screenshot."""
+    section.orientation = WD_ORIENT.LANDSCAPE
+    section.page_width = Inches(11.69)
+    section.page_height = Inches(8.27)
+    section.left_margin = Inches(0.65)
+    section.right_margin = Inches(0.65)
+    section.top_margin = Inches(0.65)
+    section.bottom_margin = Inches(0.65)
+    section.header_distance = Inches(0.30)
+    section.footer_distance = Inches(0.30)
+
+
+def begin_demo_figure_plate(doc):
+    section = doc.add_section(WD_SECTION.NEW_PAGE)
+    configure_demo_landscape_section(section)
+    section.different_first_page_header_footer = False
+    set_header(section, "CT046-3-M-AML", "GPA Change Prediction", right_tab=10.39)
+    set_footer(section)
+    set_page_number_format(section, "decimal")
+
+
+def resume_portrait_body(doc):
+    section = doc.add_section(WD_SECTION.NEW_PAGE)
+    configure_section(section)
+    section.different_first_page_header_footer = False
+    set_header(section, "CT046-3-M-AML", "GPA Change Prediction")
+    set_footer(section)
+    set_page_number_format(section, "decimal")
 
 
 def clear_document_body(doc):
@@ -619,7 +652,12 @@ def add_body(doc, blocks):
     first_h1 = True
     last_image = None
     last_image_dense = False
+    last_image_demo_landscape = False
+    demo_landscape_active = False
     for kind, value in blocks:
+        if demo_landscape_active and kind != "paragraph":
+            resume_portrait_body(doc)
+            demo_landscape_active = False
         if kind == "h1":
             in_references = value == "References"
             p = doc.add_paragraph(style="Heading 1")
@@ -646,7 +684,12 @@ def add_body(doc, blocks):
         elif kind == "paragraph":
             p = doc.add_paragraph()
             add_inline(p, value, allow_italics=in_references)
-            set_spacing(p, line=1.5, after=6)
+            if demo_landscape_active:
+                p.paragraph_format.left_indent = Inches(0.85)
+                p.paragraph_format.right_indent = Inches(0.85)
+                set_spacing(p, line=1.15, before=6, after=6)
+            else:
+                set_spacing(p, line=1.5, after=6)
             set_keep(p, lines=True)
             if value.startswith("**Panel "):
                 set_keep(p, next_=True, lines=True)
@@ -668,7 +711,10 @@ def add_body(doc, blocks):
             alt, rel_path = value
             path = ROOT / "Assignment Report" / rel_path
             last_image_dense = path.name in DENSE_FIGURE_ASSETS
-            full_width = last_image_dense or path.name in FULL_WIDTH_FIGURE_ASSETS
+            last_image_demo_landscape = path.name in FULL_WIDTH_FIGURE_ASSETS
+            if last_image_demo_landscape:
+                begin_demo_figure_plate(doc)
+            full_width = last_image_dense or last_image_demo_landscape
             p = doc.add_paragraph()
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.left_indent = Inches(0)
@@ -680,7 +726,9 @@ def add_body(doc, blocks):
             run = p.add_run()
             run.add_picture(
                 str(path),
-                width=Inches(6.1 if full_width else 5.7),
+                width=Inches(
+                    10.10 if last_image_demo_landscape else 6.1 if full_width else 5.7
+                ),
             )
             set_image_alt(run, FIGURE_ALT_TEXT.get(path.name, alt))
             set_keep(p, next_=True, lines=True)
@@ -693,6 +741,9 @@ def add_body(doc, blocks):
             set_keep(p, next_=kind == "table_caption", lines=True)
             if kind == "figure_caption":
                 last_image_dense = False
+                if last_image_demo_landscape:
+                    demo_landscape_active = True
+                    last_image_demo_landscape = False
         elif kind == "table":
             rows = value
             table = doc.add_table(rows=len(rows), cols=len(rows[0]))

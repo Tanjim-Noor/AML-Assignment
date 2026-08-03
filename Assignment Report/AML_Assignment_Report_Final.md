@@ -138,13 +138,13 @@ Generative-AI tools are increasingly used in higher education, yet their relatio
 
 8.1 Purpose and prediction modes    42
 
-8.2 Worked example and interpretation    43
+8.2 Worked example and interpretation    44
 
-9 Conclusion    44
+9 Conclusion    46
 
-References    45
+References    47
 
-Acknowledgements    47
+Acknowledgements    49
 
 <!-- Page break in the submitted DOCX -->
 
@@ -176,9 +176,9 @@ Figure 9. Panel (a) compares test MAE and RMSE by observed GPA-change direction;
 
 Figure 10. Test-set permutation importance for the selected tuned HGB model. Values show the mean deterioration in RMSE-based score after shuffling each source feature across five repetitions.    39
 
-Figure 11. Completed prediction form in comparison mode. Academic context is held constant while the second card supplies the recorded AI-related information used by the matched combined pipeline.    42
+Figure 11. Completed prediction form in comparison mode. Academic context is held constant while the second card supplies the recorded AI-related information used by the matched combined pipeline.    43
 
-Figure 12. Side-by-side worked-example predictions for identical academic context. Adding recorded AI-related information changes the fitted prediction from +0.267 to +0.335, a +0.068 information-based prediction difference.    43
+Figure 12. Side-by-side worked-example predictions for identical academic context. Adding recorded AI-related information changes the fitted prediction from +0.267 to +0.335, a +0.068 information-based prediction difference.    45
 
 <!-- Page break in the submitted DOCX -->
 
